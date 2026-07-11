@@ -29,12 +29,45 @@ function json(obj, status, headers) {
   });
 }
 
+// Fire-and-forget pageview logger. Writes one row to D1; never throws to the
+// caller (analytics must never break the page). Body is sent as text/plain so
+// the browser beacon skips the CORS preflight.
+async function handleCollect(request, env, headers, originOk) {
+  if (request.method !== "POST" || !originOk)
+    return new Response(null, { status: 204, headers });
+  if (!env.ANALYTICS_DB) return new Response(null, { status: 204, headers });
+  try {
+    const b = JSON.parse(await request.text() || "{}");
+    const ua = request.headers.get("User-Agent") || "";
+    const mobile = /Mobi|Android|iPhone|iPad/i.test(ua) ? "mobile" : "desktop";
+    const cf = request.cf || {};
+    const clip = (v, n) => (typeof v === "string" ? v.slice(0, n) : null);
+    await env.ANALYTICS_DB.prepare(
+      `INSERT INTO events
+       (ts, path, referrer, utm_source, utm_medium, utm_campaign, country, city, device, screen, ua)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?)`
+    ).bind(
+      new Date().toISOString(),
+      clip(b.path, 300), clip(b.referrer, 300),
+      clip(b.utm_source, 120), clip(b.utm_medium, 120), clip(b.utm_campaign, 120),
+      request.headers.get("CF-IPCountry") || null, clip(cf.city, 120),
+      mobile, clip(b.screen, 20), clip(ua, 400)
+    ).run();
+  } catch { /* analytics is best-effort — swallow everything */ }
+  return new Response(null, { status: 204, headers });
+}
+
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
     const allowed = (env.ALLOWED_ORIGINS || "")
       .split(",").map((s) => s.trim()).filter(Boolean);
     const headers = cors(origin, allowed);
+    const originOkEarly = allowed.length === 0 || (origin !== "" && allowed.includes(origin));
+
+    if (url.pathname === "/collect")
+      return handleCollect(request, env, headers, originOkEarly);
 
     // Origin gate: only the site's own pages may call this. Note that Origin is
     // browser-enforced but spoofable by non-browser clients, so the per-IP rate

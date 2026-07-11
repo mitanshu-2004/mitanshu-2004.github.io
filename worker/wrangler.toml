@@ -7,6 +7,12 @@ compatibility_date = "2025-06-01"
 [vars]
 ALLOWED_ORIGINS = "https://mitanshu.dev,https://www.mitanshu.dev"
 
+# Visitor analytics store (one row per pageview; written by POST /collect).
+[[d1_databases]]
+binding = "ANALYTICS_DB"
+database_name = "mitanshu-analytics"
+database_id = "da1ce0fa-1fff-419d-8f6c-f224e962d24a"
+
 # GROQ_API_KEYS is a SECRET — never put it here. Set it once with:
 #   cd worker && npx wrangler secret put GROQ_API_KEYS
 # then paste the comma-joined keys when prompted.
