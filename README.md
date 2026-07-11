@@ -4,7 +4,7 @@ Personal portfolio for Mitanshu Goel — robotics & AI engineer. Hand-written, n
 framework, no build step: plain HTML, one CSS file, one JS file, and a small
 Cloudflare Worker for the chat assistant. Deploys anywhere static files go.
 
-**Live:** https://mitanshu-2004.github.io/ (custom domain `mitanshu.dev` planned)
+**Live:** https://mitanshu.dev/ (GitHub Pages; `mitanshu-2004.github.io` redirects here)
 
 ---
 
