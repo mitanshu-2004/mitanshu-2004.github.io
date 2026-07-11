@@ -10,3 +10,11 @@ ALLOWED_ORIGINS = "https://mitanshu.dev,https://www.mitanshu.dev"
 # GROQ_API_KEYS is a SECRET — never put it here. Set it once with:
 #   cd worker && npx wrangler secret put GROQ_API_KEYS
 # then paste the comma-joined keys when prompted.
+
+# Per-IP rate limit (Cloudflare Rate Limiting binding, free). Caps abuse of the
+# Groq keys regardless of a spoofed Origin. 20 requests / 60s per IP.
+[[unsafe.bindings]]
+name = "CHAT_RATE_LIMIT"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 20, period = 60 }

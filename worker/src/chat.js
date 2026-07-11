@@ -36,8 +36,26 @@ export default {
       .split(",").map((s) => s.trim()).filter(Boolean);
     const headers = cors(origin, allowed);
 
-    if (request.method === "OPTIONS") return new Response(null, { status: 204, headers });
+    // Origin gate: only the site's own pages may call this. Note that Origin is
+    // browser-enforced but spoofable by non-browser clients, so the per-IP rate
+    // limit below is the real backstop against key abuse.
+    const originOk = allowed.length === 0 || (origin !== "" && allowed.includes(origin));
+
+    if (request.method === "OPTIONS")
+      return new Response(null, { status: originOk ? 204 : 403, headers });
     if (request.method !== "POST") return json({ error: "POST only" }, 405, headers);
+    if (!originOk) return json({ error: "forbidden origin" }, 403, headers);
+
+    // Per-IP rate limit (Cloudflare Rate Limiting binding). Fails open if the
+    // binding isn't configured, so the Worker still runs without it.
+    if (env.CHAT_RATE_LIMIT) {
+      const ip = request.headers.get("CF-Connecting-IP") || "anon";
+      try {
+        const { success } = await env.CHAT_RATE_LIMIT.limit({ key: ip });
+        if (!success)
+          return json({ error: "too many requests — give it a few seconds" }, 429, headers);
+      } catch { /* limiter unavailable — fail open */ }
+    }
 
     let body;
     try { body = await request.json(); }
