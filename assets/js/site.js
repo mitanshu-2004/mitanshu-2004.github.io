@@ -142,3 +142,31 @@
 
   autoVideos.forEach(function (v) { io.observe(v); });
 })();
+
+/* Work filter — pills that narrow the grid by where each project was built.
+   The filter row doubles as the experience index (company + count). */
+(function () {
+  var bar = document.querySelector(".org-filter");
+  if (!bar) return;
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".work-card[data-org]"));
+  var blurb = document.getElementById("orgBlurb");
+  var empty = document.getElementById("gridEmpty");
+  bar.addEventListener("click", function (e) {
+    var btn = e.target.closest(".ofil");
+    if (!btn) return;
+    var f = btn.getAttribute("data-f");
+    bar.querySelectorAll(".ofil").forEach(function (b) {
+      b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+    });
+    var shown = 0;
+    cards.forEach(function (c) {
+      var show = (f === "all") || (c.getAttribute("data-org") === f);
+      c.classList.toggle("is-filtered", !show);
+      if (show) shown++;
+    });
+    if (blurb && btn.getAttribute("data-blurb")) {
+      blurb.textContent = btn.getAttribute("data-blurb");
+    }
+    if (empty) empty.hidden = shown > 0;
+  });
+})();

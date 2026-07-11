@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A 6-DOF arm, sim to real · Mitanshu Goel</title>
+<meta name="description" content="At NextUp Robotics: bringing up a supplied 6-DOF arm in ROS 2 and MoveIt — joint, Cartesian-pose, and waypoint motion with KDL inverse kinematics, checked in simulation, then run on the real arm.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Mitanshu Goel">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="A 6-DOF arm, sim to real — Mitanshu Goel">
+<meta property="og:description" content="Bringing up a 6-DOF arm in ROS 2 and MoveIt with KDL inverse kinematics — sim first, then real hardware. NextUp Robotics internship.">
+<meta property="og:url" content="https://mitanshu.dev/projects/nextup-cobot.html">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mitanshu Goel — Robotics & AI engineer">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://mitanshu.dev/projects/nextup-cobot.html">
+<meta name="theme-color" content="#131110">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/lsn-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/chat.css">
+<!-- Chat backend: after deploying worker/, replace YOURSUBDOMAIN with your workers.dev name. On localhost the widget uses the dev-proxy automatically. -->
+<meta name="chat-endpoint" content="https://mitanshu-chat.YOURSUBDOMAIN.workers.dev/chat">
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/chat.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://mitanshu.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Work",
+          "item": "https://mitanshu.dev/#work"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "A 6-DOF arm, sim to real",
+          "item": "https://mitanshu.dev/projects/nextup-cobot.html"
+        }
+      ]
+    },
+    {
+      "@type": "VideoObject",
+      "name": "A 6-DOF cobot arm running a MoveIt motion sequence",
+      "description": "A supplied 6-DOF arm running a MoveIt motion sequence on real hardware, brought up in ROS 2 with KDL inverse kinematics. Recorded during the NextUp Robotics internship.",
+      "thumbnailUrl": [
+        "https://mitanshu.dev/assets/media/nextup-card-poster.jpg"
+      ],
+      "uploadDate": "2024-08-13",
+      "duration": "PT8S",
+      "contentUrl": "https://mitanshu.dev/assets/media/nextup-card.mp4",
+      "embedUrl": "https://mitanshu.dev/projects/nextup-cobot.html",
+      "author": {
+        "@id": "https://mitanshu.dev/#person"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="wrap">
+
+
+  <a class="crumb" href="/#work">← All work</a>
+
+  <section class="project-head">
+    <h1 class="display">A 6-DOF arm, sim to real</h1>
+    <div class="meta-row">
+      <span class="chip hot">6-DOF cobot</span>
+      <span class="chip">ROS 2 · MoveIt</span>
+      <span class="chip">KDL inverse kinematics</span>
+      <span class="chip">Joint · Cartesian · waypoint</span>
+      <span class="chip">Sim → real</span>
+    </div>
+    <p class="lede">My first internship, at NextUp Robotics (2024). The arm was supplied; my job was to make it move on command — bring it up in ROS 2, plan motion through MoveIt, and get the same trajectories running in simulation and on the real hardware.</p>
+  </section>
+
+  <section class="block">
+    <div class="media-row">
+      <div class="mr-media">
+        <div class="main-video">
+          <video src="/assets/media/nextup-card.mp4" poster="/assets/media/nextup-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">On the real arm</h2>
+        <p>The arm running a MoveIt-planned sequence on real hardware — the same interfaces that drove it in simulation, pointed at the physical robot.</p>
+        <p>Getting here honestly is most of the work: a wrong sign in a transform or a joint limit off by a few degrees is harmless in sim and swings a real arm the wrong way. You check everything twice before you power the motors.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="prose">
+      <h2>What I built</h2>
+      <ul>
+        <li>Stood up the arm's URDF in ROS 2 — robot model, joint definitions, and collision geometry — so MoveIt and the simulator had a correct description to plan against.</li>
+        <li>Wrote three motion interfaces on top of the MoveGroup API: <b>joint-space</b> targets, <b>Cartesian-pose</b> goals, and <b>waypoint</b> trajectories that string poses together.</li>
+        <li>Configured <b>KDL inverse kinematics</b> so a pose in space resolves to the six joint angles that reach it, with planning and collision checking through MoveIt.</li>
+        <li>Validated each interface in simulation first, then ran the same commands on the real arm — PC-driven, over the ROS 2 graph.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row reverse">
+      <div class="mr-media">
+        <div class="main-video">
+          <video src="/assets/media/nextup-sim.mp4" poster="/assets/media/nextup-sim-poster.jpg" controls muted loop playsinline preload="metadata" data-no-autoplay aria-label="The 6-DOF arm rendered from its URDF and link meshes"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">In simulation</h2>
+        <p>The same arm in a physics simulator — its real URDF and link meshes loaded into PyBullet, running the reach through the joint chain before any of it touches real hardware. Checking motion in sim first is how you catch a bad sign or a joint limit while it's still harmless.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="prose">
+      <h2>Where it sits</h2>
+      <p>This was the groundwork. The teleoperation and dexterous-hand work I did later at Nferent AI is the same idea taken further — a human driving the arm live through a controller instead of planned trajectories from a keyboard. This is where I learned the pipeline that the rest of it is built on.</p>
+
+      <h2>What broke, honestly</h2>
+      <p>Reserved for the failure log: what fought back on this build and how it got fixed. Write-up in progress.</p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="foot-reach">I can be reached by email at <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>.</p>
+    <nav class="foot-contact" aria-label="Contact and profiles">
+      <a href="tel:+918595657583">+91 85956 57583</a>
+      <a href="https://github.com/mitanshu-2004" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
+    </nav>
+    <div class="foot-base">
+      <p>MITANSHU.DEV · A 6-DOF ARM, SIM TO REAL · 2026</p>
+      <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

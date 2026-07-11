@@ -6,10 +6,15 @@
 <title>Franka teleop → training dataset · Mitanshu Goel</title>
 <meta name="description" content="Teleoperating a Franka FR3 research arm behind a safety stack I wrote, and recording a 51-episode manipulation dataset — 2.1 hours of RGB-D — in LeRobot format for imitation learning.">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Mitanshu Goel">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="Franka teleop → training dataset — Mitanshu Goel">
 <meta property="og:description" content="Driving a Franka FR3 by hand and turning the recordings into a 51-episode LeRobot dataset.">
 <meta property="og:url" content="https://mitanshu.dev/projects/franka-teleop-dataset.html">
 <meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mitanshu Goel — Robotics & AI engineer">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://mitanshu.dev/projects/franka-teleop-dataset.html">
 <meta name="theme-color" content="#131110">
@@ -22,6 +27,66 @@
 <meta name="chat-endpoint" content="https://mitanshu-chat.YOURSUBDOMAIN.workers.dev/chat">
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/chat.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://mitanshu.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Work",
+          "item": "https://mitanshu.dev/#work"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Franka teleop to training dataset",
+          "item": "https://mitanshu.dev/projects/franka-teleop-dataset.html"
+        }
+      ]
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Teleoperating a Franka FR3 to record a manipulation dataset",
+      "description": "Teleoperating a Franka FR3 research arm through a manipulation task behind a safety stack, recording each run as an episode for an imitation-learning dataset.",
+      "thumbnailUrl": [
+        "https://mitanshu.dev/assets/media/franka-teleop-demo-poster.jpg"
+      ],
+      "uploadDate": "2026-05-25",
+      "duration": "PT28S",
+      "contentUrl": "https://mitanshu.dev/assets/media/franka-teleop-demo.mp4",
+      "embedUrl": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
+      "author": {
+        "@id": "https://mitanshu.dev/#person"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Franka FR3 driven by a Quest controller, mirrored in RViz",
+      "description": "A Quest controller driving the Franka FR3 through SE(3) transforms, mirrored live in RViz to verify the mapping before the real arm moves.",
+      "thumbnailUrl": [
+        "https://mitanshu.dev/assets/media/franka-teleop-clip-poster.jpg"
+      ],
+      "uploadDate": "2026-05-25",
+      "duration": "PT11S",
+      "contentUrl": "https://mitanshu.dev/assets/media/franka-teleop-clip.mp4",
+      "embedUrl": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
+      "author": {
+        "@id": "https://mitanshu.dev/#person"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -83,7 +148,7 @@
       <p>Reserved for the failure log: what broke while collecting this dataset and how it got fixed. Write-up in progress.</p>
 
       <h2>Links</h2>
-      <p><a href="https://github.com/mitanshu-2004" rel="me">GitHub profile</a> · <a href="https://github.com/huggingface/lerobot">LeRobot (dataset format)</a></p>
+      <p><a href="https://github.com/huggingface/lerobot">LeRobot (dataset format)</a></p>
     </div>
   </section>
 

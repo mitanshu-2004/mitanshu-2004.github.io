@@ -6,10 +6,15 @@
 <title>Mitanshu Goel — Robotics &amp; AI engineer</title>
 <meta name="description" content="I build robots and the AI that runs them — teleoperation rigs, robot hands, data pipelines. Demo footage from hardware I ran myself, numbers as measured.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Mitanshu Goel">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="Mitanshu Goel — Robotics &amp; AI engineer">
 <meta property="og:description" content="Teleoperation rigs, robot hands, and the ML behind them — real hardware, numbers as measured.">
 <meta property="og:url" content="https://mitanshu.dev/">
 <meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mitanshu Goel — Robotics & AI engineer">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://mitanshu.dev/">
 <meta name="theme-color" content="#131110">
@@ -23,6 +28,65 @@
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/chat.js" defer></script>
 <script>document.documentElement.classList.add('reveal-on');addEventListener('load',function(){setTimeout(function(){var n=document.querySelectorAll('.reveal:not(.is-in)');for(var i=0;i<n.length;i++)n[i].classList.add('is-in');},2500);});</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://mitanshu.dev/#website",
+      "url": "https://mitanshu.dev/",
+      "name": "Mitanshu Goel",
+      "description": "Robotics & AI engineer — teleoperation rigs, robot hands, and the ML behind them.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://mitanshu.dev/#person" }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://mitanshu.dev/#profilepage",
+      "url": "https://mitanshu.dev/",
+      "name": "Mitanshu Goel — Robotics & AI engineer",
+      "isPartOf": { "@id": "https://mitanshu.dev/#website" },
+      "mainEntity": { "@id": "https://mitanshu.dev/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://mitanshu.dev/#person",
+      "name": "Mitanshu Goel",
+      "url": "https://mitanshu.dev/",
+      "image": "https://mitanshu.dev/assets/media/og.jpg",
+      "jobTitle": "Robotics & AI Engineer",
+      "email": "mailto:mitanshug2004@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Delhi",
+        "addressCountry": "IN"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Maharaja Agrasen Institute of Technology"
+      },
+      "knowsAbout": [
+        "Robotics",
+        "ROS 2",
+        "Teleoperation",
+        "Imitation learning",
+        "Physical AI",
+        "Dexterous manipulation",
+        "Machine learning",
+        "PyTorch",
+        "Computer vision",
+        "Real-time C++"
+      ],
+      "sameAs": [
+        "https://github.com/mitanshu-2004",
+        "https://www.linkedin.com/in/mitanshugoel",
+        "https://huggingface.co/mitanshugoel"
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -30,62 +94,70 @@
 <div class="wrap">
 
 
-  <!-- ================= hero — profile card in a viewfinder ================= -->
+  <!-- ================= hero — statement + experience index ================= -->
   <section class="hero" id="hero">
-    <div class="hero-card">
-      <span class="vf vf-tl" aria-hidden="true"></span>
-      <span class="vf vf-tr" aria-hidden="true"></span>
-      <span class="vf vf-bl" aria-hidden="true"></span>
-      <span class="vf vf-br" aria-hidden="true"></span>
+    <span class="vf vf-tl" aria-hidden="true"></span>
+    <span class="vf vf-tr" aria-hidden="true"></span>
+    <span class="vf vf-bl" aria-hidden="true"></span>
+    <span class="vf vf-br" aria-hidden="true"></span>
 
-      <h1 class="hc-name">Mitanshu Goel</h1>
-      <p class="hc-role">Robotics &amp; AI Engineer</p>
+    <p class="hero-stamp"><span class="hs-name">Mitanshu Goel</span><span class="hs-dot" aria-hidden="true"></span><span class="hs-meta">Delhi · IN · 28.61N 77.20E</span></p>
 
-      <ul class="hc-links">
-        <li>
-          <svg class="hc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Delhi, India</span>
-        </li>
-        <li>
-          <a href="mailto:mitanshug2004@gmail.com">
-            <svg class="hc-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            <span>mitanshug2004@gmail.com</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/mitanshu-2004" rel="me">
-            <svg class="hc-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.4.5 0 5.9 0 12.6c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 24 12.6C24 5.9 18.6.5 12 .5Z"/></svg>
-            <span>github.com/mitanshu-2004</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">
-            <svg class="hc-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
-            <span>linkedin.com/in/mitanshugoel</span>
-          </a>
-        </li>
-      </ul>
+    <div class="hero-main">
+      <div class="hero-lead">
+        <p class="hero-eyebrow">Robotics &amp; AI Engineer</p>
+        <h1 class="hero-claim">Building robots &amp; teaching them to <em>move</em>.</h1>
+        <p class="hero-sub">Most recently, <b>Physical AI at Nferent AI</b> — 6-DOF arms, dexterous hands, and the teleoperation &amp; imitation-learning pipelines that turn human demonstrations into robot policies.</p>
+        <a class="hero-cta" href="#work">See the work ↓</a>
+      </div>
 
-      <p class="hc-about">Building robots and teaching models. Most recently, Physical AI at Nferent AI.</p>
+      <aside class="hero-index" aria-label="Experience">
+        <div class="hi-cap">Index — Experience</div>
+        <a class="hi-row" href="#work">
+          <span class="hi-no">01</span><span class="hi-co">Nferent AI</span><span class="hi-yr">2026</span>
+          <span class="hi-ro">Physical AI · dual-arm VR teleop · capture rigs</span>
+        </a>
+        <a class="hi-row" href="#work">
+          <span class="hi-no">02</span><span class="hi-co">SarthakAI</span><span class="hi-yr">2025</span>
+          <span class="hi-ro">Voice + vision humanoid · pick-and-sort line</span>
+        </a>
+        <a class="hi-row" href="#work">
+          <span class="hi-no">03</span><span class="hi-co">NextUp Robotics</span><span class="hi-yr">2024</span>
+          <span class="hi-ro">6-DOF arm · ROS 2 · MoveIt · KDL IK</span>
+        </a>
+      </aside>
     </div>
 
-    <a class="hero-cta" href="#work">See the work ↓</a>
+    <nav class="hero-foot" aria-label="Contact and profiles">
+      <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>
+      <a href="https://github.com/mitanshu-2004" rel="me">github.com/mitanshu-2004</a>
+      <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">linkedin.com/in/mitanshugoel</a>
+    </nav>
   </section>
 
   <!-- ================= work ================= -->
   <section class="block" id="work">
     <h2 class="display">Work</h2>
-    <p class="lede">Press play on anything — every clip is short.</p>
+    <p class="lede">Press play on anything — every clip is short. Filter by where it was built.</p>
+
+    <div class="org-filter" role="group" aria-label="Filter work by where it was built">
+      <button class="ofil" data-f="all" aria-pressed="true" data-blurb="Where each project was built — three internships and my own time.">All <span class="ct">9</span></button>
+      <button class="ofil" data-f="nferent" aria-pressed="false" data-blurb="Physical AI intern, 2026 — VR teleoperation of two arms, a 20-motor hand, and a MANUS + RealSense capture rig.">Nferent AI <span class="ct">4</span></button>
+      <button class="ofil" data-f="sarthak" aria-pressed="false" data-blurb="AI intern, 2025 — a Yanshee voice-and-vision humanoid and a vision-guided pick-and-sort line.">SarthakAI <span class="ct">1</span></button>
+      <button class="ofil" data-f="nextup" aria-pressed="false" data-blurb="Robotics intern, 2024 — brought up a 6-DOF arm in ROS 2 with MoveIt and KDL inverse kinematics, from simulation to the real arm.">NextUp Robotics <span class="ct">1</span></button>
+      <button class="ofil" data-f="personal" aria-pressed="false" data-blurb="Built on my own time — the gait engine for an 18-DoF hexapod, a 51M-parameter language model from scratch, and RAG/ML side projects.">Personal <span class="ct">3</span></button>
+    </div>
+    <p class="org-blurb" id="orgBlurb" aria-live="polite">Where each project was built — three internships and my own time.</p>
 
     <div class="work-grid">
 
-      <article class="work-card reveal" style="--i:0">
+      <article class="work-card reveal" data-org="nferent" style="--i:0">
         <div class="media">
           <video src="/assets/media/dualarm-card.mp4" poster="/assets/media/dualarm-card-poster.jpg" controls muted loop playsinline preload="auto" aria-label="Dual-arm VR teleoperation demo"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/dual-arm-vr-teleop.html">Dual-arm VR teleoperation</a></h3>
-          <p>Two industrial arms copying my hands live through a Meta Quest 3 — on a real-time C++ control stack I wrote, with a clutch so I can re-grip mid-task without the robots wandering.</p>
+          <p>Two industrial arms copying my hands live through a Meta Quest 3, built at Nferent AI on a real-time C++ control stack I wrote — with a clutch so I can re-grip mid-task without the robots wandering.</p>
           <div class="chips">
             <span class="chip hot">2× Elite CS66</span>
             <span class="chip">Quest 3</span>
@@ -96,13 +168,13 @@
         </div>
       </article>
 
-      <article class="work-card reveal" style="--i:1">
+      <article class="work-card reveal" data-org="nferent" style="--i:1">
         <div class="media">
           <video src="/assets/media/tesollo-card.mp4" poster="/assets/media/tesollo-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Robot hand playing rock-paper-scissors"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/tesollo-rps.html">Robot hand plays rock-paper-scissors</a></h3>
-          <p>A five-finger, 20-motor hand that reads your gesture through a camera and throws its move back.</p>
+          <p>A five-finger, 20-motor hand I programmed at Nferent AI — it reads your gesture through a camera and throws its own move back.</p>
           <div class="chips">
             <span class="chip hot">Tesollo DG-5F</span>
             <span class="chip">20 motors</span>
@@ -112,13 +184,13 @@
         </div>
       </article>
 
-      <article class="work-card reveal" style="--i:2">
+      <article class="work-card reveal" data-org="nferent" style="--i:2">
         <div class="media">
           <video src="/assets/media/franka-card.mp4" poster="/assets/media/franka-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Franka arm teleoperation demo"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/franka-teleop-dataset.html">Franka teleop → training dataset</a></h3>
-          <p>Driving a Franka research arm behind a safety stack I wrote and recording a 51-episode manipulation dataset — 2.1 hours of RGB-D — in LeRobot format.</p>
+          <p>Driving a Franka research arm at Nferent AI behind a safety stack I wrote, recording a 51-episode manipulation dataset — 2.1 hours of RGB-D — in LeRobot format.</p>
           <div class="chips">
             <span class="chip hot">Franka FR3</span>
             <span class="chip">51 episodes · 2.1 h</span>
@@ -128,7 +200,7 @@
         </div>
       </article>
 
-      <article class="work-card reveal" style="--i:3">
+      <article class="work-card reveal" data-org="nferent" style="--i:3">
         <div class="media">
           <video src="/assets/media/manus-card.mp4" poster="/assets/media/manus-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="MANUS gloves and camera capture demo"></video>
         </div>
@@ -144,13 +216,13 @@
         </div>
       </article>
 
-      <article class="work-card reveal" style="--i:4">
+      <article class="work-card reveal" data-org="sarthak" style="--i:4">
         <div class="media">
           <video src="/assets/media/bodhi-card.mp4" poster="/assets/media/bodhi-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Bodhi voice assistant humanoid demo"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/bodhi-humanoid.html">Bodhi — the humanoid that answers</a></h3>
-          <p>A small humanoid that spots objects with YOLOv8 and answers questions by voice, with wake-word routing.</p>
+          <p>A small humanoid I built at SarthakAI — it spots objects with YOLOv8 and answers questions by voice, gated by a wake word.</p>
           <div class="chips">
             <span class="chip hot">UBTech Yanshee</span>
             <span class="chip">YOLOv8</span>
@@ -160,13 +232,30 @@
         </div>
       </article>
 
-      <article class="work-card reveal" style="--i:5">
+      <article class="work-card reveal" data-org="nextup" style="--i:5">
+        <div class="media">
+          <video src="/assets/media/nextup-card.mp4" poster="/assets/media/nextup-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware"></video>
+        </div>
+        <div class="card-body">
+          <h3><a href="/projects/nextup-cobot.html">A 6-DOF arm, sim to real</a></h3>
+          <p>My first internship, at NextUp Robotics — I wrote the MoveIt interfaces (joint, Cartesian-pose, and waypoint motion) with KDL inverse kinematics for a 6-DOF arm, checked in simulation, then run on the real hardware.</p>
+          <div class="chips">
+            <span class="chip hot">6-DOF cobot</span>
+            <span class="chip">MoveIt</span>
+            <span class="chip">ROS 2</span>
+            <span class="chip">KDL IK</span>
+          </div>
+          <span class="more-link">Full story + sim view →</span>
+        </div>
+      </article>
+
+      <article class="work-card reveal" data-org="personal" style="--i:6">
         <div class="media">
           <video src="/assets/media/hexapod-card.mp4" poster="/assets/media/hexapod-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="18-DoF hexapod walking in Gazebo simulation"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/hexapod.html">Six legs, eighteen joints</a></h3>
-          <p>A hexapod walker built with A.T.O.M. Robotics — the inverse-kinematics gait engine is mine. Walking here in <b>Gazebo simulation</b>.</p>
+          <p>An 18-DoF hexapod walker — the inverse-kinematics gait engine that turns a foot target into joint angles is mine. Walking here in <b>Gazebo simulation</b>.</p>
           <div class="chips">
             <span class="chip hot">18 DoF</span>
             <span class="chip">ROS 2 · ros2_control</span>
@@ -176,7 +265,7 @@
         </div>
       </article>
 
-      <article class="work-card reveal" style="--i:6">
+      <article class="work-card reveal" data-org="personal" style="--i:6">
         <div class="media">
           <img src="/assets/media/mistral-cpt-loss.png" alt="Training-loss chart for the Mistral 7B Reddit continued-pretraining run: raw loss with a smoothed line falling from 2.086 to 1.994 over 2200 steps, learning-rate warmup overlaid" loading="lazy">
         </div>
@@ -191,7 +280,7 @@
         </div>
       </article>
 
-      <article class="work-card reveal" style="--i:7">
+      <article class="work-card reveal" data-org="personal" style="--i:7">
         <div class="card-body">
           <h3>More on GitHub</h3>
           <ul class="gh-list">

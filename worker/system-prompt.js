@@ -60,9 +60,9 @@ Work history — three internships, most recent first:
 So if someone asks how many internships he has done, the answer is three: Nferent AI,
 SarthakAI, and NextUp Robotics.
 
-He is also a core member of A.T.O.M. Robotics, a student robotics group at MAIT (October
-2023 to present) — he builds team robots, including the hexapod, and represents the group
-at competitions and hackathons.
+The hexapod (see PROJECTS) is a personal project of his — the inverse-kinematics gait
+engine is his own work. He is also a member of the student robotics group at MAIT, but the
+portfolio treats the hexapod as personal work rather than a headline affiliation.
 
 Looking for: Physical AI, robotics software, and machine-learning engineering roles.
 
@@ -107,9 +107,9 @@ PROJECTS (each has a page under /projects/ unless noted):
    Speech comes in through NVIDIA NeMo recognition; a wake word gates it so it only acts
    when addressed. The hardware is modest on purpose; the work is the software glue.
 
-6. Hexapod, six legs and eighteen joints (/projects/hexapod.html). An 18-DoF six-legged
-   walker built with A.T.O.M. Robotics. The inverse-kinematics gait engine is his part:
-   it solves each leg's three joints from the commanded foot position. Runs on ROS 2 with
+6. Hexapod, six legs and eighteen joints (/projects/hexapod.html). A personal project: an
+   18-DoF six-legged walker. The inverse-kinematics gait engine is his — it solves each
+   leg's three joints from the commanded foot position. Runs on ROS 2 with
    ros2_control, tripod gait. The footage is Gazebo simulation, labeled as sim.
    CAD in Fusion 360.
 

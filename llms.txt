@@ -1,0 +1,17 @@
+# Mitanshu Goel
+
+> Robotics & AI engineer in Delhi, India. I build teleoperation rigs, robot hands, and the ML behind them — real hardware, numbers as measured.
+
+## Projects
+- [Dual-arm VR teleoperation](https://mitanshu.dev/projects/dual-arm-vr-teleop.html): Two Elite CS66 arms follow my hands live via Meta Quest 3, on a real-time C++ control stack.
+- [Franka teleop → dataset](https://mitanshu.dev/projects/franka-teleop-dataset.html): Teleoperating a Franka FR3 and recording a 51-episode LeRobot manipulation dataset.
+- [Two gloves, three cameras, one clock](https://mitanshu.dev/projects/manus-capture-sync.html): MANUS gloves + 3× RealSense capture synced under 15 ms at p95 (built at Nferent AI).
+- [Robot hand plays rock-paper-scissors](https://mitanshu.dev/projects/tesollo-rps.html): A 20-motor Tesollo DG-5F hand reads your gesture and answers.
+- [Bodhi, the humanoid that answers](https://mitanshu.dev/projects/bodhi-humanoid.html): A Yanshee humanoid that sees with YOLOv8 and answers by voice.
+- [Six legs, eighteen joints](https://mitanshu.dev/projects/hexapod.html): An 18-DoF hexapod with an inverse-kinematics gait engine on ROS 2.
+
+## Contact
+- Email: mitanshug2004@gmail.com
+- GitHub: https://github.com/mitanshu-2004
+- LinkedIn: https://www.linkedin.com/in/mitanshugoel
+- Hugging Face: https://huggingface.co/mitanshugoel

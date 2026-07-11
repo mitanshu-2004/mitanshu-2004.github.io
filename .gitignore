@@ -1,6 +1,14 @@
-.playwright-mcp/
+# OS / editor
 .DS_Store
+*.swp
+.vscode/
+.idea/
+
+# tooling / scratch
+.playwright-mcp/
 .scheduler/
+node_modules/
+*.log
 
 # secrets — never commit
 .dev.vars
@@ -12,4 +20,12 @@ api.txt
 
 # local verification screenshots / scratch
 check-*.jpeg
+check-*.png
+hero-live-*.png
+*-desktop.png
+*-mobile.png
 Pasted image.png
+
+# design / research artifacts (kept local, not shipped)
+research/
+agent-ref-*.jpeg
