@@ -1,0 +1,485 @@
+/* ============================================================
+   mitanshu.dev — plain, media-first.
+   One dark theme. Videos are the content; everything else
+   stays out of their way.
+   ============================================================ */
+
+:root {
+  --bg: #131110;
+  --bg-elev: #1C1815;
+  --ink: #EDE8E2;
+  --muted: #A39B92;
+  --line: #2E2925;         /* decorative rules */
+  --line-strong: #756B60;  /* interactive borders (≥3:1 on bg) */
+  --accent: #FF6A2B;
+  --accent-ink: #131110;
+  --ok: #58B380;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Liberation Sans", Arial, sans-serif;
+
+  /* type scale — one system instead of hand-picked px */
+  --step-000: 0.6875rem;   /* 11px   mono micro-labels */
+  --step-00:  0.78125rem;  /* 12.5px mono body / skill lines */
+  --step-0:   1rem;        /* 16px   body */
+  --step-1:   clamp(0.95rem, 0.9rem + 0.3vw, 1.0625rem); /* card copy, hero sub */
+  --step-2:   1.1875rem;   /* 19px   card title */
+  --step-3:   clamp(1.6rem, 1.2rem + 2vw, 2.75rem);      /* section head */
+  --step-4:   clamp(2.4rem, 1.5rem + 4.4vw, 4.9rem);     /* hero */
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --accent-glow: color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+@font-face {
+  font-family: "LSN Display";
+  src: url("../fonts/lsn-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg); scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One quiet layer of film grain over the flat dark field — its job is to kill
+   gradient banding on #131110 and give the surface a little tactile texture.
+   Fixed, behind content (z-index:-1), never intercepts clicks; nothing repaints
+   on scroll. No ambient color glow — a warm halo behind the text would just be
+   mood with no referent, which is the exact look this site is trying not to be. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); position: relative; z-index: 0; }
+
+/* keyboard skip link */
+.skip { position: absolute; left: -9999px; top: 0; }
+.skip:focus {
+  left: 8px; top: 8px; z-index: 100;
+  background: var(--accent); color: var(--accent-ink);
+  font-family: var(--mono); font-size: var(--step-000); letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 8px 12px; border: none;
+}
+
+a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--accent); transition: color 140ms var(--ease), background-color 140ms var(--ease); }
+a:hover { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* keep the solid orange swap only where it reads as a button — chips & CTA link rows */
+a.chip:hover, .contact-links a:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+p { margin: 0 0 1em; }
+
+.display {
+  font-family: "LSN Display", var(--sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* ---------- header ---------- */
+.site-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.brand { border: none; display: flex; flex-direction: column; gap: 2px; }
+.brand:hover { background: none; color: inherit; }
+.brand .name {
+  font-family: "LSN Display", var(--sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+}
+.brand .role {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.site-nav a { border-bottom-color: transparent; padding: 8px 2px; margin: -4px 0; }
+.site-nav a:hover { background: none; color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---------- hero ---------- */
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  padding: clamp(40px, 6vw, 72px) clamp(14px, 2.5vw, 30px) clamp(30px, 4vw, 46px);
+  margin-top: clamp(8px, 2vw, 18px);
+}
+
+/* fiducial corner brackets framing the hero — a simple, honest lab motif */
+.vf { position: absolute; width: 22px; height: 22px; z-index: 1; pointer-events: none; border: 0 solid var(--accent); opacity: 0.9; }
+.vf-tl { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+.vf-tr { top: 0; right: 0; border-top-width: 2px; border-right-width: 2px; }
+.vf-bl { bottom: 0; left: 0; border-bottom-width: 2px; border-left-width: 2px; }
+.vf-br { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* hero: a profile card framed by the viewfinder brackets */
+.hero-card {
+  position: relative;
+  z-index: 1;
+  max-width: none;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  border-radius: 4px;
+  padding: clamp(24px, 3.2vw, 38px);
+}
+.hc-name {
+  font-family: "LSN Display", var(--sans);
+  font-weight: 700;
+  font-size: clamp(24px, 3.4vw, 30px);
+  line-height: 1.06;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 0 0 5px;
+}
+.hc-role {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.hc-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.hc-links li { display: flex; align-items: center; gap: 11px; font-size: 14px; color: var(--muted); }
+.hc-links a { display: inline-flex; align-items: center; gap: 11px; color: var(--muted); border-bottom: none; min-width: 0; }
+.hc-links a span { border-bottom: 1px solid transparent; }
+.hc-links a:hover { color: var(--accent); }
+.hc-links a:hover span { border-bottom-color: currentColor; }
+.hc-ic { width: 16px; height: 16px; flex: none; }
+.hc-about {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 20px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+h1.display { font-size: var(--step-4); margin: 0 0 26px; }
+.hero-cta { display: inline-block; font-family: var(--mono); font-size: var(--step-000); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 2px; padding: 9px 15px; margin-top: 26px; }
+.hero-cta:hover { background: var(--accent); color: var(--accent-ink); }
+
+/* ---------- sections ---------- */
+section.block { padding: clamp(30px, 5vw, 54px) 0; }
+section.block + section.block { border-top: 1px solid var(--line); }
+h2.display { font-size: clamp(26px, 4.4vw, 44px); margin: 0 0 14px; }
+h2.display.sm { font-size: clamp(20px, 3vw, 30px); }
+.block .lede { color: var(--muted); max-width: 62ch; margin: 0 0 28px; }
+
+/* ---------- work grid ---------- */
+/* flex (not grid) so an incomplete last row centers instead of leaving a hole */
+.work-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.work-card {
+  position: relative;
+  flex: 1 1 320px;
+  max-width: 380px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 3%, var(--bg-elev)), var(--bg-elev));
+  display: flex;
+  flex-direction: column;
+  transition: transform 200ms var(--ease), border-color 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.work-card:hover, .work-card:focus-within {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 18px 42px -20px var(--accent-glow), 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+/* media zooms inside its frame; fiducials + the more-link catch the accent */
+.work-card .media { overflow: hidden; position: relative; z-index: 2; }
+.work-card .media video, .work-card .media img { transition: transform 400ms var(--ease); }
+.work-card:hover .media video, .work-card:focus-within .media video,
+.work-card:hover .media img, .work-card:focus-within .media img { transform: scale(1.045); }
+.work-card:hover .media::before, .work-card:hover .media::after,
+.work-card:focus-within .media::before, .work-card:focus-within .media::after { border-color: var(--accent); }
+.work-card:hover .more-link, .work-card:focus-within .more-link { color: var(--accent); }
+.work-card:focus-within { outline: none; }
+
+.media { position: relative; background: #000; }
+.media video, .media img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
+.media video:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+/* viewfinder fiducials — lab-camera registration marks */
+.media::before, .media::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid rgba(237, 232, 226, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
+.media::before { top: 8px; left: 8px; border-top-width: 1px; border-left-width: 1px; }
+.media::after { bottom: 8px; right: 8px; border-bottom-width: 1px; border-right-width: 1px; }
+
+/* network stall: the top-left fiducial becomes a BUFFERING tick */
+.media.is-buffering::before, .main-video.is-buffering::before {
+  content: "BUFFERING";
+  width: auto;
+  height: auto;
+  border: 0;
+  padding: 3px 7px;
+  background: rgba(19, 17, 16, 0.82);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  animation: buffering-pulse 1.2s ease-in-out infinite;
+}
+@keyframes buffering-pulse { 50% { opacity: 0.45; } }
+
+
+.card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card-body h3 { margin: 0; font-size: var(--step-2); font-weight: 700; letter-spacing: 0.01em; line-height: 1.2; }
+.card-body h3 a { border-bottom: none; }
+.card-body h3 a:hover { color: var(--accent); background: none; }
+/* stretched link: the whole card opens the project; the video stays interactive */
+.card-body h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.card-body p { font-size: var(--step-1); color: var(--muted); margin: 0; line-height: 1.55; }
+.card-body p b { color: var(--ink); font-weight: 600; }
+.gh-list { position: relative; z-index: 1; }
+.chips, .more-link { position: relative; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
+.chip {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 4px 9px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.chip.hot { color: var(--accent); border-color: var(--accent); }
+a.chip { border-color: var(--line-strong); }
+.more-link { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* "more on github" card */
+.gh-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.gh-list li { border-top: 1px solid var(--line); padding: 10px 2px; font-size: 14px; }
+.gh-list li:first-child { border-top: none; }
+.gh-list .what { color: var(--muted); }
+
+
+/* ---------- contact ---------- */
+footer.site-foot .foot-reach {
+  font-family: var(--sans);
+  font-size: clamp(17px, 2.2vw, 21px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  max-width: 46ch;
+  margin: 0;
+  color: var(--ink);
+}
+footer.site-foot .foot-reach a { color: var(--accent); border-bottom: 1px solid color-mix(in oklab, var(--accent) 45%, transparent); }
+footer.site-foot .foot-reach a:hover { border-bottom-color: var(--accent); }
+.foot-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+.foot-contact a { color: var(--muted); border-bottom: 1px solid transparent; padding: 2px 0; }
+.foot-contact a:hover { color: var(--accent); border-bottom-color: currentColor; }
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  margin-top: 0;
+}
+.contact-links a { padding: 8px 2px; margin: -4px 0; }
+
+footer.site-foot {
+  border-top: 1px solid var(--line);
+  padding: 30px 0 56px;
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+footer.site-foot .contact-links { margin: 0; }
+/* proper footer: brand + contact/profiles up top, colophon + back-to-top baseline */
+.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px 40px; }
+.foot-brand { display: flex; flex-direction: column; gap: 3px; }
+.foot-name { font-family: "LSN Display", var(--sans); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: 16px; line-height: 1; }
+.foot-role { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+.foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px; }
+.foot-base a { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: none; color: var(--muted); }
+.foot-base a:hover { color: var(--accent); }
+.foot-base-nav { display: inline-flex; gap: 18px; }
+footer.site-foot p {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ---------- project detail pages ---------- */
+.crumb {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-block;
+  margin: 22px 0 16px;
+  padding: 8px 2px;
+}
+.project-head h1.display { font-size: clamp(30px, 5.4vw, 58px); }
+.meta-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 20px; }
+.main-video { position: relative; border: 1px solid var(--line-strong); background: #000; }
+.main-video video { display: block; width: 100%; height: auto; }
+/* portrait phone footage: cap the height and letterbox instead of a wall-tall player */
+/* standalone portrait clip: the frame hugs the video (centered) instead of
+   sitting in a wide black letterbox on desktop */
+.main-video.portrait { display: flex; justify-content: center; width: fit-content; max-width: 100%; margin-inline: auto; }
+.main-video.portrait video { width: auto; max-width: 100%; height: auto; max-height: 74vh; }
+@media (max-width: 640px) { .main-video.portrait video { max-height: 86vh; } }
+.main-video::before, .main-video::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 0 solid rgba(237, 232, 226, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
+.main-video::before { top: 10px; left: 10px; border-top-width: 1px; border-left-width: 1px; }
+.main-video::after { bottom: 10px; right: 10px; border-bottom-width: 1px; border-right-width: 1px; }
+/* a video beside its own heading + description; sides alternate down the page */
+.media-row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3.5vw, 46px); align-items: center; }
+.media-row + .media-row { margin-top: clamp(30px, 4.5vw, 56px); }
+.media-row .mr-text h2 { margin: 0 0 14px; }
+.media-row .mr-text p { color: var(--muted); margin: 0 0 12px; }
+.media-row .mr-text p:last-child { margin-bottom: 0; }
+.media-row .mr-text b { color: var(--ink); font-weight: 600; }
+.media-row.reverse .mr-media { order: 2; }
+/* portrait clip sits centered in its half and is capped so it doesn't tower over the text */
+.media-row .main-video.portrait video { max-height: 56vh; }
+@media (max-width: 760px) {
+  .media-row { grid-template-columns: 1fr; gap: 16px; align-items: start; }
+  .media-row.reverse .mr-media { order: 0; }
+}
+
+.prose { max-width: 68ch; }
+.prose h2 {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 30px 0 10px;
+  font-weight: 600;
+}
+.prose p, .prose li { font-size: 15px; }
+.prose ul { margin: 0 0 1em; padding-left: 20px; }
+.prose li { margin: 4px 0; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 14px;
+  margin-top: 10px;
+}
+.gallery figure { margin: 0; border: 1px solid var(--line); background: var(--bg-elev); }
+.gallery video, .gallery img { display: block; width: 100%; height: auto; background: #000; }
+.gallery figcaption {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 10px;
+}
+
+/* ---------- cv page ---------- */
+.cv { max-width: 760px; }
+.cv h1.display { font-size: clamp(26px, 4.4vw, 44px); margin: 0 0 14px; }
+.cv h2.display.sm { margin-top: 34px; }
+
+/* ---------- 404 ---------- */
+.err-code { font-size: clamp(64px, 14vw, 140px); }
+.cv-item { border-top: 1px solid var(--line); padding: 12px 0; }
+.cv-item:last-child { border-bottom: 1px solid var(--line); }
+.cv-item .row1 { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
+.cv-item .row1 b { font-size: 15px; }
+.cv-item .when { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+.cv-item p { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+.print-hint { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.07em; color: var(--muted); text-transform: uppercase; }
+
+/* ---------- scroll reveal: staggered, and safe with no JS or reduced motion ----------
+   Elements only hide once .reveal-on is set (by an inline head script), so if scripting
+   fails they render normally. Stagger comes from --i on each element. */
+.reveal-on .reveal {
+  opacity: 0;
+  translate: 0 20px;   /* the individual 'translate' property, so it composes with
+                          the card's hover 'transform' lift instead of overriding it */
+  transition: opacity 0.6s var(--ease), translate 0.6s var(--ease);
+  transition-delay: calc(min(var(--i, 0), 8) * 55ms);
+}
+.reveal-on .reveal.is-in { opacity: 1; translate: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on .reveal { opacity: 1; translate: none; transition: none; }
+}
+
+@media print {
+  :root { --bg: #ffffff; --bg-elev: #ffffff; --ink: #111; --muted: #444; --line: #bbb; --line-strong: #888; --accent: #b33d10; --ok: #1d6b41; }
+  body { font-size: 12px; }
+  .site-head, .site-nav, footer.site-foot, .print-hint { display: none; }
+  a { border-bottom: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  html { scroll-behavior: auto; }
+}

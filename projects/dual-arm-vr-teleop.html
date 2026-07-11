@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dual-arm VR teleoperation · Mitanshu Goel</title>
+<meta name="description" content="Two Elite Robots CS66 arms driven live by Meta Quest 3 controllers over a real-time C++ control loop — with an anchor/clutch scheme and a safety stack.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dual-arm VR teleoperation — Mitanshu Goel">
+<meta property="og:description" content="Two industrial arms copying my hands live through a Meta Quest 3, on a real-time C++ control stack.">
+<meta property="og:url" content="https://mitanshu.dev/projects/dual-arm-vr-teleop.html">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://mitanshu.dev/projects/dual-arm-vr-teleop.html">
+<meta name="theme-color" content="#131110">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/lsn-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/chat.css">
+<!-- Chat backend: after deploying worker/, replace YOURSUBDOMAIN with your workers.dev name. On localhost the widget uses the dev-proxy automatically. -->
+<meta name="chat-endpoint" content="https://mitanshu-chat.YOURSUBDOMAIN.workers.dev/chat">
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/chat.js" defer></script>
+</head>
+<body>
+
+<div class="wrap">
+
+
+  <a class="crumb" href="/#work">← All work</a>
+
+  <section class="project-head">
+    <h1 class="display">Dual-arm VR teleoperation</h1>
+    <div class="meta-row">
+      <span class="chip hot">2× Elite Robots CS66</span>
+      <span class="chip">Meta Quest 3</span>
+      <span class="chip">Real-time C++</span>
+      <span class="chip">ROS 2</span>
+      <span class="chip">Anchor/clutch control</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row">
+      <div class="mr-media">
+        <div class="main-video">
+          <video src="/assets/media/dualarm-teleop-demo.mp4" poster="/assets/media/dualarm-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="Dual-arm VR teleoperation demo: two Elite CS66 arms handing a block gripper to gripper"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">Two arms, following my hands</h2>
+        <p>Both industrial arms follow my hand movements live, streamed from Meta Quest 3 controllers — no scripted trajectory. Here they pass a block from one gripper to the other, every motion driven by me. Built during the Nferent AI internship; the clip is narrated, so sound on.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row reverse">
+      <div class="mr-media">
+        <div class="main-video">
+          <video src="/assets/media/dualarm-teleop-clip.mp4" poster="/assets/media/dualarm-teleop-clip-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="Operator's view through the Quest headset: a controller in hand, both CS66 arms following"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">Teleoperation, seen through the headset</h2>
+        <p>The same rig from my side of it — recorded through the Quest: a controller in hand and both CS66 arms tracking it in real time. Roughly what I'm looking at while I drive them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="prose">
+      <h2>How it works</h2>
+      <ul>
+        <li>A real-time C++ control loop maps controller poses to end-effector targets through SE(3) transforms.</li>
+        <li>A clutch lets me "let go" mid-task: release to freeze the robots, re-position my hands comfortably, re-engage and continue — like lifting a mouse off the desk.</li>
+        <li>A safety layer clamps workspace limits, end-effector velocity, and command rates before anything reaches the hardware.</li>
+      </ul>
+
+      <h2>What broke, honestly</h2>
+      <p>Reserved for the failure log: what broke on this rig and how it got fixed. Write-up in progress.</p>
+
+      <h2>Links</h2>
+      <p><a href="https://github.com/mitanshu-2004" rel="me">GitHub profile</a> · <a href="https://www.youtube.com/watch?v=kUlfE-U_5m4">Same demo on YouTube</a></p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="foot-reach">I can be reached by email at <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>.</p>
+    <nav class="foot-contact" aria-label="Contact and profiles">
+      <a href="tel:+918595657583">+91 85956 57583</a>
+      <a href="https://github.com/mitanshu-2004" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
+    </nav>
+    <div class="foot-base">
+      <p>MITANSHU.DEV · DUAL-ARM VR TELEOPERATION · 2026</p>
+      <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

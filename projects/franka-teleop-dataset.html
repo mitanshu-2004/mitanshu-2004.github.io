@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Franka teleop → training dataset · Mitanshu Goel</title>
+<meta name="description" content="Teleoperating a Franka FR3 research arm behind a safety stack I wrote, and recording a 51-episode manipulation dataset — 2.1 hours of RGB-D — in LeRobot format for imitation learning.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Franka teleop → training dataset — Mitanshu Goel">
+<meta property="og:description" content="Driving a Franka FR3 by hand and turning the recordings into a 51-episode LeRobot dataset.">
+<meta property="og:url" content="https://mitanshu.dev/projects/franka-teleop-dataset.html">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://mitanshu.dev/projects/franka-teleop-dataset.html">
+<meta name="theme-color" content="#131110">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/lsn-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/chat.css">
+<!-- Chat backend: after deploying worker/, replace YOURSUBDOMAIN with your workers.dev name. On localhost the widget uses the dev-proxy automatically. -->
+<meta name="chat-endpoint" content="https://mitanshu-chat.YOURSUBDOMAIN.workers.dev/chat">
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/chat.js" defer></script>
+</head>
+<body>
+
+<div class="wrap">
+
+
+  <a class="crumb" href="/#work">← All work</a>
+
+  <section class="project-head">
+    <h1 class="display">Franka teleop → training dataset</h1>
+    <div class="meta-row">
+      <span class="chip hot">Franka FR3</span>
+      <span class="chip">51 episodes · 2.1 h</span>
+      <span class="chip">RGB-D</span>
+      <span class="chip">LeRobot format</span>
+      <span class="chip">Safety stack</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row">
+      <div class="mr-media">
+        <div class="main-video portrait">
+          <video src="/assets/media/franka-teleop-demo.mp4" poster="/assets/media/franka-teleop-demo-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="Teleoperating a Franka FR3 arm to stack rings while recording a manipulation dataset"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">Driving the FR3 by hand</h2>
+        <p>I teleoperate a Franka FR3 through a manipulation task — here, stacking rings on a peg — and record every run. Each run is one episode, saved with its camera frames and joint readings; the pile of episodes becomes a dataset a policy can learn from.</p>
+        <p>Nothing's scripted. The point is to capture how a person actually solves the task, mistakes and all.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row reverse">
+      <div class="mr-media">
+        <div class="main-video">
+          <video src="/assets/media/franka-teleop-clip.mp4" poster="/assets/media/franka-teleop-clip-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="A Quest controller in hand driving the Franka FR3, mirrored live in RViz"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">Controller to arm, in RViz</h2>
+        <p>Behind the demo: the controller's pose drives the arm through SE(3) transforms, mirrored live in RViz. Watching the model track the controller is how I check the mapping before anything moves the real FR3.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="prose">
+      <h2>How it works</h2>
+      <ul>
+        <li>My commands don't reach the arm directly. A safety layer I wrote sits in between and clamps the workspace, end-effector speed, and command rate, so a bad input slows the robot instead of throwing it.</li>
+        <li>Every episode records synchronized RGB-D frames and joint states with timestamps, written in <a href="https://github.com/huggingface/lerobot">LeRobot</a>'s dataset format so it drops straight into standard imitation-learning training.</li>
+        <li>The dataset is the deliverable — 51 episodes, about 2.1 hours. Clean recording and honest labels matter more than a pretty trajectory, because a policy inherits whatever the data teaches it.</li>
+      </ul>
+
+      <h2>What broke, honestly</h2>
+      <p>Reserved for the failure log: what broke while collecting this dataset and how it got fixed. Write-up in progress.</p>
+
+      <h2>Links</h2>
+      <p><a href="https://github.com/mitanshu-2004" rel="me">GitHub profile</a> · <a href="https://github.com/huggingface/lerobot">LeRobot (dataset format)</a></p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="foot-reach">I can be reached by email at <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>.</p>
+    <nav class="foot-contact" aria-label="Contact and profiles">
+      <a href="tel:+918595657583">+91 85956 57583</a>
+      <a href="https://github.com/mitanshu-2004" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
+    </nav>
+    <div class="foot-base">
+      <p>MITANSHU.DEV · FRANKA TELEOP → DATASET · 2026</p>
+      <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

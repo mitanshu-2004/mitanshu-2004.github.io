@@ -1,0 +1,15 @@
+.playwright-mcp/
+.DS_Store
+.scheduler/
+
+# secrets — never commit
+.dev.vars
+worker/.dev.vars
+.env
+.env.*
+*.local
+api.txt
+
+# local verification screenshots / scratch
+check-*.jpeg
+Pasted image.png

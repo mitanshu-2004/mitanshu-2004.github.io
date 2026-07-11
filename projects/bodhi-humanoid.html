@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bodhi — the humanoid that answers · Mitanshu Goel</title>
+<meta name="description" content="A small UBTech Yanshee humanoid that spots objects with YOLOv8 and answers questions by voice, with wake-word routing over NVIDIA NeMo speech recognition.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bodhi — the humanoid that answers — Mitanshu Goel">
+<meta property="og:description" content="A small humanoid that sees with YOLOv8 and answers out loud, routed by a wake word.">
+<meta property="og:url" content="https://mitanshu.dev/projects/bodhi-humanoid.html">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://mitanshu.dev/projects/bodhi-humanoid.html">
+<meta name="theme-color" content="#131110">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/lsn-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/chat.css">
+<!-- Chat backend: after deploying worker/, replace YOURSUBDOMAIN with your workers.dev name. On localhost the widget uses the dev-proxy automatically. -->
+<meta name="chat-endpoint" content="https://mitanshu-chat.YOURSUBDOMAIN.workers.dev/chat">
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/chat.js" defer></script>
+</head>
+<body>
+
+<div class="wrap">
+
+
+  <a class="crumb" href="/#work">← All work</a>
+
+  <section class="project-head">
+    <h1 class="display">Bodhi — the humanoid that answers</h1>
+    <div class="meta-row">
+      <span class="chip hot">UBTech Yanshee</span>
+      <span class="chip">YOLOv8</span>
+      <span class="chip">NeMo ASR</span>
+      <span class="chip">Wake-word routing</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row">
+      <div class="mr-media">
+        <div class="main-video portrait">
+          <video src="/assets/media/bodhi-voice-demo.mp4" poster="/assets/media/bodhi-voice-demo-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="Bodhi, a small humanoid, recognizing objects and answering a question by voice"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">Ask it, and it answers out loud</h2>
+        <p>You say Bodhi's wake word, ask a question, and it looks at what's in front of it and answers by voice. The clip has sound — the reply you hear is the robot's own, generated from what it recognized in the moment.</p>
+        <p>It runs on a UBTech Yanshee, a small hobby-grade humanoid. Turn the sound on.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="prose">
+      <h2>How it works</h2>
+      <ul>
+        <li>Vision runs on YOLOv8, so it can name the objects in view instead of guessing.</li>
+        <li>Speech comes in through NVIDIA NeMo recognition; a wake word gates it, so the robot only acts when it's actually being addressed and ignores the rest of the room.</li>
+        <li>All of it runs on a UBTech Yanshee — a small hobby-grade humanoid. The hardware is modest on purpose; the work is the software that ties seeing, listening, and answering into one loop.</li>
+      </ul>
+
+      <h2>What broke, honestly</h2>
+      <p>Reserved for the failure log: the wake-word false triggers, the latency fights, and how they got tamed. Write-up in progress.</p>
+
+      <h2>Links</h2>
+      <p><a href="https://github.com/mitanshu-2004" rel="me">GitHub profile</a></p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="foot-reach">I can be reached by email at <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>.</p>
+    <nav class="foot-contact" aria-label="Contact and profiles">
+      <a href="tel:+918595657583">+91 85956 57583</a>
+      <a href="https://github.com/mitanshu-2004" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
+    </nav>
+    <div class="foot-base">
+      <p>MITANSHU.DEV · BODHI — THE HUMANOID THAT ANSWERS · 2026</p>
+      <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

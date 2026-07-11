@@ -1,0 +1,12 @@
+name = "mitanshu-chat"
+main = "src/chat.js"
+compatibility_date = "2025-06-01"
+
+# ALLOWED_ORIGINS is a plain var (not secret). Add your workers.dev preview origin
+# here too if you test against it before the custom domain is live.
+[vars]
+ALLOWED_ORIGINS = "https://mitanshu.dev,https://www.mitanshu.dev"
+
+# GROQ_API_KEYS is a SECRET — never put it here. Set it once with:
+#   cd worker && npx wrangler secret put GROQ_API_KEYS
+# then paste the comma-joined keys when prompted.

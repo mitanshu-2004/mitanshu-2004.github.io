@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two gloves, three cameras, one clock · Mitanshu Goel</title>
+<meta name="description" content="The capture-and-sync software I built at Nferent AI — pulling two MANUS motion-capture gloves and three RealSense depth cameras onto one clock, under 15 ms of drift at the 95th percentile, across 45 episodes.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Two gloves, three cameras, one clock — Mitanshu Goel">
+<meta property="og:description" content="Multi-sensor capture with MANUS gloves + 3× RealSense, synchronized to under 15 ms at p95.">
+<meta property="og:url" content="https://mitanshu.dev/projects/manus-capture-sync.html">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://mitanshu.dev/projects/manus-capture-sync.html">
+<meta name="theme-color" content="#131110">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/lsn-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/chat.css">
+<!-- Chat backend: after deploying worker/, replace YOURSUBDOMAIN with your workers.dev name. On localhost the widget uses the dev-proxy automatically. -->
+<meta name="chat-endpoint" content="https://mitanshu-chat.YOURSUBDOMAIN.workers.dev/chat">
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/chat.js" defer></script>
+</head>
+<body>
+
+<div class="wrap">
+
+
+  <a class="crumb" href="/#work">← All work</a>
+
+  <section class="project-head">
+    <h1 class="display">Two gloves, three cameras, one clock</h1>
+    <div class="meta-row">
+      <span class="chip hot">2× MANUS gloves</span>
+      <span class="chip">&lt;15 ms @ p95</span>
+      <span class="chip">3× RealSense</span>
+      <span class="chip">45 episodes</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row">
+      <div class="mr-media">
+        <div class="main-video portrait">
+          <video src="/assets/media/manus-dataset-recording.mp4" poster="/assets/media/manus-dataset-recording-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="A recorded dataset episode: a person in a head camera and chest rig, wearing MANUS gloves, picking fruit into a bin"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">An actual dataset recording</h2>
+        <p>A teammate at Nferent AI runs the task while two motion-capture gloves read their hand pose and three depth cameras watch — all recorded at once. The hard part is time: getting all five streams to agree on when something happened, so the frame where the fingers close is the frame stored next to it. The sync layer is mine; the collection is the team's.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row reverse">
+      <div class="mr-media">
+        <div class="main-video portrait">
+          <video src="/assets/media/manus-gloves-demo.mp4" poster="/assets/media/manus-gloves-demo-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="MANUS motion-capture gloves tracked live, the hand skeleton mirrored on the monitor"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">The gloves, tracked live</h2>
+        <p>The gloves on their own — finger and hand pose mirrored to the on-screen skeleton in real time. One of the five streams my pipeline pulls onto a single clock.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="prose">
+      <h2>How it works</h2>
+      <ul>
+        <li>Two MANUS gloves stream finger and hand pose; three RealSense cameras stream RGB-D from three viewpoints. My software ingests all five streams at once.</li>
+        <li>It stamps every stream against one shared clock and aligns them on the way to disk. Measured drift between streams stays under 15 ms at the 95th percentile.</li>
+        <li>Forty-five episodes have been recorded through this pipeline. Loose sync quietly poisons a dataset — a policy can't learn from frames that disagree about when something happened — so the millisecond budget is the whole job.</li>
+      </ul>
+
+      <h2>My part, honestly</h2>
+      <p>To be clear about credit: the data collection is run by a teammate at Nferent AI. What's mine is the capture-and-sync software behind it — ingesting the camera feeds and glove data and holding them to one clock. Nferent AI shared the rig running on their LinkedIn, which is what lets me show it here at all. The failure log for that pipeline is a write-up in progress.</p>
+
+      <h2>Links</h2>
+      <p><a href="https://www.linkedin.com/posts/nferent-ai_dataset-manipulation-physicalai-activity-7481234884900978688-eYOi">The rig in action, posted by Nferent AI</a> · <a href="https://github.com/mitanshu-2004" rel="me">GitHub profile</a></p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="foot-reach">I can be reached by email at <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>.</p>
+    <nav class="foot-contact" aria-label="Contact and profiles">
+      <a href="tel:+918595657583">+91 85956 57583</a>
+      <a href="https://github.com/mitanshu-2004" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
+    </nav>
+    <div class="foot-base">
+      <p>MITANSHU.DEV · TWO GLOVES, THREE CAMERAS, ONE CLOCK · 2026</p>
+      <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

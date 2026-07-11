@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robot hand plays rock-paper-scissors · Mitanshu Goel</title>
+<meta name="description" content="A five-finger, 20-motor Tesollo DG-5F that reads your gesture through a camera and answers with its own — RealSense + MediaPipe in the loop, Modbus-TCP to the motors.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Robot hand plays rock-paper-scissors — Mitanshu Goel">
+<meta property="og:description" content="A five-finger, 20-motor Tesollo DG-5F that reads your gesture through a camera and answers with its own.">
+<meta property="og:url" content="https://mitanshu.dev/projects/tesollo-rps.html">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://mitanshu.dev/projects/tesollo-rps.html">
+<meta name="theme-color" content="#131110">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/lsn-bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/chat.css">
+<!-- Chat backend: after deploying worker/, replace YOURSUBDOMAIN with your workers.dev name. On localhost the widget uses the dev-proxy automatically. -->
+<meta name="chat-endpoint" content="https://mitanshu-chat.YOURSUBDOMAIN.workers.dev/chat">
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/chat.js" defer></script>
+</head>
+<body>
+
+<div class="wrap">
+
+
+  <a class="crumb" href="/#work">← All work</a>
+
+  <section class="project-head">
+    <h1 class="display">Robot hand plays rock-paper-scissors</h1>
+    <div class="meta-row">
+      <span class="chip hot">Tesollo DG-5F</span>
+      <span class="chip">20 motors</span>
+      <span class="chip">Modbus-TCP</span>
+      <span class="chip">RealSense + MediaPipe</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="media-row">
+      <div class="mr-media">
+        <div class="main-video">
+          <video src="/assets/media/tesollo-rps-demo.mp4" poster="/assets/media/tesollo-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="Tesollo DG-5F robot hand mirroring a human hand's gestures, MediaPipe skeleton on the monitor"></video>
+        </div>
+      </div>
+      <div class="mr-text">
+        <h2 class="display sm">Reads your hand, plays its move</h2>
+        <p>A five-finger Tesollo DG-5F — twenty motors, driven over Modbus-TCP — playing rock-paper-scissors against people. A RealSense camera watches your hand, MediaPipe reads the gesture off the on-screen skeleton, and the hand answers with a move of its own.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="prose">
+      <h2>How it works</h2>
+      <ul>
+        <li>Camera → MediaPipe hand landmarks → gesture class, in real time.</li>
+        <li>Gesture maps to a target pose; per-finger joint commands go out to the 20 motors over Modbus-TCP.</li>
+        <li>Five fingers, four motors each — twenty joints shaping each of the three poses.</li>
+      </ul>
+
+      <h2>What broke, honestly</h2>
+      <p>Reserved for the failure log: what broke on this build and how it got fixed. Write-up in progress.</p>
+
+      <h2>Links</h2>
+      <p><a href="https://www.linkedin.com/posts/teleoperation-research-robots-ugcPost-7478032354410737664-uXAB/">Demo on LinkedIn</a> · <a href="https://github.com/mitanshu-2004" rel="me">GitHub profile</a></p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="foot-reach">I can be reached by email at <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>.</p>
+    <nav class="foot-contact" aria-label="Contact and profiles">
+      <a href="tel:+918595657583">+91 85956 57583</a>
+      <a href="https://github.com/mitanshu-2004" rel="me">GitHub</a>
+      <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
+    </nav>
+    <div class="foot-base">
+      <p>MITANSHU.DEV · ROBOT HAND PLAYS ROCK-PAPER-SCISSORS · 2026</p>
+      <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
