@@ -17,6 +17,11 @@ database_id = "da1ce0fa-1fff-419d-8f6c-f224e962d24a"
 #   cd worker && npx wrangler secret put GROQ_API_KEYS
 # then paste the comma-joined keys when prompted.
 
+# Daily analytics digest to Telegram, 03:30 UTC = 09:00 IST. Needs the
+# TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID secrets; does nothing without them.
+[triggers]
+crons = ["30 3 * * *"]
+
 # Per-IP rate limit (Cloudflare Rate Limiting binding, free). Caps abuse of the
 # Groq keys regardless of a spoofed Origin. 20 requests / 60s per IP.
 [[unsafe.bindings]]

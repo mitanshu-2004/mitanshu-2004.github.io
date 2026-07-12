@@ -29,10 +29,61 @@ function json(obj, status, headers) {
   });
 }
 
+// ---- Telegram notifications (optional — inert until both secrets are set:
+//      npx wrangler secret put TELEGRAM_BOT_TOKEN
+//      npx wrangler secret put TELEGRAM_CHAT_ID ) ----
+
+const escHtml = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+// UTC ISO string -> "HH:MM IST"
+function istTime(iso) {
+  const d = new Date(new Date(iso).getTime() + 5.5 * 3600 * 1000);
+  return String(d.getUTCHours()).padStart(2, "0") + ":" +
+         String(d.getUTCMinutes()).padStart(2, "0") + " IST";
+}
+
+async function sendTelegram(env, text) {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+  try {
+    await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID,
+        text,
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+    });
+  } catch { /* notifications are best-effort */ }
+}
+
+// Instant ping when a tagged link gets opened (resume / application / any
+// per-company campaign). Deduped: quiet if the same source+campaign already
+// fired within 15 minutes, so a reload doesn't ping twice.
+async function alertTaggedVisit(env, row) {
+  const prev = await env.ANALYTICS_DB.prepare(
+    `SELECT COUNT(*) AS n FROM events
+     WHERE utm_source = ?1 AND utm_campaign = ?2
+       AND ts >= datetime('now','-15 minutes')`
+  ).bind(row.src, row.camp).first();
+  if (prev && prev.n > 1) return; // the row just inserted is n=1
+
+  const who = row.camp
+    ? `<b>${escHtml(row.camp)}</b> opened mitanshu.dev`
+    : `${escHtml(row.src)} link opened`;
+  const place = [row.city, row.country].filter(Boolean).join(", ") || "location unknown";
+  await sendTelegram(env,
+    `\u{1F514} ${who}\nvia ${escHtml(row.src || "tagged")} link · ` +
+    `${escHtml(place)} · ${row.device} · ${istTime(row.ts)}\n` +
+    `${escHtml(row.path || "/")}`);
+}
+
 // Fire-and-forget pageview logger. Writes one row to D1; never throws to the
 // caller (analytics must never break the page). Body is sent as text/plain so
 // the browser beacon skips the CORS preflight.
-async function handleCollect(request, env, headers, originOk) {
+async function handleCollect(request, env, headers, originOk, ctx) {
   if (request.method !== "POST" || !originOk)
     return new Response(null, { status: 204, headers });
   if (!env.ANALYTICS_DB) return new Response(null, { status: 204, headers });
@@ -42,23 +93,72 @@ async function handleCollect(request, env, headers, originOk) {
     const mobile = /Mobi|Android|iPhone|iPad/i.test(ua) ? "mobile" : "desktop";
     const cf = request.cf || {};
     const clip = (v, n) => (typeof v === "string" ? v.slice(0, n) : null);
+    const row = {
+      ts: new Date().toISOString(),
+      path: clip(b.path, 300),
+      src: clip(b.utm_source, 120) || "",
+      camp: clip(b.utm_campaign, 120) || "",
+      country: request.headers.get("CF-IPCountry") || null,
+      city: clip(cf.city, 120),
+      device: mobile,
+    };
     await env.ANALYTICS_DB.prepare(
       `INSERT INTO events
        (ts, path, referrer, utm_source, utm_medium, utm_campaign, country, city, device, screen, ua)
        VALUES (?,?,?,?,?,?,?,?,?,?,?)`
     ).bind(
-      new Date().toISOString(),
-      clip(b.path, 300), clip(b.referrer, 300),
-      clip(b.utm_source, 120), clip(b.utm_medium, 120), clip(b.utm_campaign, 120),
-      request.headers.get("CF-IPCountry") || null, clip(cf.city, 120),
+      row.ts, row.path, clip(b.referrer, 300),
+      row.src, clip(b.utm_medium, 120), row.camp,
+      row.country, row.city,
       mobile, clip(b.screen, 20), clip(ua, 400)
     ).run();
+    // Recruiter-signal ping: any per-company campaign, or a resume/application link.
+    const interesting = row.camp || row.src === "resume" || row.src === "application";
+    if (interesting && ctx)
+      ctx.waitUntil(alertTaggedVisit(env, row).catch(() => {}));
   } catch { /* analytics is best-effort — swallow everything */ }
   return new Response(null, { status: 204, headers });
 }
 
+// Daily digest of the last 24h, pushed to Telegram by the cron trigger.
+async function sendDailyDigest(env) {
+  if (!env.ANALYTICS_DB) return;
+  const q = (sql) => env.ANALYTICS_DB.prepare(sql);
+  const [totals, sources, camps, pages, geo] = await env.ANALYTICS_DB.batch([
+    q(`SELECT COUNT(*) AS pv, COUNT(DISTINCT ua||screen) AS vis
+       FROM events WHERE ts >= datetime('now','-1 day')`),
+    q(`SELECT COALESCE(NULLIF(utm_source,''),'direct') AS s, COUNT(*) AS n
+       FROM events WHERE ts >= datetime('now','-1 day') GROUP BY s ORDER BY n DESC LIMIT 6`),
+    q(`SELECT utm_campaign AS c, COUNT(*) AS n FROM events
+       WHERE ts >= datetime('now','-1 day') AND utm_campaign != ''
+       GROUP BY c ORDER BY n DESC LIMIT 10`),
+    q(`SELECT path, COUNT(*) AS n FROM events
+       WHERE ts >= datetime('now','-1 day') GROUP BY path ORDER BY n DESC LIMIT 5`),
+    q(`SELECT country, COUNT(*) AS n FROM events
+       WHERE ts >= datetime('now','-1 day') AND country IS NOT NULL
+       GROUP BY country ORDER BY n DESC LIMIT 6`),
+  ]);
+
+  const t = totals.results[0] || { pv: 0, vis: 0 };
+  const line = (rows, f) => rows.map(f).join(" · ") || "none";
+  let msg =
+    `\u{1F4CA} <b>mitanshu.dev — last 24h</b>\n` +
+    `${t.pv} pageviews · ${t.vis} visitors\n` +
+    `Sources: ${line(sources.results, (r) => `${escHtml(r.s)} ${r.n}`)}\n`;
+  if (camps.results.length)
+    msg += `\u{1F3AF} Campaigns: ${line(camps.results, (r) => `<b>${escHtml(r.c)}</b> ${r.n}`)}\n`;
+  msg +=
+    `Pages: ${line(pages.results, (r) => `${escHtml(r.path || "?")} ${r.n}`)}\n` +
+    `From: ${line(geo.results, (r) => `${escHtml(r.country)} ${r.n}`)}`;
+  await sendTelegram(env, msg);
+}
+
 export default {
-  async fetch(request, env) {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(sendDailyDigest(env).catch(() => {}));
+  },
+
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
     const allowed = (env.ALLOWED_ORIGINS || "")
@@ -67,7 +167,7 @@ export default {
     const originOkEarly = allowed.length === 0 || (origin !== "" && allowed.includes(origin));
 
     if (url.pathname === "/collect")
-      return handleCollect(request, env, headers, originOkEarly);
+      return handleCollect(request, env, headers, originOkEarly, ctx);
 
     // Origin gate: only the site's own pages may call this. Note that Origin is
     // browser-enforced but spoofable by non-browser clients, so the per-IP rate
