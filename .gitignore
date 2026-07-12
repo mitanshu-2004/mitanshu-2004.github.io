@@ -30,3 +30,7 @@ Pasted image.png
 # design / research artifacts (kept local, not shipped)
 research/
 agent-ref-*.jpeg
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
