@@ -61,14 +61,16 @@ async function sendTelegram(env, text) {
 
 // Instant ping when a tagged link gets opened (resume / application / any
 // per-company campaign). Deduped: quiet if the same source+campaign already
-// fired within 15 minutes, so a reload doesn't ping twice.
-async function alertTaggedVisit(env, row) {
+// fired within 15 minutes, so a reload doesn't ping twice. Only rows OLDER
+// than this one (id < ours) count, so when duplicate beacons race, exactly
+// the earliest row pings — never zero, never two.
+async function alertTaggedVisit(env, row, rowId) {
   const prev = await env.ANALYTICS_DB.prepare(
     `SELECT COUNT(*) AS n FROM events
-     WHERE utm_source = ?1 AND utm_campaign = ?2
-       AND ts >= datetime('now','-15 minutes')`
-  ).bind(row.src, row.camp).first();
-  if (prev && prev.n > 1) return; // the row just inserted is n=1
+     WHERE utm_source = ?1 AND utm_campaign = ?2 AND id < ?3
+       AND ts >= strftime('%Y-%m-%dT%H:%M:%fZ','now','-15 minutes')`
+  ).bind(row.src, row.camp, rowId).first();
+  if (prev && prev.n > 0) return;
 
   const who = row.camp
     ? `<b>${escHtml(row.camp)}</b> opened mitanshu.dev`
@@ -102,7 +104,18 @@ async function handleCollect(request, env, headers, originOk, ctx) {
       city: clip(cf.city, 120),
       device: mobile,
     };
-    await env.ANALYTICS_DB.prepare(
+    // Browsers sometimes double-fire the beacon (prerender, retries) — an
+    // identical event within 2 seconds is the same pageview; keep one row.
+    const dup = await env.ANALYTICS_DB.prepare(
+      `SELECT 1 FROM events
+       WHERE path IS ?1 AND ua = ?2 AND screen IS ?3
+         AND utm_source = ?4 AND utm_campaign = ?5
+         AND ts >= strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 seconds')
+       LIMIT 1`
+    ).bind(row.path, clip(ua, 400), clip(b.screen, 20), row.src, row.camp).first();
+    if (dup) return new Response(null, { status: 204, headers });
+
+    const ins = await env.ANALYTICS_DB.prepare(
       `INSERT INTO events
        (ts, path, referrer, utm_source, utm_medium, utm_campaign, country, city, device, screen, ua)
        VALUES (?,?,?,?,?,?,?,?,?,?,?)`
@@ -115,7 +128,9 @@ async function handleCollect(request, env, headers, originOk, ctx) {
     // Recruiter-signal ping: any per-company campaign, or a resume/application link.
     const interesting = row.camp || row.src === "resume" || row.src === "application";
     if (interesting && ctx)
-      ctx.waitUntil(alertTaggedVisit(env, row).catch(() => {}));
+      ctx.waitUntil(
+        alertTaggedVisit(env, row, ins.meta && ins.meta.last_row_id).catch(() => {})
+      );
   } catch { /* analytics is best-effort — swallow everything */ }
   return new Response(null, { status: 204, headers });
 }
