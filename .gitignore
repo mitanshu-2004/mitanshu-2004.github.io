@@ -8,6 +8,7 @@
 .playwright-mcp/
 .scheduler/
 node_modules/
+.wrangler/
 *.log
 
 # secrets — never commit
