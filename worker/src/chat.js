@@ -46,6 +46,24 @@ function istTime(iso) {
          d.getUTCDate() + " " + months[d.getUTCMonth()];
 }
 
+// "Chrome · Windows" from a raw user-agent; coarse on purpose.
+function parseUA(ua) {
+  const os =
+    /Windows/.test(ua) ? "Windows" :
+    /Android/.test(ua) ? "Android" :
+    /iPhone|iPad/.test(ua) ? "iOS" :
+    /Mac OS X/.test(ua) ? "macOS" :
+    /Linux|X11/.test(ua) ? "Linux" : "";
+  const browser =
+    /Edg\//.test(ua) ? "Edge" :
+    /OPR\//.test(ua) ? "Opera" :
+    /SamsungBrowser/.test(ua) ? "Samsung Browser" :
+    /Firefox\//.test(ua) ? "Firefox" :
+    /Chrome\//.test(ua) ? "Chrome" :
+    /Safari\//.test(ua) ? "Safari" : "";
+  return [browser, os].filter(Boolean).join(" · ");
+}
+
 async function sendTelegram(env, text) {
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
   try {
@@ -78,13 +96,54 @@ async function alertTaggedVisit(env, row, rowId) {
   const title = row.camp
     ? `\u{1F514} <b>${escHtml(row.camp)}</b> opened your site`
     : `\u{1F514} <b>${escHtml(row.src)}</b> link opened`;
+  const bo = parseUA(row.ua || "");
   const lines = [title, ""];
   lines.push(`<b>Source:</b> ${escHtml(row.src || "—")}`);
   if (row.camp) lines.push(`<b>Campaign:</b> ${escHtml(row.camp)}`);
   lines.push(`<b>Page:</b> ${escHtml(row.path || "/")}`);
-  lines.push(`<b>Device:</b> ${row.device}`);
+  lines.push(`<b>Device:</b> ${row.device}${bo ? " · " + bo : ""}`);
+  if (row.net) lines.push(`<b>Network:</b> ${escHtml(row.net)}`);
   lines.push(`<b>Time:</b> ${istTime(row.ts)}`);
   await sendTelegram(env, lines.join("\n"));
+}
+
+// Log one chatbot exchange: reassemble the streamed SSE answer, store the
+// full Q&A in D1, and push a trimmed copy to Telegram.
+async function logChat(env, request, messages, stream) {
+  let raw = "";
+  const reader = stream.getReader();
+  const dec = new TextDecoder();
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    raw += dec.decode(value, { stream: true });
+  }
+  let answer = "";
+  for (const line of raw.split("\n")) {
+    if (!line.startsWith("data: ")) continue;
+    const data = line.slice(6).trim();
+    if (!data || data === "[DONE]") continue;
+    try {
+      const j = JSON.parse(data);
+      answer += (j.choices && j.choices[0] && j.choices[0].delta &&
+                 j.choices[0].delta.content) || "";
+    } catch { /* partial frame — skip */ }
+  }
+  const question = messages[messages.length - 1].content;
+  const ua = request.headers.get("User-Agent") || "";
+  const device = /Mobi|Android|iPhone|iPad/i.test(ua) ? "mobile" : "desktop";
+  const ts = new Date().toISOString();
+  await env.ANALYTICS_DB.prepare(
+    `INSERT INTO chats (ts, question, answer, device) VALUES (?,?,?,?)`
+  ).bind(ts, question.slice(0, 1500), answer.slice(0, 4000), device).run();
+
+  const trim = (s, n) => (s.length > n ? s.slice(0, n) + "…" : s);
+  const bo = parseUA(ua);
+  await sendTelegram(env,
+    `\u{1F4AC} <b>Chatbot</b>\n\n` +
+    `<b>Q:</b> ${escHtml(trim(question, 500))}\n` +
+    `<b>A:</b> ${escHtml(trim(answer || "(no reply)", 800))}\n\n` +
+    `<b>Device:</b> ${device}${bo ? " · " + bo : ""} · <b>Time:</b> ${istTime(ts)}`);
 }
 
 // Fire-and-forget pageview logger. Writes one row to D1; never throws to the
@@ -108,6 +167,8 @@ async function handleCollect(request, env, headers, originOk, ctx) {
       country: request.headers.get("CF-IPCountry") || null,
       city: clip(cf.city, 120),
       device: mobile,
+      net: clip(cf.asOrganization, 120),
+      ua,
     };
     // Browsers sometimes double-fire the beacon (prerender, retries) — an
     // identical event within 2 seconds is the same pageview; keep one row.
@@ -144,7 +205,7 @@ async function handleCollect(request, env, headers, originOk, ctx) {
 async function sendDailyDigest(env) {
   if (!env.ANALYTICS_DB) return;
   const q = (sql) => env.ANALYTICS_DB.prepare(sql);
-  const [totals, sources, camps, pages] = await env.ANALYTICS_DB.batch([
+  const [totals, sources, camps, pages, chats] = await env.ANALYTICS_DB.batch([
     q(`SELECT COUNT(*) AS pv, COUNT(DISTINCT ua||screen) AS vis
        FROM events WHERE ts >= datetime('now','-1 day')`),
     q(`SELECT COALESCE(NULLIF(utm_source,''),'direct') AS s, COUNT(*) AS n
@@ -154,13 +215,15 @@ async function sendDailyDigest(env) {
        GROUP BY c ORDER BY n DESC LIMIT 10`),
     q(`SELECT path, COUNT(*) AS n FROM events
        WHERE ts >= datetime('now','-1 day') GROUP BY path ORDER BY n DESC LIMIT 5`),
+    q(`SELECT COUNT(*) AS n FROM chats WHERE ts >= datetime('now','-1 day')`),
   ]);
 
   const t = totals.results[0] || { pv: 0, vis: 0 };
+  const nchats = (chats.results[0] || { n: 0 }).n;
   const line = (rows, f) => rows.map(f).join(" · ") || "none";
   let msg =
     `\u{1F4CA} <b>mitanshu.dev — last 24h</b>\n\n` +
-    `<b>Views:</b> ${t.pv} · <b>Visitors:</b> ${t.vis}\n` +
+    `<b>Views:</b> ${t.pv} · <b>Visitors:</b> ${t.vis} · <b>Chats:</b> ${nchats}\n` +
     `<b>Sources:</b> ${line(sources.results, (r) => `${escHtml(r.s)} ${r.n}`)}\n`;
   if (camps.results.length)
     msg += `\u{1F3AF} <b>Campaigns:</b> ${line(camps.results, (r) => `${escHtml(r.c)} ${r.n}`)}\n`;
@@ -249,7 +312,15 @@ export default {
       }
 
       if (upstream.ok && upstream.body) {
-        return new Response(upstream.body, {
+        // Tee the reply stream: one branch to the visitor untouched, one
+        // reassembled into a Q&A log after the stream ends.
+        let clientBody = upstream.body;
+        if (env.ANALYTICS_DB && ctx) {
+          const [toClient, toLog] = upstream.body.tee();
+          clientBody = toClient;
+          ctx.waitUntil(logChat(env, request, messages, toLog).catch(() => {}));
+        }
+        return new Response(clientBody, {
           status: 200,
           headers: {
             ...headers,

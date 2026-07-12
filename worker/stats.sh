@@ -38,3 +38,5 @@ run "where (country / city)" "SELECT country, city, COUNT(*) AS hits FROM events
    WHERE ts >= datetime('now','-$DAYS days') GROUP BY country, city ORDER BY hits DESC LIMIT 15;"
 run "device split" "SELECT device, COUNT(*) AS hits FROM events
    WHERE ts >= datetime('now','-$DAYS days') GROUP BY device ORDER BY hits DESC;"
+run "chatbot — recent questions" "SELECT substr(ts,1,16) AS at, device, substr(question,1,70) AS question
+   FROM chats WHERE ts >= datetime('now','-$DAYS days') ORDER BY ts DESC LIMIT 15;"

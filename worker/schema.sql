@@ -17,3 +17,13 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE INDEX IF NOT EXISTS idx_events_ts   ON events(ts);
 CREATE INDEX IF NOT EXISTS idx_events_utm  ON events(utm_source);
 CREATE INDEX IF NOT EXISTS idx_events_path ON events(path);
+
+-- Chatbot conversation log — one row per exchange (visitor question + bot answer).
+CREATE TABLE IF NOT EXISTS chats (
+  id       INTEGER PRIMARY KEY AUTOINCREMENT,
+  ts       TEXT NOT NULL,             -- ISO-8601, set server-side
+  question TEXT,                      -- visitor's message (clipped)
+  answer   TEXT,                      -- bot's streamed reply, reassembled
+  device   TEXT                       -- mobile | desktop
+);
+CREATE INDEX IF NOT EXISTS idx_chats_ts ON chats(ts);
