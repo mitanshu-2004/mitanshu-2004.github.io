@@ -36,11 +36,14 @@ function json(obj, status, headers) {
 const escHtml = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-// UTC ISO string -> "HH:MM IST"
+// UTC ISO string -> "14:32 IST · 12 Jul"
 function istTime(iso) {
   const d = new Date(new Date(iso).getTime() + 5.5 * 3600 * 1000);
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   return String(d.getUTCHours()).padStart(2, "0") + ":" +
-         String(d.getUTCMinutes()).padStart(2, "0") + " IST";
+         String(d.getUTCMinutes()).padStart(2, "0") + " IST · " +
+         d.getUTCDate() + " " + months[d.getUTCMonth()];
 }
 
 async function sendTelegram(env, text) {
@@ -72,14 +75,16 @@ async function alertTaggedVisit(env, row, rowId) {
   ).bind(row.src, row.camp, rowId).first();
   if (prev && prev.n > 0) return;
 
-  const who = row.camp
-    ? `<b>${escHtml(row.camp)}</b> opened mitanshu.dev`
-    : `${escHtml(row.src)} link opened`;
-  const place = [row.city, row.country].filter(Boolean).join(", ") || "location unknown";
-  await sendTelegram(env,
-    `\u{1F514} ${who}\nvia ${escHtml(row.src || "tagged")} link · ` +
-    `${escHtml(place)} · ${row.device} · ${istTime(row.ts)}\n` +
-    `${escHtml(row.path || "/")}`);
+  const title = row.camp
+    ? `\u{1F514} <b>${escHtml(row.camp)}</b> opened your site`
+    : `\u{1F514} <b>${escHtml(row.src)}</b> link opened`;
+  const lines = [title, ""];
+  lines.push(`<b>Source:</b> ${escHtml(row.src || "—")}`);
+  if (row.camp) lines.push(`<b>Campaign:</b> ${escHtml(row.camp)}`);
+  lines.push(`<b>Page:</b> ${escHtml(row.path || "/")}`);
+  lines.push(`<b>Device:</b> ${row.device}`);
+  lines.push(`<b>Time:</b> ${istTime(row.ts)}`);
+  await sendTelegram(env, lines.join("\n"));
 }
 
 // Fire-and-forget pageview logger. Writes one row to D1; never throws to the
@@ -139,7 +144,7 @@ async function handleCollect(request, env, headers, originOk, ctx) {
 async function sendDailyDigest(env) {
   if (!env.ANALYTICS_DB) return;
   const q = (sql) => env.ANALYTICS_DB.prepare(sql);
-  const [totals, sources, camps, pages, geo] = await env.ANALYTICS_DB.batch([
+  const [totals, sources, camps, pages] = await env.ANALYTICS_DB.batch([
     q(`SELECT COUNT(*) AS pv, COUNT(DISTINCT ua||screen) AS vis
        FROM events WHERE ts >= datetime('now','-1 day')`),
     q(`SELECT COALESCE(NULLIF(utm_source,''),'direct') AS s, COUNT(*) AS n
@@ -149,22 +154,17 @@ async function sendDailyDigest(env) {
        GROUP BY c ORDER BY n DESC LIMIT 10`),
     q(`SELECT path, COUNT(*) AS n FROM events
        WHERE ts >= datetime('now','-1 day') GROUP BY path ORDER BY n DESC LIMIT 5`),
-    q(`SELECT country, COUNT(*) AS n FROM events
-       WHERE ts >= datetime('now','-1 day') AND country IS NOT NULL
-       GROUP BY country ORDER BY n DESC LIMIT 6`),
   ]);
 
   const t = totals.results[0] || { pv: 0, vis: 0 };
   const line = (rows, f) => rows.map(f).join(" · ") || "none";
   let msg =
-    `\u{1F4CA} <b>mitanshu.dev — last 24h</b>\n` +
-    `${t.pv} pageviews · ${t.vis} visitors\n` +
-    `Sources: ${line(sources.results, (r) => `${escHtml(r.s)} ${r.n}`)}\n`;
+    `\u{1F4CA} <b>mitanshu.dev — last 24h</b>\n\n` +
+    `<b>Views:</b> ${t.pv} · <b>Visitors:</b> ${t.vis}\n` +
+    `<b>Sources:</b> ${line(sources.results, (r) => `${escHtml(r.s)} ${r.n}`)}\n`;
   if (camps.results.length)
-    msg += `\u{1F3AF} Campaigns: ${line(camps.results, (r) => `<b>${escHtml(r.c)}</b> ${r.n}`)}\n`;
-  msg +=
-    `Pages: ${line(pages.results, (r) => `${escHtml(r.path || "?")} ${r.n}`)}\n` +
-    `From: ${line(geo.results, (r) => `${escHtml(r.country)} ${r.n}`)}`;
+    msg += `\u{1F3AF} <b>Campaigns:</b> ${line(camps.results, (r) => `${escHtml(r.c)} ${r.n}`)}\n`;
+  msg += `<b>Top pages:</b> ${line(pages.results, (r) => `${escHtml(r.path || "?")} ${r.n}`)}`;
   await sendTelegram(env, msg);
 }
 
