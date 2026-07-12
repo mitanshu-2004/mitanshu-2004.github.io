@@ -27,6 +27,9 @@ run "totals" "SELECT COUNT(*) AS pageviews, COUNT(DISTINCT ua||screen) AS rough_
    FROM events WHERE ts >= datetime('now','-$DAYS days');"
 run "who sent them (utm_source — your tagged links)" "SELECT COALESCE(NULLIF(utm_source,''),'(direct/untagged)') AS source, COUNT(*) AS hits
    FROM events WHERE ts >= datetime('now','-$DAYS days') GROUP BY source ORDER BY hits DESC LIMIT 15;"
+run "which application (utm_campaign — per-company links)" "SELECT utm_campaign AS company, MIN(substr(ts,1,16)) AS first_visit, COUNT(*) AS hits
+   FROM events WHERE ts >= datetime('now','-$DAYS days') AND utm_campaign != ''
+   GROUP BY company ORDER BY hits DESC LIMIT 20;"
 run "referrers" "SELECT COALESCE(NULLIF(referrer,''),'(none)') AS referrer, COUNT(*) AS hits
    FROM events WHERE ts >= datetime('now','-$DAYS days') GROUP BY referrer ORDER BY hits DESC LIMIT 15;"
 run "top pages" "SELECT path, COUNT(*) AS views FROM events
