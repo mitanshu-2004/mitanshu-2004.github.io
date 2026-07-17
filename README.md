@@ -95,7 +95,11 @@ Until then the widget stays quiet and the rest of the site is fully static.
 
 ## Reserved slots (ship-now, fill-later)
 
-- "What broke, honestly" write-ups on several project pages.
+- Failure-log write-ups per project. The "What broke, honestly" placeholder
+  headings were pulled from production (an unwritten promise reads worse than no
+  section) — restore a real one from git history once the write-up exists.
+- A "How well it works" results beat per project — the reliability numbers a
+  hiring manager actually asks for. Needs measured values, so left for you.
 - Real-hardware hexapod footage (Gazebo sim + CAD are in place).
 - The 51M nanoGPT's own training curve (the card currently shows the Mistral-7B
   Reddit continued-pretraining loss, plotted from the repo's real `trainer_state.json`).

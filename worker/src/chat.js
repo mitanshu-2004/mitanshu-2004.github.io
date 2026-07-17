@@ -1,7 +1,7 @@
 // mitanshu.dev chat proxy — Cloudflare Worker.
 // Holds the Groq keys server-side, grounds the model, and streams the reply back.
 // The browser never sees a key. Deploy notes: worker/README.md.
-import { SYSTEM_PROMPT } from "../system-prompt.js";
+import { SYSTEM_PROMPT, GUARD_NOTE } from "../system-prompt.js";
 
 const PRIMARY_MODEL = "llama-3.3-70b-versatile";
 const FALLBACK_MODEL = "llama-3.1-8b-instant";
@@ -287,7 +287,8 @@ export default {
 
     const payload = {
       model: PRIMARY_MODEL,
-      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages,
+                 { role: "system", content: GUARD_NOTE }],
       max_tokens: MAX_TOKENS,
       temperature: 0.4,
       stream: true,

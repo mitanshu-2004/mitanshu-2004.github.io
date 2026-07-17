@@ -38,17 +38,18 @@ def load_dev_vars():
     return vars_
 
 
-def load_system_prompt():
+def load_prompt(name):
     # Pull the exact string out of system-prompt.js so grounding stays in sync.
     src = open(os.path.join(HERE, "system-prompt.js")).read()
-    m = re.search(r"SYSTEM_PROMPT\s*=\s*`(.*?)`", src, re.S)
+    m = re.search(name + r"\s*=\s*`(.*?)`", src, re.S)
     if not m:
-        raise RuntimeError("could not find SYSTEM_PROMPT in system-prompt.js")
+        raise RuntimeError(f"could not find {name} in system-prompt.js")
     return m.group(1)
 
 
 DEV_VARS = load_dev_vars()
-SYSTEM_PROMPT = load_system_prompt()
+SYSTEM_PROMPT = load_prompt("SYSTEM_PROMPT")
+GUARD_NOTE = load_prompt("GUARD_NOTE")
 KEYS = [k.strip() for k in DEV_VARS.get("GROQ_API_KEYS", "").split(",") if k.strip()]
 ALLOWED = [o.strip() for o in DEV_VARS.get("ALLOWED_ORIGINS", "").split(",") if o.strip()]
 
@@ -106,7 +107,8 @@ class Handler(BaseHTTPRequestHandler):
 
         payload = {
             "model": PRIMARY_MODEL,
-            "messages": [{"role": "system", "content": SYSTEM_PROMPT}] + clean,
+            "messages": [{"role": "system", "content": SYSTEM_PROMPT}] + clean
+                        + [{"role": "system", "content": GUARD_NOTE}],
             "max_tokens": MAX_TOKENS,
             "temperature": 0.4,
             "stream": True,
