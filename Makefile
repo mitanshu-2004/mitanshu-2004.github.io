@@ -12,7 +12,7 @@ serve: ## Serve locally at http://localhost:$(PORT)
 
 check: ## Quick sanity: every local href/src resolves on disk
 	@echo "Checking local asset references..."
-	@grep -rhoE '(src|href|poster)="/[^"]+"' index.html projects/*.html 404.html \
+	@grep -rhoE '(src|srcset|href|poster)="/[^"]+"' index.html projects/*.html 404.html \
 	  | sed -E 's/.*="(\/[^"]+)"/\1/' | grep -v '^/#' | sort -u | while read -r p; do \
 	    f=".$$p"; [ -f "$$f" ] || echo "  MISSING: $$p"; \
 	  done; echo "done."

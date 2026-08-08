@@ -9,6 +9,11 @@ matplotlib's white default. Nothing is recomputed differently.
 Usage:
   python3 scripts/brace-survival-chart.py --results-dir ~/RL/brace/results \
       --out assets/media/brace-survival.png
+  python3 scripts/brace-survival-chart.py --results-dir ~/RL/brace/results \
+      --out assets/media/brace-survival-narrow.png --mobile
+
+Name the narrow render "-narrow", not "-mobile": .gitignore drops `*-mobile.png`
+as local screenshot scratch, and would silently swallow the asset.
 """
 
 from __future__ import annotations
@@ -65,7 +70,20 @@ def main() -> None:
   ap = argparse.ArgumentParser()
   ap.add_argument("--results-dir", required=True)
   ap.add_argument("--out", required=True)
+  ap.add_argument(
+    "--mobile", action="store_true",
+    help="taller canvas, bigger type, legend above the axes — a phone shows this "
+         "chart at about a third of the desktop width, and type sized for 940px "
+         "is unreadable once the browser scales it down that far",
+  )
   a = ap.parse_args()
+
+  # every size below is chosen so the chart stays legible *after* the browser
+  # scales it to its display width, not at natural size
+  if a.mobile:
+    figsize, dpi, label_fs, tick_fs, legend_fs, marker, lw = (5.0, 5.6), 150, 14, 12.5, 13, 6, 2.2
+  else:
+    figsize, dpi, label_fs, tick_fs, legend_fs, marker, lw = (7.4, 4.6), 190, 10, 9, 9.5, 4.5, 1.7
 
   root = Path(a.results_dir).expanduser()
   data = {r: load(root / f"eval_{r}.csv") for r in ORDER if (root / f"eval_{r}.csv").exists()}
@@ -74,7 +92,7 @@ def main() -> None:
 
   forces = sorted(set().union(*(set(d) for d in data.values())))
 
-  fig, ax = plt.subplots(figsize=(7.4, 4.6), dpi=190)
+  fig, ax = plt.subplots(figsize=figsize, dpi=dpi)
   fig.patch.set_facecolor(BG)
   ax.set_facecolor(BG)
 
@@ -90,13 +108,13 @@ def main() -> None:
       hi.append(100 * (h - p))
       print(f"{robot:>16} {force:5.0f} N  {100 * p:5.2f}%  [{100 * l:.2f}, {100 * h:.2f}]  n={len(rows)}")
     ax.errorbar(
-      xs, ys, yerr=[lo, hi], marker="o", markersize=4.5, capsize=3, linewidth=1.7,
+      xs, ys, yerr=[lo, hi], marker="o", markersize=marker, capsize=3, linewidth=lw,
       label=PRETTY[robot], color=COLOURS[robot],
     )
 
-  ax.set_xlabel("shove strength (N)", color=MUTED, fontsize=10)
-  ax.set_ylabel("falls per shove (%)", color=MUTED, fontsize=10)
-  ax.tick_params(colors=MUTED, labelsize=9)
+  ax.set_xlabel("shove strength (N)", color=MUTED, fontsize=label_fs)
+  ax.set_ylabel("falls per shove (%)", color=MUTED, fontsize=label_fs)
+  ax.tick_params(colors=MUTED, labelsize=tick_fs)
   ax.grid(color=LINE, linewidth=0.8)
   ax.set_axisbelow(True)
   for side in ("top", "right"):
@@ -104,7 +122,15 @@ def main() -> None:
   for side in ("left", "bottom"):
     ax.spines[side].set_color(LINE)
 
-  leg = ax.legend(frameon=False, fontsize=9.5, loc="upper left")
+  if a.mobile:
+    # the third label is long; inside a narrow axes it would sit on top of the
+    # curves, so it goes above the plot instead
+    leg = ax.legend(
+      frameon=False, fontsize=legend_fs, loc="lower left",
+      bbox_to_anchor=(0, 1.01, 1, 0.2), mode="expand", ncol=1, handlelength=1.6,
+    )
+  else:
+    leg = ax.legend(frameon=False, fontsize=legend_fs, loc="upper left")
   for text in leg.get_texts():
     text.set_color(INK)
 

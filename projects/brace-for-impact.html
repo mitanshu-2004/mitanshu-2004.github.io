@@ -58,14 +58,29 @@
     },
     {
       "@type": "VideoObject",
-      "name": "Three trained robots take the same 250 N shove",
-      "description": "Warned, not warned, and warned-then-warning-switched-off, all taking 250 N shoves in MuJoCo simulation. Three independent rollouts, not the same shoves replayed.",
+      "name": "The warned robot takes 250 N shoves",
+      "description": "The robot trained with a warning before each shove, taking 250 N shoves in MuJoCo simulation. It drops its hips and widens its stance before the shove lands.",
       "thumbnailUrl": [
-        "https://mitanshu.dev/assets/media/brace-compare-250n-poster.jpg"
+        "https://mitanshu.dev/assets/media/brace-warned-250n-poster.jpg"
       ],
       "uploadDate": "2026-08-08",
       "duration": "PT18S",
-      "contentUrl": "https://mitanshu.dev/assets/media/brace-compare-250n.mp4",
+      "contentUrl": "https://mitanshu.dev/assets/media/brace-warned-250n.mp4",
+      "embedUrl": "https://mitanshu.dev/projects/brace-for-impact.html",
+      "author": {
+        "@id": "https://mitanshu.dev/#person"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "name": "The unwarned robot takes 250 N shoves",
+      "description": "The robot trained without any warning, taking 250 N shoves in MuJoCo simulation. It only starts reacting once it is already moving.",
+      "thumbnailUrl": [
+        "https://mitanshu.dev/assets/media/brace-unwarned-250n-poster.jpg"
+      ],
+      "uploadDate": "2026-08-08",
+      "duration": "PT18S",
+      "contentUrl": "https://mitanshu.dev/assets/media/brace-unwarned-250n.mp4",
       "embedUrl": "https://mitanshu.dev/projects/brace-for-impact.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
@@ -126,10 +141,21 @@
 
   <section class="block">
     <h2 class="display sm">Same shove, three robots</h2>
-    <div class="main-video">
-      <video src="/assets/media/brace-compare-250n.mp4" poster="/assets/media/brace-compare-250n-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Three simulated Unitree Go1 robots side by side, each taking 250 N shoves: warned, not warned, and warned with the warning switched off"></video>
+    <div class="gallery">
+      <figure>
+        <video src="/assets/media/brace-warned-250n.mp4" poster="/assets/media/brace-warned-250n-poster.jpg" controls muted loop playsinline preload="none" aria-label="The warned robot taking 250 N shoves while walking, dropping its hips before each one lands"></video>
+        <figcaption>Warned · falls 1.2% of shoves</figcaption>
+      </figure>
+      <figure>
+        <video src="/assets/media/brace-unwarned-250n.mp4" poster="/assets/media/brace-unwarned-250n-poster.jpg" controls muted loop playsinline preload="none" aria-label="The unwarned robot taking 250 N shoves while walking, reacting only after each one lands"></video>
+        <figcaption>Not warned · falls 6.1%</figcaption>
+      </figure>
+      <figure>
+        <video src="/assets/media/brace-crutch.mp4" poster="/assets/media/brace-crutch-poster.jpg" controls muted loop playsinline preload="none" aria-label="The warned robot with its warning fed as zeros, taking 250 N shoves and staggering"></video>
+        <figcaption>Warning switched off · falls 52.3%</figcaption>
+      </figure>
     </div>
-    <p class="fig-note">Left to right: <b>warned</b>, <b>not warned</b>, <b>warning switched off</b> — all at 250 N, roughly 1.8× the robot's own weight. The overlay uses the code's names for them: anticipatory, reactive, anticipatory (blind). Three independent rollouts, not the same shoves replayed, so read it as an illustration rather than the measurement.</p>
+    <p class="fig-note">All three at 250 N, roughly 1.8× the robot's own weight. The overlay uses the code's names for them: anticipatory, reactive, anticipatory (blind). These are independent rollouts, not the same shoves replayed, so read them as an illustration rather than the measurement.</p>
   </section>
 
   <section class="block">
@@ -143,7 +169,12 @@
     </div>
 
     <figure class="chart-figure">
-      <img src="/assets/media/brace-survival.png" alt="Line chart of falls per shove against shove strength for three robots. Warned and not-warned track each other near zero until 160 N, then separate: at 250 N the warned robot falls 1.2% of the time and the unwarned one 6.1%. The warning-switched-off line climbs steeply from 120 N to 52.3% at 250 N." loading="lazy">
+      <!-- a phone shows this at about a third of the desktop width; the narrow
+           render is drawn with type sized to survive that, not scaled down. -->
+      <picture>
+        <source media="(max-width: 700px)" srcset="/assets/media/brace-survival-narrow.png">
+        <img src="/assets/media/brace-survival.png" alt="Line chart of falls per shove against shove strength for three robots. Warned and not-warned track each other near zero until 160 N, then separate: at 250 N the warned robot falls 1.2% of the time and the unwarned one 6.1%. The warning-switched-off line climbs steeply from 120 N to 52.3% at 250 N." loading="lazy">
+      </picture>
       <figcaption class="fig-note">Falls per shove, by shove strength. Bars are 95% Wilson intervals — replotted from the study's own eval tables in the site's palette.</figcaption>
     </figure>
 
@@ -195,7 +226,7 @@
         <h2 class="display sm">The warning became a crutch</h2>
         <p>This is the part I did not see coming. I took the trained warned robot and fed it zeros where the warning normally goes — nothing else changed. It went from falling 1.2% of the time to <b>52.3%</b>.</p>
         <p>That is not a fall back to normal. The robot that never had a warning falls 6.1% of the time, so removing the warning left this one about <b>nine times worse than never having had one</b>. It learned "brace when told" instead of the more general skill of recovering from a shove.</p>
-        <p>The arrow in the clip is still drawn for you. The robot can no longer see it. If a real robot's warning came from a camera or a sensor that failed, this is what you would get — and making it cope without the warning is a separate job you do not get for free.</p>
+        <p>This is the third clip from the top of the page. The arrow is still drawn for you; the robot can no longer see it. If a real robot's warning came from a camera or a sensor that failed, this is what you would get — and making it cope without the warning is a separate job you do not get for free.</p>
       </div>
     </div>
   </section>
