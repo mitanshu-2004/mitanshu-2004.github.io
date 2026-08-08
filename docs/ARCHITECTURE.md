@@ -52,6 +52,12 @@ grain, uppercase mono eyebrows, and hairline rules.
   `.media { z-index:2 }` keeps the video interactive above the link.
 - The **filter** (`.org-filter`) toggles `data-org` on cards via
   `.is-filtered { display:none }`; logic in `site.js`.
+- **Result blocks** on project pages that report measurements: `.data-table` (a mono
+  table in a scroll container — the pure-CSS `local`/`scroll` background gradients
+  give it edge shading only while there is more to scroll to), `.chart-figure` (a
+  chart at its own width instead of the 68ch `.prose` measure), and `.fig-note` (the
+  mono caption under either). Charts are replotted in the tokens above rather than
+  shipped with matplotlib's white default — see `scripts/brace-survival-chart.py`.
 
 ## Video playback (`assets/js/site.js`)
 

@@ -9,6 +9,7 @@
 - [Robot hand plays rock-paper-scissors](https://mitanshu.dev/projects/tesollo-rps.html): A 20-motor Tesollo DG-5F hand reads your gesture and answers.
 - [Bodhi, the humanoid that answers](https://mitanshu.dev/projects/bodhi-humanoid.html): A Yanshee humanoid that sees with YOLOv8 and answers by voice.
 - [Six legs, eighteen joints](https://mitanshu.dev/projects/hexapod.html): An 18-DoF hexapod with an inverse-kinematics gait engine on ROS 2.
+- [Bracing for a hit](https://mitanshu.dev/projects/brace-for-impact.html): An RL study in MuJoCo — warning a quadruped before it gets shoved cuts falls 5× at 250 N, and taking the warning away leaves it 9× worse than a robot that never had one.
 
 ## Contact
 - Email: mitanshug2004@gmail.com

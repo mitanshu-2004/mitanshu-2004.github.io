@@ -496,6 +496,55 @@ footer.site-foot p {
   padding: 8px 10px;
 }
 
+/* a mono caption under a full-width clip or chart — same voice as .gallery figcaption,
+   but for a figure that owns the whole column instead of sitting in the grid */
+.fig-note {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 1.7;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 10px 0 0;
+  max-width: 92ch;
+}
+.fig-note b { color: var(--ink); font-weight: 600; }
+
+/* a chart that carries a result, so it gets its own width rather than being
+   boxed to the 68ch reading measure of .prose */
+.chart-figure { margin: 26px 0 32px; max-width: 940px; }
+.chart-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: var(--bg); }
+
+/* result tables — on the RL pages the numbers are the content, so they get a
+   real table instead of a paragraph. Scrolls sideways on a phone rather than
+   squeezing the columns into unreadable wraps. */
+.data-table {
+  overflow-x: auto;
+  margin: 6px 0 18px;
+  /* edge shading that shows only while there is more table off-screen: the two
+     'local' layers ride the scrolled content and cover the fixed 'scroll' layers
+     once you reach either end. Pure CSS, no measuring. */
+  background:
+    linear-gradient(to right, var(--bg), rgba(19, 17, 16, 0)) 0 0 / 30px 100% no-repeat local,
+    linear-gradient(to left, var(--bg), rgba(19, 17, 16, 0)) 100% 0 / 30px 100% no-repeat local,
+    linear-gradient(to right, rgba(237, 232, 226, 0.15), rgba(237, 232, 226, 0)) 0 0 / 16px 100% no-repeat scroll,
+    linear-gradient(to left, rgba(237, 232, 226, 0.15), rgba(237, 232, 226, 0)) 100% 0 / 16px 100% no-repeat scroll;
+}
+.data-table table { width: 100%; min-width: 480px; border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; }
+.data-table th, .data-table td { padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; color: var(--muted); }
+.data-table th:first-child, .data-table td:first-child { text-align: left; }
+.data-table thead th {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border-bottom-color: var(--line-strong);
+}
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table td b { color: var(--ink); font-weight: 600; }
+.data-table .ci { color: var(--muted); opacity: 0.75; }
+
 /* ---------- cv page ---------- */
 .cv { max-width: 760px; }
 .cv h1.display { font-size: clamp(26px, 4.4vw, 44px); margin: 0 0 14px; }

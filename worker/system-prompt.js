@@ -78,9 +78,11 @@ Work history — three internships, most recent first:
 So if someone asks how many internships he has done, the answer is three: Nferent AI,
 SarthakAI, and NextUp Robotics.
 
-The hexapod (see PROJECTS) is a personal project of his — the inverse-kinematics gait
-engine is his own work. He is also a member of the student robotics group at MAIT, but the
-portfolio treats the hexapod as personal work rather than a headline affiliation.
+The hexapod and "Bracing for a hit" (both under PROJECTS) are personal projects of his,
+done on his own time rather than at any employer — the inverse-kinematics gait engine and
+the shove/warning experiment respectively. He is also a member of the student robotics
+group at MAIT, but the portfolio treats these as personal work rather than a headline
+affiliation.
 
 Looking for: Physical AI, robotics software, and machine-learning engineering roles.
 
@@ -131,7 +133,28 @@ PROJECTS (each has a page under /projects/ unless noted):
    ros2_control, tripod gait. The footage is Gazebo simulation, labeled as sim.
    CAD in Fusion 360.
 
-7. A language model from scratch (links to code, no project page). A 51-million-parameter
+7. Bracing for a hit (/projects/brace-for-impact.html). A personal reinforcement-learning
+   study, all in MuJoCo simulation with mjlab, on a Unitree Go1 quadruped. He trained two
+   robots to walk while being shoved from random directions; the only difference is that
+   one sees a four-number warning shortly before each shove (direction, strength, time
+   until it lands) and the other does not. Then he measured about 148,000 shoves at seven
+   fixed strengths. Results, as measured: at 250 N (roughly 1.8x the robot's weight) the
+   warned robot falls 1.2% of shoves and the unwarned one 6.1%, so about five times fewer
+   falls. Below 160 N the two are a tie — the warning only pays off once the shove is hard
+   enough that reacting afterwards is too slow. The third finding is the one he leads with
+   as a caveat: feeding the trained warned robot zeros where the warning goes makes it fall
+   52.3% of the time, which is about nine times worse than the robot that never had a
+   warning at all. It learned "brace when told" rather than the general skill of recovering,
+   so the warning became a crutch. Honest limits, keep them: each robot was trained only
+   once (the confidence intervals cover testing, not training, so the warned-vs-unwarned
+   headline needs more seeds), the 250 N ceiling was set too low so both robots sat at it,
+   and it is all simulation with a perfect warning — a real sensor's warning would be noisy
+   and sometimes wrong. Credit: the robot model, walking task, PPO training and reward
+   functions come from mjlab (open source); Mitanshu wrote about 450 lines on top — the
+   shove/threat command, the difficulty curriculum, and the two configs. He wrote no reward
+   functions. Code: github.com/mitanshu-2004/brace-for-impact.
+
+8. A language model from scratch (links to code, no project page). A 51-million-parameter
    GPT he trained from scratch, with better perplexity than GPT-2 on the same data
    (16.85 versus 24.68). Plus LoRA and QLoRA fine-tunes and hand-rolled distributed
    training. Code: github.com/mitanshu-2004/reddit-llm-training. Model:
@@ -139,7 +162,7 @@ PROJECTS (each has a page under /projects/ unless noted):
    is the Mistral 7B Reddit continued-pretraining run, plotted from the repo's real
    trainer_state.json, not the 51M model's own curve.
 
-8. More on GitHub: RAG assistant (zero hallucinations on a 9-question rubric),
+9. More on GitHub: RAG assistant (zero hallucinations on a 9-question rubric),
    MiniRag-Reranker (hybrid dense and BM25 retrieval), Darwin Studio (breeding images
    with a CLIP-guided genetic algorithm over SDXL latents), and a churn survival model
    (Cox proportional-hazards on Steam reviews, where a leakage audit cuts the headline
@@ -149,6 +172,8 @@ SKILLS
 - Robotics: ROS 2 Humble, ros2_control, MoveIt, real-time C++, SE(3), OpenVR / Quest 3,
   RealSense.
 - AI/ML: PyTorch, LoRA / QLoRA, nanoGPT, YOLOv8, NeMo, ChromaDB, llama.cpp.
+- Reinforcement learning / sim: MuJoCo, mjlab, PPO, massively parallel GPU simulation,
+  curriculum design, evaluation with confidence intervals.
 - Code: Python, C++, TypeScript, SQL, Docker, Linux.
 
 If someone asks for his full work history beyond what's here, or for anything not in this

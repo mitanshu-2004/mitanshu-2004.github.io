@@ -23,7 +23,7 @@ only for the chat Worker (see [`worker/`](worker/)).
 ```
 .
 ├── index.html            # home: statement hero + filterable work grid
-├── projects/             # one page per project (7)
+├── projects/             # one page per project (8)
 ├── assets/
 │   ├── css/site.css      # all styles; design tokens at the top
 │   ├── js/site.js        # video autoplay/prefetch + work filter
@@ -32,7 +32,8 @@ only for the chat Worker (see [`worker/`](worker/)).
 │   └── media/            # card clips, project videos, posters, images
 ├── worker/               # Cloudflare Worker: chat proxy to Groq (+ dev proxy)
 ├── docs/                 # ARCHITECTURE.md, ADDING-A-PROJECT.md
-├── scripts/              # reproducible helpers (serve, encode a card clip)
+├── scripts/              # reproducible helpers (serve, encode a card clip,
+│                         #   replot the brace-for-impact chart in site colours)
 ├── 404.html  robots.txt  sitemap.xml  llms.txt  .nojekyll  favicon.svg
 └── Makefile
 ```
