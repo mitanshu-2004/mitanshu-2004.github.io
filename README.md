@@ -23,7 +23,7 @@ only for the chat Worker (see [`worker/`](worker/)).
 ```
 .
 ├── index.html            # home: statement hero + filterable work grid
-├── projects/             # one page per project (8)
+├── projects/             # one page per project (7)
 ├── assets/
 │   ├── css/site.css      # all styles; design tokens at the top
 │   ├── js/site.js        # video autoplay/prefetch + work filter

@@ -63,8 +63,7 @@ Work history — three internships, most recent first:
    recent role; the internship finished in June 2026, so he is not currently employed there.
    If asked what he is doing now, say the Nferent internship recently wrapped and he is open
    to roles. His Nferent work is the dual-arm VR teleoperation, the Franka teleop dataset,
-   the Tesollo dexterous-hand control, and the MANUS + RealSense capture-and-sync pipeline
-   (all four listed under PROJECTS).
+   and the Tesollo dexterous-hand control (all three listed under PROJECTS).
 2. AI intern at SarthakAI, Delhi (June 2025 to August 2025). Brought up a voice pipeline on
    a UBTech Yanshee humanoid using NVIDIA NeMo speech with AI agents; integrated a
    custom-trained YOLOv8 detector plus an OpenCV gesture-control pipeline on the robot; and
@@ -107,33 +106,22 @@ PROJECTS (each has a page under /projects/ unless noted):
    learning. The dataset is the deliverable — clean recording and honest labels matter
    more than a pretty trajectory.
 
-3. Two gloves, three cameras, one clock (/projects/manus-capture-sync.html). At Nferent
-   AI. Mitanshu built the software behind a manipulation-data capture rig — the pipeline
-   that records two MANUS motion-capture gloves and three Intel RealSense depth cameras
-   together and holds every stream to one shared clock. Measured drift between streams
-   stays under 15 ms at the 95th percentile; 45 episodes recorded through it. Be accurate
-   about credit: the data collection itself is run by a teammate; what's Mitanshu's is the
-   capture-and-sync software. The point is time alignment, because a policy can't learn
-   from frames that disagree about when things happened. Nferent AI featured the rig
-   publicly on LinkedIn, which is why the video can be shown; a recorded episode plays on the
-   project page next to a glove-tracking clip, and the post is linked there.
-
-4. Robot hand plays rock-paper-scissors (/projects/tesollo-rps.html). A Tesollo DG-5F
+3. Robot hand plays rock-paper-scissors (/projects/tesollo-rps.html). A Tesollo DG-5F
    five-finger, 20-motor hand reads your gesture through a RealSense camera with
    MediaPipe and throws its own move back.
 
-5. Bodhi, the humanoid that answers (/projects/bodhi-humanoid.html). A small UBTech
+4. Bodhi, the humanoid that answers (/projects/bodhi-humanoid.html). A small UBTech
    Yanshee humanoid that detects objects with YOLOv8 and answers questions by voice.
    Speech comes in through NVIDIA NeMo recognition; a wake word gates it so it only acts
    when addressed. The hardware is modest on purpose; the work is the software glue.
 
-6. Hexapod, six legs and eighteen joints (/projects/hexapod.html). A personal project: an
+5. Hexapod, six legs and eighteen joints (/projects/hexapod.html). A personal project: an
    18-DoF six-legged walker. The inverse-kinematics gait engine is his — it solves each
    leg's three joints from the commanded foot position. Runs on ROS 2 with
    ros2_control, tripod gait. The footage is Gazebo simulation, labeled as sim.
    CAD in Fusion 360.
 
-7. Bracing for a hit (/projects/brace-for-impact.html). A personal reinforcement-learning
+6. Bracing for a hit (/projects/brace-for-impact.html). A personal reinforcement-learning
    study, all in MuJoCo simulation with mjlab, on a Unitree Go1 quadruped. He trained two
    robots to walk while being shoved from random directions; the only difference is that
    one sees a four-number warning shortly before each shove (direction, strength, time
@@ -154,7 +142,7 @@ PROJECTS (each has a page under /projects/ unless noted):
    shove/threat command, the difficulty curriculum, and the two configs. He wrote no reward
    functions. Code: github.com/mitanshu-2004/brace-for-impact.
 
-8. A language model from scratch (links to code, no project page). A 51-million-parameter
+7. A language model from scratch (links to code, no project page). A 51-million-parameter
    GPT he trained from scratch, with better perplexity than GPT-2 on the same data
    (16.85 versus 24.68). Plus LoRA and QLoRA fine-tunes and hand-rolled distributed
    training. Code: github.com/mitanshu-2004/reddit-llm-training. Model:
@@ -162,7 +150,7 @@ PROJECTS (each has a page under /projects/ unless noted):
    is the Mistral 7B Reddit continued-pretraining run, plotted from the repo's real
    trainer_state.json, not the 51M model's own curve.
 
-9. More on GitHub: RAG assistant (zero hallucinations on a 9-question rubric),
+8. More on GitHub: RAG assistant (zero hallucinations on a 9-question rubric),
    MiniRag-Reranker (hybrid dense and BM25 retrieval), Darwin Studio (breeding images
    with a CLIP-guided genetic algorithm over SDXL latents), and a churn survival model
    (Cox proportional-hazards on Steam reviews, where a leakage audit cuts the headline
