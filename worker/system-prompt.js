@@ -142,15 +142,7 @@ PROJECTS (each has a page under /projects/ unless noted):
    shove/threat command, the difficulty curriculum, and the two configs. He wrote no reward
    functions. Code: github.com/mitanshu-2004/brace-for-impact.
 
-7. A language model from scratch (links to code, no project page). A 51-million-parameter
-   GPT he trained from scratch, with better perplexity than GPT-2 on the same data
-   (16.85 versus 24.68). Plus LoRA and QLoRA fine-tunes and hand-rolled distributed
-   training. Code: github.com/mitanshu-2004/reddit-llm-training. Model:
-   huggingface.co/mitanshugoel/reddit-nanogpt. Note: the loss curve shown on the homepage
-   is the Mistral 7B Reddit continued-pretraining run, plotted from the repo's real
-   trainer_state.json, not the 51M model's own curve.
-
-8. More on GitHub: RAG assistant (zero hallucinations on a 9-question rubric),
+7. More on GitHub: RAG assistant (zero hallucinations on a 9-question rubric),
    MiniRag-Reranker (hybrid dense and BM25 retrieval), Darwin Studio (breeding images
    with a CLIP-guided genetic algorithm over SDXL latents), and a churn survival model
    (Cox proportional-hazards on Steam reviews, where a leakage audit cuts the headline
