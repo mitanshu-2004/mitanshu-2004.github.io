@@ -1,5 +1,5 @@
 # mitanshu.dev — a static site, so these are conveniences, not a build.
-.PHONY: help serve check clean
+.PHONY: help serve check facts clean
 
 PORT ?= 4173
 
@@ -16,6 +16,10 @@ check: ## Quick sanity: every local href/src resolves on disk
 	  | sed -E 's/.*="(\/[^"]+)"/\1/' | grep -v '^/#' | sort -u | while read -r p; do \
 	    f=".$$p"; [ -f "$$f" ] || echo "  MISSING: $$p"; \
 	  done; echo "done."
+	@scripts/check-facts.sh
+
+facts: ## Verify no corrected figure has crept back in
+	@scripts/check-facts.sh
 
 clean: ## Remove local scratch/verification artifacts
 	@rm -f check-*.jpeg check-*.png hero-live-*.png *-desktop.png *-mobile.png "Pasted image.png"
