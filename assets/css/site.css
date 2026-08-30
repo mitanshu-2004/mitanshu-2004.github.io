@@ -224,12 +224,6 @@ h1.display { font-size: var(--step-4); margin: 0 0 26px; }
 .hero-cta.alt { color: var(--ink); border-color: var(--line-strong); margin-left: 10px; }
 .hero-cta.alt:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
-/* A card that carries a claim rather than a clip needs somewhere to put the
-   reason the claim matters, set apart from the description above it. */
-.card-note {
-  margin: 10px 0 0; padding-left: 12px; border-left: 2px solid var(--line-strong);
-  color: var(--muted); font-size: var(--step-1);
-}
 
 /* ---------- sections ---------- */
 section.block { padding: clamp(30px, 5vw, 54px) 0; }

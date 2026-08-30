@@ -159,8 +159,8 @@
     <p class="lede">Every clip is real hardware. Press play. Filter by where it was built.</p>
 
     <div class="org-filter" role="group" aria-label="Filter work by where it was built">
-      <button class="ofil" data-f="all" aria-pressed="true" data-blurb="Where each one was built. Three internships, a student robotics lab, and my own time.">All <span class="ct">9</span></button>
-      <button class="ofil" data-f="nferent" aria-pressed="false" data-blurb="Physical AI intern, Mar–Jun 2026. A &#960;0.5 policy fine-tune, the 125 Hz teleop loop that collected its data, a synchronised capture rig, and a 20-motor hand.">Nferent AI <span class="ct">4</span></button>
+      <button class="ofil" data-f="all" aria-pressed="true" data-blurb="Where each one was built. Three internships, a student robotics lab, and my own time.">All <span class="ct">8</span></button>
+      <button class="ofil" data-f="nferent" aria-pressed="false" data-blurb="Physical AI intern, Mar–Jun 2026. A &#960;0.5 policy fine-tune, the 125 Hz teleop loop that collected its data, and a 20-motor dexterous hand.">Nferent AI <span class="ct">3</span></button>
       <button class="ofil" data-f="sarthak" aria-pressed="false" data-blurb="AI intern, Jun–Aug 2025. A Yanshee voice-and-vision humanoid, a sensor workstation for food-chain telemetry, and a vision-guided pick-and-sort line.">SarthakAI <span class="ct">1</span></button>
       <button class="ofil" data-f="nextup" aria-pressed="false" data-blurb="Robotics intern, Jul–Sep 2024. Brought up a 6-DOF arm in ROS 2 with MoveIt and KDL inverse kinematics, from simulation to the real arm.">NextUp Robotics <span class="ct">1</span></button>
       <button class="ofil" data-f="personal" aria-pressed="false" data-blurb="An RL study on warning a robot before it gets shoved, done on my own time, and an 18-DOF hexapod built with the A.T.O.M. robotics lab at MAIT.">Personal &amp; team <span class="ct">3</span></button>
@@ -219,20 +219,8 @@
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="nferent" style="--i:3">
-        <div class="card-body">
-          <h3>Five streams, one clock</h3>
-          <p>The capture rig behind the dataset: two MANUS gloves and three RealSense cameras held on a single timebase, drift under <b>15 ms</b> at p95. A frame-uniqueness watchdog fails an episode outright if a camera silently repeats frames. 45 of 45 episodes validated.</p>
-          <p class="card-note">A dropped frame nobody catches isn't a gap in the data. It's a lie in the data, and the policy learns it either way.</p>
-          <div class="chips">
-            <span class="chip hot">15 ms p95</span>
-            <span class="chip">2 gloves · 3 RealSense</span>
-            <span class="chip">45/45 validated</span>
-          </div>
-        </div>
-      </article>
 
-      <article class="work-card reveal" data-org="sarthak" style="--i:4">
+      <article class="work-card reveal" data-org="sarthak" style="--i:3">
         <div class="media">
           <video src="/assets/media/bodhi-card.mp4" poster="/assets/media/bodhi-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Bodhi voice assistant humanoid demo"></video>
         </div>
@@ -248,7 +236,7 @@
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="nextup" style="--i:5">
+      <article class="work-card reveal" data-org="nextup" style="--i:4">
         <div class="media">
           <video src="/assets/media/nextup-card.mp4" poster="/assets/media/nextup-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware"></video>
         </div>
@@ -265,7 +253,7 @@
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="personal" style="--i:6">
+      <article class="work-card reveal" data-org="personal" style="--i:5">
         <div class="media">
           <video src="/assets/media/brace-card.mp4" poster="/assets/media/brace-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="A simulated Unitree Go1 robot dog taking a 250 N shove while walking"></video>
         </div>
@@ -282,7 +270,7 @@
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="personal" style="--i:7">
+      <article class="work-card reveal" data-org="personal" style="--i:6">
         <div class="media">
           <video src="/assets/media/hexapod-card.mp4" poster="/assets/media/hexapod-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="18-DoF hexapod walking in Gazebo simulation"></video>
         </div>
@@ -299,7 +287,7 @@
       </article>
 
 
-      <article class="work-card reveal" data-org="personal" style="--i:8">
+      <article class="work-card reveal" data-org="personal" style="--i:7">
         <div class="card-body">
           <h3>More on GitHub</h3>
           <ul class="gh-list">

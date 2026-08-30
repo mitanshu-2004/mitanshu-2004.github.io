@@ -63,8 +63,8 @@ Work history — three internships, most recent first:
    recent role; the internship finished in June 2026, so he is not currently employed there.
    If asked what he is doing now, say the Nferent internship recently wrapped and he is open
    to roles. His Nferent work is the pi-0.5 policy fine-tune, the real-time teleop loop that
-   collected its data, the synchronised glove-and-camera capture rig, and the Tesollo
-   dexterous-hand control (all listed under PROJECTS).
+   collected its data, and the Tesollo dexterous-hand control (all listed under PROJECTS),
+   plus the synchronised capture rig described there.
 2. AI intern at SarthakAI, Delhi (June 2025 to August 2025). Four things: a custom-trained
    YOLOv8 detector running on the Yanshee humanoid's MJPEG stream; an NVIDIA NeMo ASR
    pipeline routing wake-word and commands to a chat service or a QR scanner; a sensor
@@ -123,10 +123,10 @@ PROJECTS (each has a page under /projects/ unless noted):
    glove-rig set) and have been corrected. The 45-episode, 9-task set belongs to the
    glove capture rig, project 3 below.
 
-3. Synchronised capture rig (no separate page; described on the home page). Two MANUS
-   gloves and three RealSense cameras held on one timebase, drift under 15 ms at p95,
-   with a frame-uniqueness watchdog that fails an episode if a camera silently repeats
-   frames. 45 of 45 episodes validated, across 9 tasks. Built at Nferent AI.
+   He also built the capture rig behind that work — two MANUS gloves and three RealSense
+   cameras on one timebase, drift under 15 ms at p95, with a frame-uniqueness watchdog that
+   fails an episode if a camera silently repeats frames, 45 of 45 validated across 9 tasks.
+   It is on his CV as Nferent experience but has NO project page, so do not link one.
 
 3. Robot hand plays rock-paper-scissors (/projects/tesollo-rps.html). A Tesollo DG-5F
    five-finger, 20-motor hand reads your gesture through a RealSense camera with
@@ -137,11 +137,14 @@ PROJECTS (each has a page under /projects/ unless noted):
    Speech comes in through NVIDIA NeMo recognition; a wake word gates it so it only acts
    when addressed. The hardware is modest on purpose; the work is the software glue.
 
-5. Hexapod, six legs and eighteen joints (/projects/hexapod.html). A personal project: an
-   18-DoF six-legged walker. The inverse-kinematics gait engine is his — it solves each
-   leg's three joints from the commanded foot position. Runs on ROS 2 with
-   ros2_control, tripod gait. The footage is Gazebo simulation, labeled as sim.
-   CAD in Fusion 360.
+5. Hexapod, six legs and eighteen joints (/projects/hexapod.html). An 18-DOF six-legged
+   walker built with the A.T.O.M. Robotics Lab team at MAIT — NOT a personal or solo
+   project, do not describe it as one. His parts specifically: the control node (a
+   /cmd_vel command becomes a tripod gait through ros2_control), the closed-form
+   law-of-cosines leg inverse kinematics that replaced a hand-tuned angle table, and
+   containerising the ROS 2 Humble and Gazebo Harmonic stack in Docker with GPU and X11
+   passthrough. His CV says it runs in Gazebo and on the real robot; the footage on the
+   site is the simulation and is labelled as sim. CAD in Fusion 360.
 
 6. Bracing for a hit (/projects/brace-for-impact.html). A personal reinforcement-learning
    study, all in MuJoCo simulation with mjlab, on a Unitree Go1 quadruped. He trained two
