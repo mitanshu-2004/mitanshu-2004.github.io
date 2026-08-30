@@ -34,3 +34,7 @@ agent-ref-*.jpeg
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Wrangler cache was committed before .wrangler/ was ignored; gitignore does not
+# untrack. Removed with `git rm --cached`. Contains the Cloudflare account id.
+worker/.wrangler/
