@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics & AI engineer">
+<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <link rel="canonical" href="https://mitanshu.dev/">
@@ -66,7 +66,15 @@
       },
       "alumniOf": {
         "@type": "CollegeOrUniversity",
-        "name": "Maharaja Agrasen Institute of Technology"
+        "name": "Maharaja Agrasen Institute of Technology",
+        "sameAs": "https://www.mait.ac.in/"
+      },
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Bachelor's Degree",
+        "educationalLevel": "B.Tech, Electronics & Communication Engineering",
+        "about": "Minor in AI & Machine Learning",
+        "dateCreated": "2026"
       },
       "knowsAbout": [
         "Robotics",
@@ -81,7 +89,10 @@
         "Machine learning",
         "PyTorch",
         "Computer vision",
-        "Real-time C++"
+        "Real-time C++",
+        "Vision-language-action policies",
+        "LeRobot",
+        "Teleoperation control loops"
       ],
       "sameAs": [
         "https://github.com/mitanshu-2004",
@@ -112,19 +123,20 @@
       <div class="hero-lead">
         <p class="hero-eyebrow">Robotics &amp; AI Engineer</p>
         <h1 class="hero-claim">Building robots &amp; teaching them to <em>move</em>.</h1>
-        <p class="hero-sub">I build the pipelines that turn human demonstrations into robot policies — VR teleop rigs, multi-camera capture, and the datasets they produce. Physical AI at <b>Nferent AI</b>; before that SarthakAI and NextUp Robotics. <b>Open to Physical-AI and robotics roles.</b></p>
+        <p class="hero-sub">I build the pipeline that turns human demonstrations into robot policies. Teleop rigs, synchronised capture, and the <b>&#960;0.5</b> fine-tune at the end of it. Most recently Physical AI at <b>Nferent AI</b> — my third robotics internship, after SarthakAI and NextUp Robotics. <b>Open to Physical-AI and robotics roles.</b></p>
         <a class="hero-cta" href="#work">See the work ↓</a>
+        <a class="hero-cta alt" href="/cv.html">Read the CV →</a>
       </div>
 
       <aside class="hero-index" aria-label="Experience">
         <div class="hi-cap">Index — Experience</div>
         <a class="hi-row" href="#work">
           <span class="hi-no">01</span><span class="hi-co">Nferent AI</span><span class="hi-yr">2026</span>
-          <span class="hi-ro">Physical AI · dual-arm VR teleop · capture rigs</span>
+          <span class="hi-ro">&#960;0.5 fine-tune · 125 Hz teleop · synchronised capture</span>
         </a>
         <a class="hi-row" href="#work">
           <span class="hi-no">02</span><span class="hi-co">SarthakAI</span><span class="hi-yr">2025</span>
-          <span class="hi-ro">Voice + vision humanoid · pick-and-sort line</span>
+          <span class="hi-ro">Voice + vision humanoid · sensor workstation · pick-and-sort</span>
         </a>
         <a class="hi-row" href="#work">
           <span class="hi-no">03</span><span class="hi-co">NextUp Robotics</span><span class="hi-yr">2024</span>
@@ -134,6 +146,7 @@
     </div>
 
     <nav class="hero-foot" aria-label="Contact and profiles">
+      <a href="/cv.html">CV</a>
       <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a>
       <a href="https://github.com/mitanshu-2004" rel="me">github.com/mitanshu-2004</a>
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">linkedin.com/in/mitanshugoel</a>
@@ -146,11 +159,11 @@
     <p class="lede">Every clip is real hardware. Press play. Filter by where it was built.</p>
 
     <div class="org-filter" role="group" aria-label="Filter work by where it was built">
-      <button class="ofil" data-f="all" aria-pressed="true" data-blurb="Where each project was built — three internships and my own time.">All <span class="ct">8</span></button>
-      <button class="ofil" data-f="nferent" aria-pressed="false" data-blurb="Physical AI intern, 2026 — VR teleoperation of two arms, a 20-motor hand, and a 51-episode Franka manipulation dataset.">Nferent AI <span class="ct">3</span></button>
-      <button class="ofil" data-f="sarthak" aria-pressed="false" data-blurb="AI intern, 2025 — a Yanshee voice-and-vision humanoid and a vision-guided pick-and-sort line.">SarthakAI <span class="ct">1</span></button>
-      <button class="ofil" data-f="nextup" aria-pressed="false" data-blurb="Robotics intern, 2024 — brought up a 6-DOF arm in ROS 2 with MoveIt and KDL inverse kinematics, from simulation to the real arm.">NextUp Robotics <span class="ct">1</span></button>
-      <button class="ofil" data-f="personal" aria-pressed="false" data-blurb="Built on my own time — a reinforcement-learning study on warning a robot before it gets shoved, the gait engine for an 18-DoF hexapod, and RAG/ML side projects.">Personal <span class="ct">3</span></button>
+      <button class="ofil" data-f="all" aria-pressed="true" data-blurb="Where each one was built. Three internships, a student robotics lab, and my own time.">All <span class="ct">9</span></button>
+      <button class="ofil" data-f="nferent" aria-pressed="false" data-blurb="Physical AI intern, Mar–Jun 2026. A &#960;0.5 policy fine-tune, the 125 Hz teleop loop that collected its data, a synchronised capture rig, and a 20-motor hand.">Nferent AI <span class="ct">4</span></button>
+      <button class="ofil" data-f="sarthak" aria-pressed="false" data-blurb="AI intern, Jun–Aug 2025. A Yanshee voice-and-vision humanoid, a sensor workstation for food-chain telemetry, and a vision-guided pick-and-sort line.">SarthakAI <span class="ct">1</span></button>
+      <button class="ofil" data-f="nextup" aria-pressed="false" data-blurb="Robotics intern, Jul–Sep 2024. Brought up a 6-DOF arm in ROS 2 with MoveIt and KDL inverse kinematics, from simulation to the real arm.">NextUp Robotics <span class="ct">1</span></button>
+      <button class="ofil" data-f="personal" aria-pressed="false" data-blurb="An RL study on warning a robot before it gets shoved, done on my own time, and an 18-DOF hexapod built with the A.T.O.M. robotics lab at MAIT.">Personal &amp; team <span class="ct">3</span></button>
     </div>
     <p class="org-blurb" id="orgBlurb" aria-live="polite">Where each project was built — three internships and my own time.</p>
 
@@ -162,12 +175,12 @@
         </div>
         <div class="card-body">
           <h3><a href="/projects/dual-arm-vr-teleop.html">Dual-arm VR teleoperation</a></h3>
-          <p>Two industrial arms copying my hands live through a Meta Quest 3, built at Nferent AI on a real-time C++ control stack I wrote — with a clutch so I can re-grip mid-task without the robots wandering.</p>
+          <p>Two industrial arms copy my hands live through a Meta Quest 3. I wrote the real-time C++ loop behind it: Cartesian servoing at 125 Hz, hand pose in over UDP, bad tracking frames dropped rather than passed on.</p>
           <div class="chips">
             <span class="chip hot">2× Elite CS66</span>
-            <span class="chip">Quest 3</span>
+            <span class="chip">125 Hz</span>
             <span class="chip">Real-time C++</span>
-            <span class="chip">ROS 2</span>
+            <span class="chip">Quest 3 · UDP</span>
           </div>
           <span class="more-link">Full story + more media →</span>
         </div>
@@ -179,13 +192,13 @@
         </div>
         <div class="card-body">
           <h3><a href="/projects/tesollo-rps.html">Robot hand plays rock-paper-scissors</a></h3>
-          <p>A five-finger, 20-motor hand I programmed at Nferent AI — it reads your gesture through a camera and throws its own move back.</p>
+          <p>A five-finger, 20-motor hand I programmed at Nferent AI. A camera reads your gesture and the hand throws its own move back.</p>
           <div class="chips">
             <span class="chip hot">Tesollo DG-5F</span>
             <span class="chip">20 motors</span>
             <span class="chip">RealSense + MediaPipe</span>
           </div>
-          <span class="more-link">Full story + more media →</span>
+          <span class="more-link">Full story →</span>
         </div>
       </article>
 
@@ -194,40 +207,54 @@
           <video src="/assets/media/franka-card.mp4" poster="/assets/media/franka-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Franka arm teleoperation demo"></video>
         </div>
         <div class="card-body">
-          <h3><a href="/projects/franka-teleop-dataset.html">Franka teleop → training dataset</a></h3>
-          <p>Driving a Franka research arm at Nferent AI behind a safety stack I wrote, recording a 51-episode manipulation dataset — 2.1 hours of RGB-D — in LeRobot format.</p>
+          <h3><a href="/projects/franka-teleop-dataset.html">Teleop data → a &#960;0.5 policy</a></h3>
+          <p>I drove a Franka FR3 and an Elite CS66 by hand to record a 10-task LeRobot dataset, then fine-tuned a &#960;0.5 vision-language-action policy on it and worked on its inference path.</p>
           <div class="chips">
-            <span class="chip hot">Franka FR3</span>
-            <span class="chip">51 episodes · 2.1 h</span>
+            <span class="chip hot">&#960;0.5 VLA</span>
+            <span class="chip">10 tasks</span>
+            <span class="chip">CS66 + FR3</span>
             <span class="chip">LeRobot</span>
           </div>
           <span class="more-link">Full story + more media →</span>
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="sarthak" style="--i:3">
+      <article class="work-card reveal" data-org="nferent" style="--i:3">
+        <div class="card-body">
+          <h3>Five streams, one clock</h3>
+          <p>The capture rig behind the dataset: two MANUS gloves and three RealSense cameras held on a single timebase, drift under <b>15 ms</b> at p95. A frame-uniqueness watchdog fails an episode outright if a camera silently repeats frames. 45 of 45 episodes validated.</p>
+          <p class="card-note">A dropped frame nobody catches isn't a gap in the data. It's a lie in the data, and the policy learns it either way.</p>
+          <div class="chips">
+            <span class="chip hot">15 ms p95</span>
+            <span class="chip">2 gloves · 3 RealSense</span>
+            <span class="chip">45/45 validated</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work-card reveal" data-org="sarthak" style="--i:4">
         <div class="media">
           <video src="/assets/media/bodhi-card.mp4" poster="/assets/media/bodhi-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="Bodhi voice assistant humanoid demo"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/bodhi-humanoid.html">Bodhi — the humanoid that answers</a></h3>
-          <p>A small humanoid I built at SarthakAI — it spots objects with YOLOv8 and answers questions by voice, gated by a wake word.</p>
+          <p>A small humanoid I built at SarthakAI. It spots objects with YOLOv8 and answers questions out loud, gated by a wake word.</p>
           <div class="chips">
             <span class="chip hot">UBTech Yanshee</span>
             <span class="chip">YOLOv8</span>
             <span class="chip">NeMo ASR</span>
           </div>
-          <span class="more-link">Full story + more media →</span>
+          <span class="more-link">Full story →</span>
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="nextup" style="--i:4">
+      <article class="work-card reveal" data-org="nextup" style="--i:5">
         <div class="media">
           <video src="/assets/media/nextup-card.mp4" poster="/assets/media/nextup-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/nextup-cobot.html">A 6-DOF arm, sim to real</a></h3>
-          <p>My first internship, at NextUp Robotics — I wrote the MoveIt interfaces (joint, Cartesian-pose, and waypoint motion) with KDL inverse kinematics for a 6-DOF arm, checked in simulation, then run on the real hardware.</p>
+          <p>My first internship, at NextUp Robotics. I wrote the MoveIt interfaces — joint, Cartesian-pose and waypoint motion — with KDL inverse kinematics, validated them in simulation, then fixed the URDF mismatches that were breaking trajectories on the real arm.</p>
           <div class="chips">
             <span class="chip hot">6-DOF cobot</span>
             <span class="chip">MoveIt</span>
@@ -238,30 +265,30 @@
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="personal" style="--i:5">
+      <article class="work-card reveal" data-org="personal" style="--i:6">
         <div class="media">
           <video src="/assets/media/brace-card.mp4" poster="/assets/media/brace-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="A simulated Unitree Go1 robot dog taking a 250 N shove while walking"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/brace-for-impact.html">Bracing for a hit</a></h3>
-          <p>I told one simulated robot dog that a shove was coming and left an identical one in the dark, then shoved both about 148,000 times. The warned one falls <b>5× less often</b> at 250 N — and 9× more often than normal once the warning is taken away.</p>
+          <p>I told one simulated robot dog that a shove was coming and left an identical one in the dark, then shoved both about 148,000 times. The warned one falls <b>5× less often</b> at 250 N. Take the warning away and it falls nine times more often than the robot that never had one.</p>
           <div class="chips">
             <span class="chip hot">5× fewer falls</span>
             <span class="chip">Unitree Go1 · MuJoCo</span>
-            <span class="chip">mjlab · PPO</span>
+            <span class="chip">mjlab · PPO (rsl_rl)</span>
             <span class="chip">148k shoves</span>
           </div>
           <span class="more-link">Full story + the numbers →</span>
         </div>
       </article>
 
-      <article class="work-card reveal" data-org="personal" style="--i:6">
+      <article class="work-card reveal" data-org="personal" style="--i:7">
         <div class="media">
           <video src="/assets/media/hexapod-card.mp4" poster="/assets/media/hexapod-card-poster.jpg" controls muted loop playsinline preload="metadata" aria-label="18-DoF hexapod walking in Gazebo simulation"></video>
         </div>
         <div class="card-body">
           <h3><a href="/projects/hexapod.html">Six legs, eighteen joints</a></h3>
-          <p>An 18-DoF hexapod walker — the inverse-kinematics gait engine that turns a foot target into joint angles is mine. Walking here in <b>Gazebo simulation</b>.</p>
+          <p>An 18-DOF walker built with the A.T.O.M. robotics lab at MAIT. Mine is the control node and the closed-form leg IK that replaced a hand-tuned angle table. Walking here in <b>Gazebo</b>.</p>
           <div class="chips">
             <span class="chip hot">18 DoF</span>
             <span class="chip">ROS 2 · ros2_control</span>
@@ -271,22 +298,6 @@
         </div>
       </article>
 
-      <!--
-      <article class="work-card reveal" data-org="personal" style="--i:7">
-        <div class="media">
-          <img src="/assets/media/mistral-cpt-loss.png" alt="Training-loss chart for the Mistral 7B Reddit continued-pretraining run: raw loss with a smoothed line falling from 2.086 to 1.994 over 2200 steps, learning-rate warmup overlaid" loading="lazy">
-        </div>
-        <div class="card-body">
-          <h3>A language model, from scratch</h3>
-          <p>A 51-million-parameter GPT — better perplexity than GPT-2 on the same data (16.85 vs 24.68). Plus LoRA and QLoRA fine-tunes with hand-rolled distributed training; the loss curve above is the Mistral 7B Reddit run, plotted from the repo's trainer_state.json.</p>
-          <div class="chips">
-            <a class="chip hot" href="https://github.com/mitanshu-2004/reddit-llm-training">Code →</a>
-            <a class="chip" href="https://huggingface.co/mitanshugoel/reddit-nanogpt">Model on HF →</a>
-            <span class="chip">51M params</span>
-          </div>
-        </div>
-      </article>
-      -->
 
       <article class="work-card reveal" data-org="personal" style="--i:8">
         <div class="card-body">
@@ -311,6 +322,7 @@
   <footer class="site-foot">
     <p class="foot-reach">Email me: <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></p>
     <nav class="foot-contact" aria-label="Contact and profiles">
+      <a href="/cv.html">CV</a>
       <a href="tel:+918595657583">+91 85956 57583</a>
       <a href="https://github.com/mitanshu-2004" rel="me">GitHub</a>
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>

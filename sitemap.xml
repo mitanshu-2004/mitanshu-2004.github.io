@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mitanshu.dev/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
+  </url>
+  <url>
+    <loc>https://mitanshu.dev/cv.html</loc>
+    <lastmod>2026-08-31</lastmod>
   </url>
   <url>
     <loc>https://mitanshu.dev/projects/dual-arm-vr-teleop.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
   </url>
   <url>
     <loc>https://mitanshu.dev/projects/tesollo-rps.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
   </url>
   <url>
     <loc>https://mitanshu.dev/projects/hexapod.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
   </url>
   <url>
     <loc>https://mitanshu.dev/projects/franka-teleop-dataset.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
   </url>
   <url>
     <loc>https://mitanshu.dev/projects/bodhi-humanoid.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
   </url>
   <url>
     <loc>https://mitanshu.dev/projects/nextup-cobot.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-31</lastmod>
   </url>
   <url>
     <loc>https://mitanshu.dev/projects/brace-for-impact.html</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-31</lastmod>
   </url>
 </urlset>

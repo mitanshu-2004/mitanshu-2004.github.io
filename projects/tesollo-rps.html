@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics & AI engineer">
+<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/tesollo-rps.html">
@@ -110,9 +110,20 @@
     <div class="prose">
       <h2>How it works</h2>
       <ul>
-        <li>Camera → MediaPipe hand landmarks → gesture class, in real time.</li>
-        <li>Gesture maps to a target pose; per-finger joint commands go out to the 20 motors over Modbus-TCP.</li>
-        <li>Five fingers, four motors each — twenty joints shaping each of the three poses.</li>
+        <li>A RealSense feeds MediaPipe, which returns hand landmarks. A finger-extension classifier turns those landmarks into one of three gesture classes, in real time.</li>
+        <li>The gesture maps to a target pose. Per-finger joint commands go out to the twenty motors over Modbus-TCP.</li>
+        <li>Five fingers, four motors each. Every pose is twenty joint angles, not three presets — rock, paper and scissors are just three points in a twenty-dimensional space.</li>
+      </ul>
+
+      <h2>Why classify by extension</h2>
+      <p>The obvious approach is to train a classifier on hand images. That needs data, and it fails in ways that are hard to debug when the lighting changes.</p>
+      <p>Counting extended fingers off the MediaPipe skeleton needs no training data at all, and when it does fail you can see exactly why: the landmark for one fingertip has drifted, and the rule that depends on it flips. For a three-class problem with a strong geometric definition, the rule is the better engineering. Rock is nothing extended, scissors is two, paper is five.</p>
+
+      <h2>What is fiddly about a twenty-motor hand</h2>
+      <ul>
+        <li>Fingers collide with each other. A pose that is fine on paper can drive two fingers into the same space, and the hand will happily try, so the poses need checking against each other rather than each on its own.</li>
+        <li>Modbus-TCP is a request/response protocol, not a stream. Twenty joint commands per pose means the write pattern matters if you do not want the hand to unfold one finger at a time.</li>
+        <li>The demo has to lose sometimes. A hand that reads your gesture and always beats it is a party trick that stops being interesting after one round.</li>
       </ul>
 
       <h2>Links</h2>

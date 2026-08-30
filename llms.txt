@@ -1,14 +1,17 @@
 # Mitanshu Goel
 
-> Robotics & AI engineer in Delhi, India. I build teleoperation rigs, robot hands, and the ML behind them — real hardware, numbers as measured.
+> Robotics & AI engineer in Delhi, India. I build teleoperation rigs, synchronised capture, and the policies they train. Real hardware, numbers as measured. B.Tech ECE (MAIT, 2022–2026), three robotics internships, open to Physical-AI and robotics roles.
 
 ## Projects
 - [Dual-arm VR teleoperation](https://mitanshu.dev/projects/dual-arm-vr-teleop.html): Two Elite CS66 arms follow my hands live via Meta Quest 3, on a real-time C++ control stack.
-- [Franka teleop → dataset](https://mitanshu.dev/projects/franka-teleop-dataset.html): Teleoperating a Franka FR3 and recording a 51-episode LeRobot manipulation dataset.
+- [Teleop data → a π0.5 policy](https://mitanshu.dev/projects/franka-teleop-dataset.html): A 10-task LeRobot dataset collected across an Elite CS66 and a Franka FR3 on a 125 Hz teleop loop, used to fine-tune a π0.5 vision-language-action policy.
 - [Robot hand plays rock-paper-scissors](https://mitanshu.dev/projects/tesollo-rps.html): A 20-motor Tesollo DG-5F hand reads your gesture and answers.
 - [Bodhi, the humanoid that answers](https://mitanshu.dev/projects/bodhi-humanoid.html): A Yanshee humanoid that sees with YOLOv8 and answers by voice.
 - [Six legs, eighteen joints](https://mitanshu.dev/projects/hexapod.html): An 18-DoF hexapod with an inverse-kinematics gait engine on ROS 2.
 - [Bracing for a hit](https://mitanshu.dev/projects/brace-for-impact.html): An RL study in MuJoCo — warning a quadruped before it gets shoved cuts falls 5× at 250 N, and taking the warning away leaves it 9× worse than a robot that never had one.
+
+## CV
+- [Full CV](https://mitanshu.dev/cv.html): education, dates, and the three internships in detail.
 
 ## Contact
 - Email: mitanshug2004@gmail.com

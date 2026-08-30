@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics & AI engineer">
+<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/nextup-cobot.html">
@@ -116,8 +116,13 @@
         <li>Stood up the arm's URDF in ROS 2 — robot model, joint definitions, and collision geometry — so MoveIt and the simulator had a correct description to plan against.</li>
         <li>Wrote three motion interfaces on top of the MoveGroup API: <b>joint-space</b> targets, <b>Cartesian-pose</b> goals, and <b>waypoint</b> trajectories that string poses together.</li>
         <li>Configured <b>KDL inverse kinematics</b> so a pose in space resolves to the six joint angles that reach it, with planning and collision checking through MoveIt.</li>
-        <li>Validated each interface in simulation first, then ran the same commands on the real arm — PC-driven, over the ROS 2 graph.</li>
+        <li>Validated each interface in simulation first, then ran the same commands on the real arm, PC-driven over the ROS 2 graph.</li>
       </ul>
+
+      <h2>What actually broke</h2>
+      <p>The trajectories worked in simulation and failed on the real arm. The cause was the URDF: the model I was planning against did not match the robot I was planning for.</p>
+      <p>That is a quiet failure, which is what makes it expensive. MoveIt plans happily against a wrong model and hands you a trajectory that looks correct in RViz. The arm then executes it and the error only shows up as motion that is subtly off, or as a joint that reaches its limit sooner than the planner expected. Nothing errors; the robot just does the wrong thing confidently.</p>
+      <p>Fixing it meant going back through the link frames and joint definitions against the physical arm rather than trusting the description I had been handed. It is the most useful thing I learned in that internship: in simulation a wrong sign is harmless and invisible, and on real hardware it is neither.</p>
     </div>
   </section>
 

@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics & AI engineer">
+<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/dual-arm-vr-teleop.html">
@@ -101,9 +101,9 @@
     <h1 class="display">Dual-arm VR teleoperation</h1>
     <div class="meta-row">
       <span class="chip hot">2× Elite Robots CS66</span>
-      <span class="chip">Meta Quest 3</span>
+      <span class="chip">125 Hz Cartesian servoing</span>
+      <span class="chip">Quest 3 · UDP</span>
       <span class="chip">Real-time C++</span>
-      <span class="chip">ROS 2</span>
       <span class="chip">Anchor/clutch control</span>
     </div>
   </section>
@@ -117,7 +117,8 @@
       </div>
       <div class="mr-text">
         <h2 class="display sm">Two arms, following my hands</h2>
-        <p>Both industrial arms follow my hand movements live, streamed from Meta Quest 3 controllers. Here they pass a block from one gripper to the other, every motion driven by me. Built at Nferent AI; the clip is narrated, so sound on.</p>
+        <p>Both arms follow my hand movements live, streamed from Meta Quest 3 controllers. Here they pass a block from one gripper to the other. Every motion is driven by me, in real time.</p>
+        <p>Built at Nferent AI. The clip is theirs, so it carries their branding and a voice-over; the engineering below is what I actually wrote.</p>
       </div>
     </div>
   </section>
@@ -140,10 +141,22 @@
     <div class="prose">
       <h2>How it works</h2>
       <ul>
-        <li>A real-time C++ control loop maps controller poses to end-effector targets through SE(3) transforms.</li>
-        <li>A clutch lets me "let go" mid-task: release to freeze the robots, re-position my hands comfortably, re-engage and continue — like lifting a mouse off the desk.</li>
-        <li>A safety layer clamps workspace limits, end-effector velocity, and command rates before anything reaches the hardware.</li>
+        <li>A real-time C++ loop maps controller poses to end-effector targets through SE(3) transforms, servoing in Cartesian space at <b>125 Hz</b>. Hand pose arrives from the headset over UDP. One process per arm, so a stall on one never stutters the other.</li>
+        <li>A clutch lets me let go mid-task. Release to freeze the arms, move my hands somewhere comfortable, re-engage and continue. It works like lifting a mouse off the desk, and without it your arm ends up pinned against your body halfway through anything long.</li>
+        <li>A safety layer clamps workspace limits, end-effector velocity and command rate before anything reaches the hardware. A bad input slows the robot instead of throwing it.</li>
+        <li>Bad tracking frames get dropped rather than passed on. When the headset loses a controller it does not go quiet, it reports a plausible wrong pose — and a wrong pose that reaches an industrial arm is much worse than a missing one.</li>
       </ul>
+
+      <h2>What made it hard</h2>
+      <p>Retargeting a controller pose onto a 6-DOF arm is the easy half. The hard half is everything around it.</p>
+      <ul>
+        <li><b>Singularities.</b> A pose the arm can reach is not the same as a pose it can reach smoothly. Near a wrist singularity the inverse kinematics asks for enormous joint speeds to make a small Cartesian move, so the loop has to notice and refuse rather than obey.</li>
+        <li><b>Where I can reach and the arm cannot.</b> My hand has no joint limits and no elbow to collide with a table. Something has to decide what happens when I ask for a pose outside the arm's world, and stopping cleanly at the boundary is better behaviour than tracking as far as possible and then jerking.</li>
+        <li><b>Smoothing without lag.</b> Filter the pose too little and hand tremor becomes arm tremor. Filter it too much and the arm feels like it is underwater, which makes fine work impossible.</li>
+      </ul>
+
+      <h2>Where it goes</h2>
+      <p>This rig is not the deliverable. It is the instrument that collects the demonstrations — the same loop drives the Franka FR3, and the ten-task dataset it recorded is what a <a href="/projects/franka-teleop-dataset.html">&#960;0.5 policy was fine-tuned on</a>. Teleoperation quality is dataset quality: every hesitation and correction in my hand ends up in the training data, for better or worse.</p>
 
       <h2>Links</h2>
       <p><a href="https://www.youtube.com/watch?v=kUlfE-U_5m4">Demo on YouTube</a></p>
