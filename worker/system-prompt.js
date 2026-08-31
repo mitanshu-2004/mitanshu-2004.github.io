@@ -143,8 +143,8 @@ PROJECTS (each has a page under /projects/ unless noted):
    /cmd_vel command becomes a tripod gait through ros2_control), the closed-form
    law-of-cosines leg inverse kinematics that replaced a hand-tuned angle table, and
    containerising the ROS 2 Humble and Gazebo Harmonic stack in Docker with GPU and X11
-   passthrough. His CV says it runs in Gazebo and on the real robot; the footage on the
-   site is the simulation and is labelled as sim. CAD in Fusion 360.
+   passthrough. It runs in Gazebo and on the real robot. The footage on the site is the
+   simulation, labelled as sim, only because no video of the hardware run exists. CAD in Fusion 360.
 
 6. Bracing for a hit (/projects/brace-for-impact.html). A personal reinforcement-learning
    study, all in MuJoCo simulation with mjlab, on a Unitree Go1 quadruped. He trained two

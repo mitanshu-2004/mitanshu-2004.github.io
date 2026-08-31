@@ -84,7 +84,7 @@
         '<textarea rows="1" placeholder="Ask about a project, a skill, a role…" aria-label="Your message"></textarea>' +
         '<button class="chat-send" type="submit" aria-label="Send">↑</button>' +
       "</form>" +
-      '<div class="chat-foot">AI assistant · grounded in his projects · can be wrong</div>';
+      '<div class="chat-foot">AI assistant · grounded in his projects · can be wrong · chats are saved</div>';
 
     document.body.appendChild(launch);
     document.body.appendChild(panel);
