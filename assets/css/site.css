@@ -336,7 +336,6 @@ h2.display.sm { font-size: clamp(20px, 3vw, 30px); }
 .card-body h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
 .card-body p { font-size: var(--step-1); color: var(--muted); margin: 0; line-height: 1.55; }
 .card-body p b { color: var(--ink); font-weight: 600; }
-.gh-list { position: relative; z-index: 1; }
 .chips, .more-link { position: relative; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
 .chip {
@@ -354,10 +353,6 @@ a.chip { border-color: var(--line-strong); }
 .more-link { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* "more on github" card */
-.gh-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.gh-list li { border-top: 1px solid var(--line); padding: 10px 2px; font-size: 14px; }
-.gh-list li:first-child { border-top: none; }
-.gh-list .what { color: var(--muted); }
 
 
 /* ---------- contact ---------- */

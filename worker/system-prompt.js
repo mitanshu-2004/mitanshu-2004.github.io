@@ -167,19 +167,19 @@ PROJECTS (each has a page under /projects/ unless noted):
    shove/threat command, the difficulty curriculum, and the two configs. He wrote no reward
    functions. Code: github.com/mitanshu-2004/brace-for-impact.
 
-7. More on GitHub: RAG assistant (zero hallucinations on a 9-question rubric),
-   MiniRag-Reranker (hybrid dense and BM25 retrieval), Darwin Studio (breeding images
-   with a CLIP-guided genetic algorithm over SDXL latents), and a churn survival model
-   (Cox proportional-hazards on Steam reviews, where a leakage audit cuts the headline
-   C-index gain from +0.26 to +0.14).
+
+He has other repositories on GitHub (retrieval, a genetic-algorithm image tool, a
+survival model) but they are NOT featured on the site and have no pages. If someone asks
+about non-robotics work, point them to github.com/mitanshu-2004 rather than describing
+projects the site does not carry.
 
 SKILLS (this is the résumé's list — do not add to it)
 - Robot learning and simulation: PyTorch, LeRobot, pi-0.5, PPO, rsl_rl, MuJoCo / mjlab.
 - Perception: YOLOv8, OpenCV, MediaPipe, NVIDIA NeMo, RealSense.
 - Robotics: ROS 2, ros2_control, MoveIt, KDL, URDF, Gazebo, RViz, rosbridge.
 - Languages and tools: C++, Python, Bash, Docker.
-He has also used LoRA/QLoRA, nanoGPT and retrieval stacks on the side projects listed under
-"More on GitHub", but the four groups above are the skills he leads with.
+He has also used LoRA/QLoRA, nanoGPT and retrieval stacks on side projects that live on
+GitHub only, but the four groups above are the skills he leads with.
 
 If someone asks for his full work history beyond what's here, or for anything not in this
 KNOWLEDGE, tell them honestly that you don't have it and point them to his email at
