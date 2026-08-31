@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Six legs, eighteen joints · Mitanshu Goel</title>
-<meta name="description" content="An 18-DOF hexapod built with the A.T.O.M. robotics lab at MAIT. I wrote the control node and the closed-form leg inverse kinematics, and containerised the ROS 2 Humble and Gazebo stack in Docker.">
+<meta name="description" content="An 18-DOF hexapod built with the A.T.O.M. lab at MAIT. I wrote the tripod-gait control node and the closed-form law-of-cosines leg inverse kinematics.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Mitanshu Goel">
 <meta property="og:locale" content="en_US">
@@ -116,7 +116,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="media-row">
       <div class="mr-media">
         <div class="main-video">
-          <video src="/assets/media/hexapod-sim-demo.mp4" poster="/assets/media/hexapod-main-poster.jpg" controls playsinline preload="metadata" data-no-autoplay aria-label="18-DoF hexapod walking in Gazebo simulation, driven by keyboard twist commands"></video>
+          <video src="/assets/media/hexapod-sim-demo.mp4" poster="/assets/media/hexapod-main-poster.jpg" controls playsinline preload="none" data-no-autoplay aria-label="18-DoF hexapod walking in Gazebo simulation, driven by keyboard twist commands"></video>
         </div>
       </div>
       <div class="mr-text">

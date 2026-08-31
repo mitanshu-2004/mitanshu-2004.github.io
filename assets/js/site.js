@@ -65,7 +65,13 @@
      chrome bars. Anywhere autoplay will not run, put the controls back — a
      poster with no way to play it is worse than the chrome. */
   function giveControls(list) {
-    list.forEach(function (v) { v.setAttribute("controls", ""); });
+    list.forEach(function (v) {
+      v.setAttribute("controls", "");
+      /* On the home page the whole card is a link laid over the media. A video
+         with controls has to sit above that layer or the first tap navigates
+         instead of playing. */
+      v.classList.add("has-controls");
+    });
   }
 
   if (reduced || saveData || !("IntersectionObserver" in window)) {
@@ -143,6 +149,7 @@
             /* Autoplay blocked by the browser (iOS low-power, a user setting).
                Give this one video its controls back rather than all of them. */
             v.setAttribute("controls", "");
+            v.classList.add("has-controls");
           });
         }
       } else if (!v.paused) {

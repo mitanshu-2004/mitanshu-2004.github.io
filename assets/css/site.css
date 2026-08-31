@@ -682,3 +682,48 @@ footer.site-foot p {
 }
 @media (max-width: 900px) { .theme-slot { top: 60px; } }
 @media (max-width: 640px) { .theme-slot { top: 46px; } }
+
+/* ---------- pointer target sizes ---------- */
+/* WCAG 2.5.8 wants 24x24 CSS px for pointer targets. Inline links inside a
+   sentence are exempt, so the prose links are left alone — but the footer and
+   breadcrumb rows are navigation, and "CV" was a 14x19 target, which is a real
+   miss on a phone. Padding grows the hit area; negative margin keeps the
+   visible rhythm where it was. */
+.hero-foot a,
+.foot-contact a,
+.foot-base-nav a,
+.cv-dl a,
+.cv-contact a {
+  display: inline-block;
+  padding-block: 7px;
+  margin-block: -7px;
+}
+.crumb { display: inline-block; padding-block: 6px; }
+/* The theme button and the chat launcher are already comfortably over 24px;
+   this only guarantees it if the type scale ever shrinks. */
+.theme-tog { min-height: 26px; }
+
+/* The card title is the link; this stretches its hit area over the whole card
+   so the poster, the copy and the "Full story" line are all the same target.
+   The title stays the real anchor, so the accessible name and the tab order do
+   not change — only the reachable area does. The CTA line is aria-hidden
+   because it now describes the card's link rather than being one itself. */
+.work-card { position: relative; }
+.work-card .card-body h3 a::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+}
+/* Clicking the poster opening the project is the behaviour you want from a
+   card, so the media deliberately stays under the stretched link. The one
+   exception is a video that has been given controls — reduced motion,
+   Save-Data, or autoplay blocked — where the reader has to be able to reach
+   play and scrub. site.js adds .has-controls at the same moment it adds the
+   controls attribute. */
+.work-card .chips { position: relative; z-index: 2; }
+.work-card video.has-controls { position: relative; z-index: 2; }
+
+/* The chat launcher is fixed bottom-right. On a phone it sits over whatever is
+   there, and the last thing on every page is the contact block — the one part
+   a recruiter is most likely to be reaching for. Clear it. */
+@media (max-width: 760px) {
+  .site-foot { padding-bottom: 76px; }
+}
