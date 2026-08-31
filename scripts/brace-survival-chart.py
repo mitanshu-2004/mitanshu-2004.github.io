@@ -29,10 +29,19 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-BG = "#131110"
-INK = "#EDE8E2"
-MUTED = "#A39B92"
-LINE = "#2E2925"
+# The page has a light theme now, and a chart baked at #131110 lands as a dark
+# slab on it. --theme light re-runs the same figure against the light tokens;
+# the write-up picks between them with prefers-color-scheme. The series colours
+# change too: #FF6A2B scores 2.7:1 on off-white, so the light chart uses the
+# same darkened accent as the site.
+THEMES = {
+  "dark":  {"BG": "#131110", "INK": "#EDE8E2", "MUTED": "#A39B92", "LINE": "#2E2925",
+            "warned": "#FF6A2B", "unwarned": "#6FA8DC", "warning_removed": "#A39B92"},
+  "light": {"BG": "#FAF8F5", "INK": "#1A1614", "MUTED": "#5E564D", "LINE": "#E4DED5",
+            "warned": "#B8420A", "unwarned": "#2C6FA8", "warning_removed": "#8E8376"},
+}
+_T = THEMES["dark"]
+BG, INK, MUTED, LINE = _T["BG"], _T["INK"], _T["MUTED"], _T["LINE"]
 
 ORDER = ("warned", "unwarned", "warning_removed")
 PRETTY = {
@@ -40,11 +49,7 @@ PRETTY = {
   "unwarned": "not warned",
   "warning_removed": "warned, then warning switched off",
 }
-COLOURS = {
-  "warned": "#FF6A2B",   # site accent
-  "unwarned": "#6FA8DC",
-  "warning_removed": "#A39B92",
-}
+COLOURS = {k: _T[k] for k in ORDER}
 
 
 def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float, float]:

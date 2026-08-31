@@ -1,19 +1,46 @@
 /* ============================================================
    mitanshu.dev — plain, media-first.
-   One dark theme. Videos are the content; everything else
-   stays out of their way.
+   Videos are the content; everything else stays out of their way.
+
+   THEMING. Every colour is declared twice: a plain dark value, then
+   the same token as light-dark(). Browsers without light-dark() drop
+   the second declaration as invalid and keep the dark site exactly as
+   it was — the same progressive-enhancement pattern --accent-glow
+   already used below.
+
+   Which side of light-dark() applies is decided by `color-scheme`.
+   :root carries `light dark`, so the default is whatever the operating
+   system asks for. The toggle writes color-scheme onto :root through a
+   data-theme attribute, so a manual choice overrides the system one
+   without a second copy of the palette.
+
+   The light values are not the dark ones inverted. #FF6A2B scores
+   2.68:1 on an off-white background, which fails AA for text, so the
+   light accent is darkened to #B8420A (5.18:1). --muted, --line-strong
+   and --ok are re-derived the same way rather than guessed.
    ============================================================ */
 
 :root {
+  color-scheme: light dark;
+
   --bg: #131110;
+  --bg: light-dark(#FAF8F5, #131110);
   --bg-elev: #1C1815;
+  --bg-elev: light-dark(#FFFFFF, #1C1815);
   --ink: #EDE8E2;
+  --ink: light-dark(#1A1614, #EDE8E2);          /* 16.9:1 light · 15.5:1 dark */
   --muted: #A39B92;
-  --line: #2E2925;         /* decorative rules */
-  --line-strong: #756B60;  /* interactive borders (≥3:1 on bg) */
+  --muted: light-dark(#5E564D, #A39B92);        /*  6.8:1 light ·  6.9:1 dark */
+  --line: #2E2925;                              /* decorative rules */
+  --line: light-dark(#E4DED5, #2E2925);
+  --line-strong: #756B60;                       /* interactive borders (≥3:1) */
+  --line-strong: light-dark(#8E8376, #756B60);  /*  3.5:1 light ·  3.6:1 dark */
   --accent: #FF6A2B;
+  --accent: light-dark(#B8420A, #FF6A2B);       /*  5.2:1 light ·  6.6:1 dark */
   --accent-ink: #131110;
+  --accent-ink: light-dark(#FFFFFF, #131110);   /* text ON the accent */
   --ok: #58B380;
+  --ok: light-dark(#1E7A47, #58B380);
   --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, "Liberation Mono", monospace;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Liberation Sans", Arial, sans-serif;
 
@@ -29,6 +56,20 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --accent-glow: rgba(255, 106, 43, 0.4);                                /* fallback */
   --accent-glow: color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+/* A manual choice pins color-scheme, which decides light-dark() for every
+   token above. No second palette to keep in sync. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+/* Posters and video are graded for a dark page; on white they glare. A hair of
+   contrast pulls them back without touching the files. */
+:root[data-theme="light"] .media video,
+:root[data-theme="light"] .media img { filter: saturate(0.96) brightness(0.985); }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .media video,
+  :root:not([data-theme="dark"]) .media img { filter: saturate(0.96) brightness(0.985); }
 }
 
 @font-face {
@@ -295,8 +336,15 @@ h2.display.sm { font-size: clamp(20px, 3vw, 30px); }
 .work-card:hover .more-link, .work-card:focus-within .more-link { color: var(--accent); }
 .work-card:focus-within { outline: none; }
 
-.media { position: relative; background: #000; }
-.media video, .media img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
+/* Hard #000 was fine on a dark page. On white it lands as a black slab for the
+   moment before the poster paints, and stays as a hard edge behind any clip
+   that does not fill the frame. A neutral that sits just under the card keeps
+   the letterbox honest without the slam. */
+.media { position: relative; background: #000; background: light-dark(#EFEAE3, #000); }
+.media video, .media img {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
+  background: #000; background: light-dark(#EFEAE3, #000);
+}
 .media video:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 /* viewfinder fiducials — lab-camera registration marks */
 .media::before, .media::after {
@@ -304,7 +352,7 @@ h2.display.sm { font-size: clamp(20px, 3vw, 30px); }
   position: absolute;
   width: 14px;
   height: 14px;
-  border: 0 solid rgba(237, 232, 226, 0.5);
+  border: 0 solid color-mix(in oklab, var(--ink) 50%, transparent);
   pointer-events: none;
   z-index: 1;
 }
@@ -318,7 +366,7 @@ h2.display.sm { font-size: clamp(20px, 3vw, 30px); }
   height: auto;
   border: 0;
   padding: 3px 7px;
-  background: rgba(19, 17, 16, 0.82);
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
   color: var(--accent);
   font-family: var(--mono);
   font-size: 9.5px;
@@ -445,7 +493,7 @@ footer.site-foot p {
   position: absolute;
   width: 18px;
   height: 18px;
-  border: 0 solid rgba(237, 232, 226, 0.5);
+  border: 0 solid color-mix(in oklab, var(--ink) 50%, transparent);
   pointer-events: none;
   z-index: 1;
 }
@@ -487,7 +535,7 @@ footer.site-foot p {
   margin-top: 10px;
 }
 .gallery figure { margin: 0; border: 1px solid var(--line); background: var(--bg-elev); }
-.gallery video, .gallery img { display: block; width: 100%; height: auto; background: #000; }
+.gallery video, .gallery img { display: block; width: 100%; height: auto; background: light-dark(#EFEAE3, #000); }
 .gallery figcaption {
   font-family: var(--mono);
   font-size: 10.5px;
@@ -528,8 +576,8 @@ footer.site-foot p {
   background:
     linear-gradient(to right, var(--bg), rgba(19, 17, 16, 0)) 0 0 / 30px 100% no-repeat local,
     linear-gradient(to left, var(--bg), rgba(19, 17, 16, 0)) 100% 0 / 30px 100% no-repeat local,
-    linear-gradient(to right, rgba(237, 232, 226, 0.15), rgba(237, 232, 226, 0)) 0 0 / 16px 100% no-repeat scroll,
-    linear-gradient(to left, rgba(237, 232, 226, 0.15), rgba(237, 232, 226, 0)) 100% 0 / 16px 100% no-repeat scroll;
+    linear-gradient(to right, color-mix(in oklab, var(--ink) 15%, transparent), transparent) 0 0 / 16px 100% no-repeat scroll,
+    linear-gradient(to left, color-mix(in oklab, var(--ink) 15%, transparent), transparent) 100% 0 / 16px 100% no-repeat scroll;
 }
 .data-table table { width: 100%; min-width: 480px; border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; }
 .data-table th, .data-table td { padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; color: var(--muted); }
@@ -580,3 +628,57 @@ footer.site-foot p {
   * { transition: none !important; animation: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Screen-reader-only text. The toggle's visible label is CSS-generated
+   content, which assistive tech may not announce, so the button carries a real
+   text node too. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------- theme toggle ---------- */
+/* Sits with the other mono micro-labels rather than floating: the chat pill
+   already owns the bottom-right corner, and a second floating control there
+   would collide with it on a phone. */
+.theme-tog {
+  -webkit-appearance: none; appearance: none;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: none; border: 1px solid var(--line); border-radius: 2px;
+  color: var(--muted); font-family: var(--mono); font-size: var(--step-000);
+  letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 5px 9px; cursor: pointer;
+  transition: color .18s var(--ease), border-color .18s var(--ease);
+}
+.theme-tog:hover { color: var(--ink); border-color: var(--line-strong); }
+.theme-tog:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-tog svg { width: 13px; height: 13px; flex: none; }
+/* One icon per scheme; CSS picks which is drawn so the button needs no JS to
+   look right on first paint. */
+.theme-tog .t-sun { display: none; }
+.theme-tog .t-moon { display: block; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-tog .t-sun { display: block; }
+  :root:not([data-theme="dark"]) .theme-tog .t-moon { display: none; }
+}
+:root[data-theme="light"] .theme-tog .t-sun { display: block; }
+:root[data-theme="light"] .theme-tog .t-moon { display: none; }
+:root[data-theme="dark"] .theme-tog .t-sun { display: none; }
+:root[data-theme="dark"] .theme-tog .t-moon { display: block; }
+.theme-tog .t-label::after { content: "Dark"; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-tog .t-label::after { content: "Light"; }
+}
+:root[data-theme="light"] .theme-tog .t-label::after { content: "Light"; }
+:root[data-theme="dark"] .theme-tog .t-label::after { content: "Dark"; }
+
+/* Inset to clear the corner fiducial, and dropped to sit on the same line as
+   the name stamp / breadcrumb rather than floating above everything. `right`
+   matches .wrap's own horizontal padding so the button lines up with the
+   content column, not the viewport edge. */
+.theme-slot {
+  position: absolute; z-index: 5;
+  top: 74px; right: clamp(18px, 4vw, 40px);
+}
+@media (max-width: 900px) { .theme-slot { top: 60px; } }
+@media (max-width: 640px) { .theme-slot { top: 46px; } }

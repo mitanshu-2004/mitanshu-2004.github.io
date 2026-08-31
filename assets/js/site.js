@@ -182,3 +182,71 @@
     if (empty) empty.hidden = shown > 0;
   });
 })();
+
+(function () {
+  /* ---- theme toggle ------------------------------------------------
+     Three states, not two: light, dark, and "whatever the system says",
+     which is what you get before anyone touches the button. Clicking
+     picks the opposite of what is currently on screen and stores it, so
+     the system default keeps working for everyone who never clicks. */
+  var tog = document.getElementById("themeTog");
+  if (tog) {
+    var root = document.documentElement;
+    var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+
+    function current() {
+      var set = root.getAttribute("data-theme");
+      if (set === "light" || set === "dark") return set;
+      return systemDark && systemDark.matches ? "dark" : "light";
+    }
+    function sync() {
+      var now = current();
+      tog.setAttribute("aria-pressed", now === "light" ? "true" : "false");
+      tog.setAttribute("aria-label", now === "light"
+        ? "Colour theme: light. Switch to dark."
+        : "Colour theme: dark. Switch to light.");
+    }
+    sync();
+
+    /* <picture> resolves against prefers-color-scheme only, so a pinned theme
+       cannot reach it. Setting img.src is not enough either — the selection
+       algorithm re-runs and the <source> elements win again. Rewriting their
+       media queries is what actually decides it: the sources for the scheme the
+       reader did not pick are switched off with `not all`. */
+    function fixFigures(theme) {
+      var pics = document.querySelectorAll("picture");
+      Array.prototype.forEach.call(pics, function (pic) {
+        Array.prototype.forEach.call(pic.querySelectorAll("source"), function (src) {
+          if (!src.dataset.media) src.dataset.media = src.getAttribute("media") || "";
+          var m = src.dataset.media;
+          if (m.indexOf("prefers-color-scheme") === -1) return;
+          var isLight = m.indexOf("light") !== -1;
+          src.setAttribute("media", (isLight === (theme === "light"))
+            ? m.replace(/\(prefers-color-scheme:\s*\w+\)\s*and\s*/, "").replace(/^\(prefers-color-scheme:\s*\w+\)$/, "all")
+            : "not all");
+        });
+        var img = pic.querySelector("img");
+        if (img) { var s = img.getAttribute("src"); img.setAttribute("src", s); }
+      });
+    }
+    fixFigures(current());
+
+    tog.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) { /* private mode */ }
+      fixFigures(next);
+      sync();
+    });
+
+    /* If the reader never chose, follow the system when it changes mid-session
+       (macOS and Windows both flip automatically at sunset). */
+    if (systemDark && systemDark.addEventListener) {
+      systemDark.addEventListener("change", function () {
+        var stored = null;
+        try { stored = localStorage.getItem("theme"); } catch (e) {}
+        if (stored !== "light" && stored !== "dark") sync();
+      });
+    }
+  }
+})();
