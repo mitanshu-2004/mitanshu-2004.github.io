@@ -113,15 +113,15 @@
       <ul>
         <li>Vision is a custom-trained YOLOv8 detector running on the Yanshee's MJPEG stream, so the robot names what it sees instead of guessing from context.</li>
         <li>Speech comes in through an NVIDIA NeMo ASR pipeline. A wake word gates it, and what follows gets routed — a question goes to a chat service, a scan request goes to a QR reader.</li>
-        <li>The routing is the part that matters. Without it the robot either responds to every stray sentence in a noisy room, or you hold a button to talk and it stops being a humanoid you speak to.</li>
+        <li>Getting the routing right mattered more than either model. Without a wake word the robot answers every stray sentence in a noisy room; with a push-to-talk button it stops being something you speak to at all.</li>
       </ul>
 
       <h2>Working through a phone-grade camera</h2>
       <p>The Yanshee streams MJPEG, which is a series of independently compressed frames over HTTP. It is easy to consume and it is not a good video pipeline: no interframe compression, visible artefacts, and latency that varies with the network rather than with anything you control.</p>
       <p>That shapes the detector. A model tuned on clean images does poorly on a soft, compressed frame from a robot that is also moving, so I trained against frames pulled from the robot's own stream rather than a clean dataset.</p>
 
-      <h2>What it is and is not</h2>
-      <p>This is a hobby-grade humanoid, roughly the size of a large doll, and none of the hardware is research-grade. The work was in the software: tying the detector, the ASR, the routing and the reply into one loop that behaves sensibly when a person walks up and talks to it.</p>
+      <h2>The hardware is the boring part</h2>
+      <p>The Yanshee is roughly the size of a large doll and costs about as much as a laptop. Nothing about the servos or the camera is research-grade, and none of my work went into them. It went into tying the detector, the ASR, the routing and the reply into one loop that behaves sensibly when a stranger walks up and starts talking.</p>
     </div>
   </section>
 

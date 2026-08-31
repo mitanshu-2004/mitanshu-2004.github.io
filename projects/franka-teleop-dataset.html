@@ -142,21 +142,21 @@
     <div class="prose">
       <h2>The loop that collects it</h2>
       <ul>
-        <li>A real-time C++ loop does Cartesian servoing at <b>125 Hz</b>, taking Quest 3 hand pose in over UDP. One process per arm, so a stall on one never stutters the other.</li>
-        <li>Bad tracking frames get dropped rather than passed on. When the headset loses a controller it reports a plausible wrong pose rather than an error, so the loop checks the pose before acting on it.</li>
-        <li>My commands never reach the arm directly. A safety layer clamps workspace, end-effector speed and command rate, so a bad input slows the robot instead of throwing it.</li>
-        <li>The same loop drives the Elite CS66 pair next door. Ten tasks were collected across both platforms, which is what makes the set worth training on: a policy that only ever saw one arm learns that arm, not the task.</li>
+        <li>The same <a href="/projects/dual-arm-vr-teleop.html">real-time C++ loop</a> I wrote for the CS66 pair drives this arm: Cartesian servoing at <b>125 Hz</b>, Quest 3 hand pose in over UDP.</li>
+        <li>Poses the headset cannot vouch for are discarded before they reach the arm.</li>
+        <li>The same safety clamps sit between me and this arm as on the CS66 pair, which matters more here: a bad episode is not just a bad run, it is a bad run that ends up in the training set.</li>
+        <li>Ten tasks were collected across both platforms rather than one. A policy that has only ever seen a single arm tends to fit the quirks of that arm's geometry along with the task.</li>
       </ul>
 
       <h2>Training the policy</h2>
-      <p>I fine-tuned a <b>&#960;0.5</b> vision-language-action policy on the 10-task set and worked on its inference path. Collecting the demonstrations was the first half of the job.</p>
+      <p>I fine-tuned a <b>&#960;0.5</b> vision-language-action policy on the 10-task set and worked on its inference path.</p>
       <p>Collecting demonstrations and never training on them leaves the interesting half of the question unanswered. You do not find out whether your data is good until something tries to learn from it, and the failures point straight back at the collection: a task the policy cannot do is usually a task you recorded badly.</p>
       <p>Everything is written in <a href="https://github.com/huggingface/lerobot">LeRobot</a>'s dataset format, so it drops into standard imitation-learning training without a conversion step of my own invention sitting in the middle.</p>
 
       <h2>What I would fix</h2>
       <ul>
         <li>Ten tasks is a small set. It is enough to fine-tune on and not enough to make strong claims about generalisation, and I would rather say that than imply otherwise.</li>
-        <li>Episode counts per task were never recorded in a form I can quote. The lesson is that the logging schema is part of the dataset, not an afterthought — an unrecorded number is a number you cannot report later.</li>
+        <li>Episode counts per task were never logged in a form I can quote now. I should have decided what the collection script wrote out before I started collecting, rather than after.</li>
       </ul>
 
       <h2>Links</h2>

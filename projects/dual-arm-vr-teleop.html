@@ -143,17 +143,15 @@
       <ul>
         <li>A real-time C++ loop maps controller poses to end-effector targets through SE(3) transforms, servoing in Cartesian space at <b>125 Hz</b>. Hand pose arrives from the headset over UDP. One process per arm, so a stall on one never stutters the other.</li>
         <li>A clutch lets me let go mid-task. Release to freeze the arms, move my hands somewhere comfortable, re-engage and continue. It works like lifting a mouse off the desk, and without it your arm ends up pinned against your body halfway through anything long.</li>
-        <li>A safety layer clamps workspace limits, end-effector velocity and command rate before anything reaches the hardware. A bad input slows the robot instead of throwing it.</li>
-        <li>Bad tracking frames get dropped rather than passed on. When the headset loses a controller it does not go quiet, it reports a plausible wrong pose. On a 6-DOF industrial arm that pose becomes real motion, so the loop discards frames it cannot trust instead of acting on them.</li>
+        <li>Nothing I send reaches the hardware unchecked. A safety layer clamps the workspace, the end-effector velocity and the command rate first.</li>
+        <li>When the headset loses a controller it does not go quiet. It reports a plausible wrong pose, and on an industrial arm that pose becomes real motion, so the loop throws away frames it cannot trust.</li>
       </ul>
 
       <h2>What made it hard</h2>
-      <p>Retargeting a controller pose onto a 6-DOF arm is the easy half. The hard half is everything around it.</p>
-      <ul>
-        <li><b>Singularities.</b> A pose the arm can reach is not the same as a pose it can reach smoothly. Near a wrist singularity the inverse kinematics asks for enormous joint speeds to make a small Cartesian move, so the loop has to notice and refuse rather than obey.</li>
-        <li><b>Where I can reach and the arm cannot.</b> My hand has no joint limits and no elbow to collide with a table. Something has to decide what happens when I ask for a pose outside the arm's world, and stopping cleanly at the boundary is better behaviour than tracking as far as possible and then jerking.</li>
-        <li><b>Smoothing without lag.</b> Filter the pose too little and hand tremor becomes arm tremor. Filter it too much and the arm feels like it is underwater, which makes fine work impossible.</li>
-      </ul>
+      <p>Mapping a controller pose onto a 6-DOF arm takes an afternoon. Three things after that took the rest of the time.</p>
+      <p>A pose the arm can reach is not always a pose it can reach smoothly. Near a wrist singularity the inverse kinematics asks for enormous joint speeds to make a small Cartesian move, so the loop has to notice that and refuse rather than obey.</p>
+      <p>My hand also has no joint limits and no elbow to catch on a table, so I can put the controller somewhere the arm simply cannot follow. The arm stops cleanly at the edge of its workspace instead of tracking as far as it can and then jerking.</p>
+      <p>And the filtering has to sit in a narrow band. Too little and my hand tremor becomes arm tremor. Too much and the arm feels like it is moving underwater, which makes fine work impossible.</p>
 
       <h2>Where it goes</h2>
       <p>The rig exists to collect demonstrations. The same loop drives the Franka FR3, and the ten-task dataset it recorded is what a <a href="/projects/franka-teleop-dataset.html">&#960;0.5 policy was fine-tuned on</a>. Every hesitation and correction in my hand ends up in that training data, so how well I teleoperate sets a ceiling on what the policy can learn.</p>

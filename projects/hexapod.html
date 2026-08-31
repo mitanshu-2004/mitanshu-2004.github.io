@@ -112,11 +112,9 @@
     <div class="prose">
       <h2>Built with A.T.O.M.</h2>
       <p>This is a team robot, built with the A.T.O.M. robotics lab at MAIT, not a solo project. Three parts of it are mine.</p>
-      <ul>
-        <li><b>The control node.</b> A <code>/cmd_vel</code> command becomes a tripod gait through ros2_control, driving all eighteen joints. Two triangles of legs alternate between stance and swing, so three feet are always on the ground.</li>
-        <li><b>The leg inverse kinematics.</b> A closed-form, law-of-cosines solution that turns each foot target into coxa, femur and tibia angles. It replaced a hand-tuned angle table — the table worked for the poses somebody had tuned and nothing else, so the robot could only walk the way it had been taught rather than the way it was commanded.</li>
-        <li><b>The environment.</b> I containerised the ROS 2 Humble and Gazebo Harmonic stack in Docker, with GPU and X11 passthrough so the simulator renders from inside the container. Before that, a build that worked on one laptop was no evidence it would work on anyone else's.</li>
-      </ul>
+      <p>I wrote the control node. A <code>/cmd_vel</code> command becomes a tripod gait through ros2_control, driving all eighteen joints, with two triangles of legs alternating between stance and swing so three feet are always down.</p>
+      <p>I wrote the leg inverse kinematics too — a closed-form law-of-cosines solution turning each foot target into coxa, femur and tibia angles. It replaced a hand-tuned angle table. That table worked for the poses somebody had already tuned and nothing else, so the robot could only walk the way it had been taught.</p>
+      <p>And I containerised the ROS 2 Humble and Gazebo Harmonic stack in Docker, with GPU and X11 passthrough so the simulator renders from inside the container. Before that, a build working on one laptop told you nothing about whether it would work on anyone else's.</p>
 
       <h2>Why closed-form and not a solver</h2>
       <p>A general IK solver would work here and would be the wrong tool. A three-joint leg has a closed-form solution you can write down with the law of cosines: given a foot position, the angles fall out of two triangles, and it either has a solution or the target is out of reach.</p>
