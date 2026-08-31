@@ -122,7 +122,7 @@
       <h2>What actually broke</h2>
       <p>The trajectories worked in simulation and failed on the real arm. The cause was the URDF: the model I was planning against did not match the robot I was planning for.</p>
       <p>That is a quiet failure, which is what makes it expensive. MoveIt plans happily against a wrong model and hands you a trajectory that looks correct in RViz. The arm then executes it and the error only shows up as motion that is subtly off, or as a joint that reaches its limit sooner than the planner expected. Nothing errors; the robot just does the wrong thing confidently.</p>
-      <p>Fixing it meant going back through the link frames and joint definitions against the physical arm rather than trusting the description I had been handed. It is the most useful thing I learned in that internship: in simulation a wrong sign is harmless and invisible, and on real hardware it is neither.</p>
+      <p>Fixing it meant going back through the link frames and joint definitions against the physical arm rather than trusting the description I had been handed. It is the most useful thing I learned in that internship. A wrong sign costs nothing in simulation and shows up nowhere, which is exactly why it survives long enough to reach the arm.</p>
     </div>
   </section>
 

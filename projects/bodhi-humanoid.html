@@ -118,10 +118,10 @@
 
       <h2>Working through a phone-grade camera</h2>
       <p>The Yanshee streams MJPEG, which is a series of independently compressed frames over HTTP. It is easy to consume and it is not a good video pipeline: no interframe compression, visible artefacts, and latency that varies with the network rather than with anything you control.</p>
-      <p>That shapes the detector. A model tuned on clean images does poorly on a soft, compressed frame from a robot that is also moving, so the useful work was in training against the frames the robot actually produces rather than the frames you wish it produced.</p>
+      <p>That shapes the detector. A model tuned on clean images does poorly on a soft, compressed frame from a robot that is also moving, so I trained against frames pulled from the robot's own stream rather than a clean dataset.</p>
 
       <h2>What it is and is not</h2>
-      <p>This is a hobby-grade humanoid, roughly the size of a large doll, and none of the hardware here is research-grade. That is the point. The interesting problem was never the servos, it was tying seeing, listening, routing and answering into one loop that behaves sensibly when a person walks up and talks to it.</p>
+      <p>This is a hobby-grade humanoid, roughly the size of a large doll, and none of the hardware is research-grade. The work was in the software: tying the detector, the ASR, the routing and the reply into one loop that behaves sensibly when a person walks up and talks to it.</p>
     </div>
   </section>
 

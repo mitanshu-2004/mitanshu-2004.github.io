@@ -143,13 +143,13 @@
       <h2>The loop that collects it</h2>
       <ul>
         <li>A real-time C++ loop does Cartesian servoing at <b>125 Hz</b>, taking Quest 3 hand pose in over UDP. One process per arm, so a stall on one never stutters the other.</li>
-        <li>Bad tracking frames get dropped rather than passed on. When the headset loses a controller it does not fail loudly, it reports a plausible wrong pose, and a wrong pose that reaches the arm is worse than no pose at all.</li>
+        <li>Bad tracking frames get dropped rather than passed on. When the headset loses a controller it reports a plausible wrong pose rather than an error, so the loop checks the pose before acting on it.</li>
         <li>My commands never reach the arm directly. A safety layer clamps workspace, end-effector speed and command rate, so a bad input slows the robot instead of throwing it.</li>
         <li>The same loop drives the Elite CS66 pair next door. Ten tasks were collected across both platforms, which is what makes the set worth training on: a policy that only ever saw one arm learns that arm, not the task.</li>
       </ul>
 
       <h2>Training the policy</h2>
-      <p>The dataset is the input, not the deliverable. I fine-tuned a <b>&#960;0.5</b> vision-language-action policy on the 10-task set and worked on its inference path.</p>
+      <p>I fine-tuned a <b>&#960;0.5</b> vision-language-action policy on the 10-task set and worked on its inference path. Collecting the demonstrations was the first half of the job.</p>
       <p>Collecting demonstrations and never training on them leaves the interesting half of the question unanswered. You do not find out whether your data is good until something tries to learn from it, and the failures point straight back at the collection: a task the policy cannot do is usually a task you recorded badly.</p>
       <p>Everything is written in <a href="https://github.com/huggingface/lerobot">LeRobot</a>'s dataset format, so it drops into standard imitation-learning training without a conversion step of my own invention sitting in the middle.</p>
 

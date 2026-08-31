@@ -144,7 +144,7 @@
         <li>A real-time C++ loop maps controller poses to end-effector targets through SE(3) transforms, servoing in Cartesian space at <b>125 Hz</b>. Hand pose arrives from the headset over UDP. One process per arm, so a stall on one never stutters the other.</li>
         <li>A clutch lets me let go mid-task. Release to freeze the arms, move my hands somewhere comfortable, re-engage and continue. It works like lifting a mouse off the desk, and without it your arm ends up pinned against your body halfway through anything long.</li>
         <li>A safety layer clamps workspace limits, end-effector velocity and command rate before anything reaches the hardware. A bad input slows the robot instead of throwing it.</li>
-        <li>Bad tracking frames get dropped rather than passed on. When the headset loses a controller it does not go quiet, it reports a plausible wrong pose — and a wrong pose that reaches an industrial arm is much worse than a missing one.</li>
+        <li>Bad tracking frames get dropped rather than passed on. When the headset loses a controller it does not go quiet, it reports a plausible wrong pose. On a 6-DOF industrial arm that pose becomes real motion, so the loop discards frames it cannot trust instead of acting on them.</li>
       </ul>
 
       <h2>What made it hard</h2>
@@ -156,7 +156,7 @@
       </ul>
 
       <h2>Where it goes</h2>
-      <p>This rig is not the deliverable. It is the instrument that collects the demonstrations — the same loop drives the Franka FR3, and the ten-task dataset it recorded is what a <a href="/projects/franka-teleop-dataset.html">&#960;0.5 policy was fine-tuned on</a>. Teleoperation quality is dataset quality: every hesitation and correction in my hand ends up in the training data, for better or worse.</p>
+      <p>The rig exists to collect demonstrations. The same loop drives the Franka FR3, and the ten-task dataset it recorded is what a <a href="/projects/franka-teleop-dataset.html">&#960;0.5 policy was fine-tuned on</a>. Every hesitation and correction in my hand ends up in that training data, so how well I teleoperate sets a ceiling on what the policy can learn.</p>
 
       <h2>Links</h2>
       <p><a href="https://www.youtube.com/watch?v=kUlfE-U_5m4">Demo on YouTube</a></p>
