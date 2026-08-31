@@ -75,7 +75,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       ],
       "uploadDate": "2024-08-13",
       "duration": "PT8S",
-      "contentUrl": "https://mitanshu.dev/assets/media/nextup-card.mp4",
+      "contentUrl": "https://mitanshu.dev/assets/media/nextup-demo.mp4",
       "embedUrl": "https://mitanshu.dev/projects/nextup-cobot.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
@@ -117,7 +117,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="media-row">
       <div class="mr-media">
         <div class="main-video">
-          <video src="/assets/media/nextup-card.mp4" poster="/assets/media/nextup-card-poster.jpg" controls muted loop playsinline preload="none" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware"></video>
+          <video src="/assets/media/nextup-demo.mp4" poster="/assets/media/nextup-demo-poster.jpg" controls muted loop playsinline preload="none" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware"></video>
         </div>
       </div>
       <div class="mr-text">
@@ -154,7 +154,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">In simulation</h2>
-        <p>The same arm in a physics simulator — its real URDF and link meshes loaded into PyBullet, running the reach through the joint chain before any of it touches real hardware. Checking motion in sim first is how you catch a bad sign or a joint limit while it's still harmless.</p>
+        <p>The same robot, rendered from the URDF and STL meshes in this repo, stepping through the eight Cartesian pose targets in my <code>position_interface</code> — the actual coordinates the node plans to. The waypoints are mine; the path between them here is solved by inverse kinematics for the picture, not by MoveIt's planner. Checking motion in sim first is how you catch a bad sign or a joint limit while it is still harmless.</p>
       </div>
     </div>
   </section>
