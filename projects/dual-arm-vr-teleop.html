@@ -86,11 +86,11 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "name": "Quest controller driving the dual-arm rig, mirrored live",
       "description": "A Meta Quest 3 controller pose driving the two-arm rig, with the target motion mirrored live before it reaches the real hardware.",
       "thumbnailUrl": [
-        "https://mitanshu.dev/assets/media/dualarm-teleop-clip-poster.jpg"
+        "https://mitanshu.dev/assets/media/dualarm-rig-poster.jpg"
       ],
       "uploadDate": "2026-05-15",
       "duration": "PT11S",
-      "contentUrl": "https://mitanshu.dev/assets/media/dualarm-teleop-clip.mp4",
+      "contentUrl": "https://mitanshu.dev/assets/media/dualarm-rig.mp4",
       "embedUrl": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
@@ -121,7 +121,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="meta-row">
       <span class="chip hot">2× Elite Robots CS66</span>
       <span class="chip">125 Hz Cartesian servoing</span>
-      <span class="chip">Quest 3 · UDP</span>
+      <span class="chip">Quest 3, worn on the chest</span>
       <span class="chip">Real-time C++</span>
       <span class="chip">Anchor/clutch control</span>
     </div>
@@ -137,7 +137,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <div class="mr-text">
         <h2 class="display sm">Two arms, following my hands</h2>
         <p>Both arms follow my hand movements live, streamed from Meta Quest 3 controllers. Here they pass a block from one gripper to the other. Every motion is driven by me, in real time.</p>
-        <p>Built at Nferent AI. The clip is theirs, so it carries their branding and a voice-over; the engineering below is what I actually wrote.</p>
+        <p>Built at Nferent AI. Two Elite CS66 arms, a block passed and stacked between their grippers, and no trajectory planned in advance — every motion here is mine, live.</p>
       </div>
     </div>
   </section>
@@ -146,12 +146,13 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="media-row reverse">
       <div class="mr-media">
         <div class="main-video">
-          <video src="/assets/media/dualarm-teleop-clip.mp4" poster="/assets/media/dualarm-teleop-clip-poster.jpg" controls playsinline preload="none" data-no-autoplay aria-label="Operator's view through the Quest headset: a controller in hand, both CS66 arms following"></video>
+          <video src="/assets/media/dualarm-rig.mp4" poster="/assets/media/dualarm-rig-poster.jpg" controls playsinline preload="none" data-no-autoplay aria-label="Operator's view through the Quest headset: a controller in hand, both CS66 arms following"></video>
         </div>
       </div>
       <div class="mr-text">
-        <h2 class="display sm">Teleoperation, seen through the headset</h2>
-        <p>The same rig from my side of it — recorded through the Quest: a controller in hand and both CS66 arms tracking it in real time. Roughly what I'm looking at while I drive them.</p>
+        <h2 class="display sm">The headset never goes on</h2>
+        <p>Look at where the Quest 3 is: hanging on my chest, cameras pointing forward at my hands. It is never on my face.</p>
+        <p>Driving two industrial arms while wearing a headset is the easy version. It is also the version that gives you a sore neck in twenty minutes and hides the robot behind a video feed. So the rig runs with the headset off and worn as a chest-mounted tracking base — it still does the inside-out tracking that locates the controllers, and I keep my own eyes on the real arms. Operator comfort was the point; being able to watch the hardware directly rather than a stream turned out to matter more.</p>
       </div>
     </div>
   </section>

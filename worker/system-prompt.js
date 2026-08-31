@@ -107,7 +107,11 @@ PROJECTS (each has a page under /projects/ unless noted):
 1. Dual-arm VR teleoperation (/projects/dual-arm-vr-teleop.html). Two Elite Robots CS66
    industrial arms follow his hands live, streamed from a Meta Quest 3, on a real-time
    C++ loop he wrote: Cartesian servoing at 125 Hz, hand pose in over UDP, one process per
-   arm. Controller poses map to end-effector targets through SE(3) transforms. Bad tracking
+   arm. NOTABLE: the Quest 3 is never worn on the face — it hangs on the operator's chest
+   as a tracking base, so the operator wears nothing on their head and watches the real arms
+   instead of a video feed. Making teleop work with the headset resting, rather than worn, is
+   the part he considers the actual contribution. Controller poses map to end-effector
+   targets through SE(3) transforms. Bad tracking
    frames are dropped rather than passed on, because the headset reports a plausible wrong
    pose rather than failing loudly when it loses a controller. A clutch lets him freeze the
    arms, re-grip, and continue. A safety layer clamps workspace, velocity, and command rate.
