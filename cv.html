@@ -35,6 +35,10 @@
   .cv-status { display: inline-block; border: 1px solid var(--accent);
                color: var(--accent); font-family: var(--mono); font-size: var(--step-00);
                padding: 5px 10px; border-radius: 2px; margin-bottom: 22px; }
+  .cv-dl { margin: -8px 0 22px; font-size: var(--step-00); }
+  .cv-dl a { font-family: var(--mono); font-size: var(--step-000); letter-spacing: .06em;
+             text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--accent); }
+  .cv-dl span { color: var(--muted); font-family: var(--mono); font-size: var(--step-000); }
   .cv-contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
                 gap: 6px 22px; border-top: 1px solid var(--line);
                 border-bottom: 1px solid var(--line); padding: 16px 0; margin: 0 0 8px; }
@@ -61,8 +65,21 @@
                  font-weight: 400; letter-spacing: .06em; text-transform: uppercase; }
   @media (max-width: 620px) { .cv-skills div { grid-template-columns: 1fr; gap: 2px; } }
   @media print {
-    .crumb, .site-foot, .cv-status { display: none; }
-    .cv h2 { margin-top: 20px; }
+    /* Printed to A4 this was three pages with the third nearly empty, and the
+       three-column contact grid overflowed its tracks — the LinkedIn and
+       Hugging Face URLs ran into each other. Two columns fit the long URLs,
+       and the tightened vertical rhythm brings it back to two pages. */
+    .crumb, .site-foot, .cv-status, .cv-dl { display: none; }
+    body { font-size: 10.5pt; }
+    .cv-head { padding: 0 0 4px; }
+    .cv-head .display { font-size: 22pt; }
+    .cv-sub { margin-bottom: 10px; }
+    .cv-contact { grid-template-columns: 1fr 1fr; gap: 3px 24px; padding: 10px 0; }
+    .cv h2 { margin: 16px 0 8px; }
+    .cv-item { margin-bottom: 12px; page-break-inside: avoid; break-inside: avoid; }
+    .cv-item h3 { font-size: 12pt; }
+    .cv-item li { margin-bottom: 3px; }
+    .cv-skills { gap: 5px; }
     a { text-decoration: none; }
   }
 </style>
@@ -78,6 +95,7 @@
     <p class="cv-role">Robotics &amp; AI Engineer · Delhi, India</p>
     <p class="cv-sub">I build the pipeline that turns human demonstrations into robot policies. Teleop rigs, synchronised capture, and the &#960;0.5 fine-tune at the end of it.</p>
     <p class="cv-status">Open to Physical-AI and robotics roles</p>
+    <p class="cv-dl"><a href="/assets/docs/Mitanshu-Goel-Robotics-CV.pdf" download>Download as PDF</a> <span>— one page, for applications</span></p>
     <div class="cv-contact">
       <div><span>Email</span><a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></div>
       <div><span>Phone</span><a href="tel:+918595657583">+91 85956 57583</a></div>

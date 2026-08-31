@@ -13,6 +13,7 @@
 
 ## CV
 - [Full CV](https://mitanshu.dev/cv.html): education, dates, and the three internships in detail.
+- [CV as PDF](https://mitanshu.dev/assets/docs/Mitanshu-Goel-Robotics-CV.pdf): one page, for applications.
 
 ## Contact
 - Email: mitanshug2004@gmail.com

@@ -553,13 +553,6 @@ footer.site-foot p {
 
 /* ---------- 404 ---------- */
 .err-code { font-size: clamp(64px, 14vw, 140px); }
-.cv-item { border-top: 1px solid var(--line); padding: 12px 0; }
-.cv-item:last-child { border-bottom: 1px solid var(--line); }
-.cv-item .row1 { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
-.cv-item .row1 b { font-size: 15px; }
-.cv-item .when { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
-.cv-item p { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
-.print-hint { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.07em; color: var(--muted); text-transform: uppercase; }
 
 /* ---------- scroll reveal: staggered, and safe with no JS or reduced motion ----------
    Elements only hide once .reveal-on is set (by an inline head script), so if scripting

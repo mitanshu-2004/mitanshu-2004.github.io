@@ -61,7 +61,15 @@
     v.addEventListener("error", hide);
   });
 
+  /* Card videos ship without `controls` so the grid is not seven browser
+     chrome bars. Anywhere autoplay will not run, put the controls back — a
+     poster with no way to play it is worse than the chrome. */
+  function giveControls(list) {
+    list.forEach(function (v) { v.setAttribute("controls", ""); });
+  }
+
   if (reduced || saveData || !("IntersectionObserver" in window)) {
+    giveControls(videos);
     /* no autoplay, no prefetch: posters + click-to-play, one at a time */
     if (saveData) {
       videos.forEach(function (v) { v.preload = "none"; });
@@ -131,7 +139,11 @@
       if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
         if (!v.dataset.userPaused && v.paused) {
           var p = v.play();
-          if (p && p.catch) p.catch(function () { /* autoplay blocked — controls remain */ });
+          if (p && p.catch) p.catch(function () {
+            /* Autoplay blocked by the browser (iOS low-power, a user setting).
+               Give this one video its controls back rather than all of them. */
+            v.setAttribute("controls", "");
+          });
         }
       } else if (!v.paused) {
         v.dataset.ioPause = "1";
