@@ -69,12 +69,12 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     {
       "@type": "VideoObject",
       "name": "A 6-DOF cobot arm running a MoveIt motion sequence",
-      "description": "A supplied 6-DOF arm running a MoveIt motion sequence on real hardware, brought up in ROS 2 with KDL inverse kinematics. Recorded during the NextUp Robotics internship.",
+      "description": "A supplied 6-DOF arm running a MoveIt motion sequence on real hardware, brought up in ROS 2 with KDL inverse kinematics. Recorded during the NextUp Robotics internship. Two and a half seconds of footage, played forward and then back so it loops.",
       "thumbnailUrl": [
-        "https://mitanshu.dev/assets/media/nextup-card-poster.jpg"
+        "https://mitanshu.dev/assets/media/nextup-demo-poster.jpg"
       ],
       "uploadDate": "2024-08-13",
-      "duration": "PT8S",
+      "duration": "PT5S",
       "contentUrl": "https://mitanshu.dev/assets/media/nextup-demo.mp4",
       "embedUrl": "https://mitanshu.dev/projects/nextup-cobot.html",
       "author": {
@@ -116,13 +116,13 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
   <section class="block">
     <div class="media-row">
       <div class="mr-media">
-        <div class="main-video">
-          <video src="/assets/media/nextup-demo.mp4" poster="/assets/media/nextup-demo-poster.jpg" controls muted loop playsinline preload="none" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware"></video>
+        <div class="main-video portrait">
+          <video src="/assets/media/nextup-demo.mp4" poster="/assets/media/nextup-demo-poster.jpg" controls muted loop playsinline preload="none" aria-label="A 6-DOF cobot arm running a MoveIt motion sequence on real hardware, looped forward and back"></video>
         </div>
       </div>
       <div class="mr-text">
         <h2 class="display sm">On the real arm</h2>
-        <p>The arm running a MoveIt-planned sequence on real hardware — the same interfaces that drove it in simulation, pointed at the physical robot.</p>
+        <p>The arm running a MoveIt-planned sequence on real hardware — the same interfaces that drove it in simulation, pointed at the physical robot. The clip is two and a half seconds of the recording, played forward and then back so it loops; the arm does not run the sequence twice.</p>
         <p>Getting here honestly is most of the work: a wrong sign in a transform or a joint limit off by a few degrees is harmless in sim and swings a real arm the wrong way. You check everything twice before you power the motors.</p>
       </div>
     </div>
