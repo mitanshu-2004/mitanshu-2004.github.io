@@ -3,13 +3,13 @@
 // The browser never sees a key. Deploy notes: worker/README.md.
 import { SYSTEM_PROMPT, GUARD_NOTE } from "../system-prompt.js";
 
-const PRIMARY_MODEL = "llama-3.3-70b-versatile";
-const FALLBACK_MODEL = "llama-3.1-8b-instant";
+const PRIMARY_MODEL = "openai/gpt-oss-120b";
+const FALLBACK_MODEL = "openai/gpt-oss-20b";
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 const MAX_MESSAGES = 16;   // trailing turns kept from the conversation
 const MAX_CHARS = 1500;    // per message, characters
-const MAX_TOKENS = 700;    // reply length cap
+const MAX_TOKENS = 2000;   // reply length cap (gpt-oss reasoning tokens count against it)
 
 function cors(origin, allowed) {
   const ok = allowed.length === 0 || allowed.includes(origin);
@@ -291,6 +291,7 @@ export default {
                  { role: "system", content: GUARD_NOTE }],
       max_tokens: MAX_TOKENS,
       temperature: 0.4,
+      reasoning_effort: "medium",
       stream: true,
     };
 

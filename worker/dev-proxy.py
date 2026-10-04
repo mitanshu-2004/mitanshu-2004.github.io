@@ -17,11 +17,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-PRIMARY_MODEL = "llama-3.3-70b-versatile"
-FALLBACK_MODEL = "llama-3.1-8b-instant"
+PRIMARY_MODEL = "openai/gpt-oss-120b"
+FALLBACK_MODEL = "openai/gpt-oss-20b"
 MAX_MESSAGES = 16
 MAX_CHARS = 1500
-MAX_TOKENS = 700
+MAX_TOKENS = 2000
 PORT = 8787
 
 
@@ -111,6 +111,7 @@ class Handler(BaseHTTPRequestHandler):
                         + [{"role": "system", "content": GUARD_NOTE}],
             "max_tokens": MAX_TOKENS,
             "temperature": 0.4,
+            "reasoning_effort": "medium",
             "stream": True,
         }
 
