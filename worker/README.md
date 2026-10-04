@@ -62,10 +62,10 @@ redeploy.
 
 ## Notes
 
-- Model: `openai/gpt-oss-120b`, with `openai/gpt-oss-20b` as a fallback if the
-  primary 5xxs. Change in `src/chat.js`.
+- Model: `qwen/qwen3.8-27b`, with `openai/gpt-oss-120b` as a fallback if the
+  primary errors (including the model being retired). Change in `src/chat.js`.
 - Guards: only the last 16 turns are kept, each message capped at 1500 chars, replies
-  capped at 2000 tokens (gpt-oss reasoning included), CORS locked to `ALLOWED_ORIGINS`. For extra safety against key
+  capped at 2000 tokens (reasoning included), CORS locked to `ALLOWED_ORIGINS`. For extra safety against key
   drain, add a Cloudflare rate-limit rule on the Worker route.
 - Rotating 12 free keys spreads load across accounts; a rate-limited key is skipped and
   the next one tried on the same request.

@@ -17,8 +17,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-PRIMARY_MODEL = "openai/gpt-oss-120b"
-FALLBACK_MODEL = "openai/gpt-oss-20b"
+PRIMARY_MODEL = "qwen/qwen3.8-27b"
+FALLBACK_MODEL = "openai/gpt-oss-120b"
 MAX_MESSAGES = 16
 MAX_CHARS = 1500
 MAX_TOKENS = 2000
@@ -112,6 +112,7 @@ class Handler(BaseHTTPRequestHandler):
             "max_tokens": MAX_TOKENS,
             "temperature": 0.4,
             "reasoning_effort": "medium",
+            "reasoning_format": "parsed",
             "stream": True,
         }
 
@@ -139,9 +140,10 @@ class Handler(BaseHTTPRequestHandler):
                 if e.code in (401, 403, 429):
                     i += 1
                     continue
-                if not tried_fallback and e.code >= 500:
+                if not tried_fallback:
                     tried_fallback = True
                     payload["model"] = FALLBACK_MODEL
+                    payload.pop("reasoning_format", None)
                     continue
                 i += 1
                 continue

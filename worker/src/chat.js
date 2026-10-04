@@ -3,13 +3,13 @@
 // The browser never sees a key. Deploy notes: worker/README.md.
 import { SYSTEM_PROMPT, GUARD_NOTE } from "../system-prompt.js";
 
-const PRIMARY_MODEL = "openai/gpt-oss-120b";
-const FALLBACK_MODEL = "openai/gpt-oss-20b";
+const PRIMARY_MODEL = "qwen/qwen3.8-27b";
+const FALLBACK_MODEL = "openai/gpt-oss-120b";
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 const MAX_MESSAGES = 16;   // trailing turns kept from the conversation
 const MAX_CHARS = 1500;    // per message, characters
-const MAX_TOKENS = 2000;   // reply length cap (gpt-oss reasoning tokens count against it)
+const MAX_TOKENS = 2000;   // reply length cap (reasoning tokens count against it)
 
 function cors(origin, allowed) {
   const ok = allowed.length === 0 || allowed.includes(origin);
@@ -292,6 +292,7 @@ export default {
       max_tokens: MAX_TOKENS,
       temperature: 0.4,
       reasoning_effort: "medium",
+      reasoning_format: "parsed",
       stream: true,
     };
 
@@ -335,10 +336,12 @@ export default {
       // Rate-limited or unauthorized on this key → next key.
       if ([401, 403, 429].includes(upstream.status)) continue;
 
-      // A model/server error: try the smaller model once, same rotation.
-      if (!triedFallback && upstream.status >= 500) {
+      // Any other error (server error, or the model was retired): try the
+      // fallback model once, same rotation. reasoning_format is Qwen-only.
+      if (!triedFallback) {
         triedFallback = true;
         payload.model = FALLBACK_MODEL;
+        delete payload.reasoning_format;
         i--; // retry this same key with the fallback model
         continue;
       }
