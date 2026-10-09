@@ -1,0 +1,79 @@
+/* "Shove it yourself" — the live sim on the brace-for-impact page.
+   Uses the site tokens only; the canvas paints its floor from the same
+   --bg / --bg-elev / --line, so it follows the light/dark toggle. */
+
+.sim-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: 72vh;
+  width: 100%;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  touch-action: none;
+}
+.sim-stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sim-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.sim-stage canvas:active { cursor: grabbing; }
+
+.sim-start {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  padding: 0; border: 0; cursor: pointer;
+  background: var(--bg-elev); color: var(--ink);
+  font: inherit;
+}
+.sim-start img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+.sim-start span {
+  position: relative;
+  font-family: var(--mono); font-size: var(--step-00); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-ink); background: var(--accent);
+  padding: 12px 18px; border-radius: 2px;
+  display: grid; gap: 4px; text-align: center;
+}
+.sim-start small { font-size: var(--step-000); letter-spacing: 0.04em; text-transform: none; opacity: 0.85; }
+.sim-start:hover span, .sim-start:focus-visible span { box-shadow: 0 0 0 6px var(--accent-glow); }
+.sim-start:disabled { cursor: progress; }
+.sim.is-live .sim-start { display: none; }
+
+.sim-hud {
+  position: absolute; left: 12px; top: 10px; right: 12px;
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+  font-family: var(--mono); font-size: var(--step-000); letter-spacing: 0.04em;
+  color: var(--ink); pointer-events: none; z-index: 1;
+}
+.sim-hud span:empty { display: none; }
+.sim-hud span { background: color-mix(in oklab, var(--bg) 80%, transparent); padding: 3px 7px; border-radius: 2px; }
+.sim-incoming { color: var(--accent); }
+
+/* on-screen walk buttons: touch devices only */
+.sim-pad { position: absolute; right: 12px; bottom: 12px; display: none; grid-template-columns: repeat(2, 44px); gap: 6px; z-index: 1; }
+.sim-pad button {
+  width: 44px; height: 44px; border-radius: 2px; border: 1px solid var(--line-strong);
+  background: color-mix(in oklab, var(--bg) 85%, transparent); color: var(--ink); font-size: 18px;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+@media (pointer: coarse) { .sim.is-live .sim-pad { display: grid; } }
+
+.sim-controls {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px;
+  margin-top: 14px;
+}
+.sim-controls .hero-cta { margin: 0; }
+.sim-robots { display: flex; flex-wrap: wrap; gap: 6px; }
+.sim-forcebox { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: var(--step-000); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.sim-force { accent-color: var(--accent); width: 140px; }
+.sim-force-out { color: var(--ink); min-width: 5ch; }
+.sim-tally { font-family: var(--mono); font-size: var(--step-00); color: var(--ink); }
+.sim-note { margin: 14px 0 0; max-width: 72ch; color: var(--muted); font-size: var(--step-1); }
+
+@media (max-width: 760px) {
+  .sim-stage { aspect-ratio: 4 / 5; }
+}
+
+/* "Cite this" on the brace page */
+.cite-box { position: relative; margin-top: 10px; }
+.cite-box pre { margin: 0; padding: 14px 16px; overflow-x: auto; font-family: var(--mono); font-size: var(--step-00); line-height: 1.55; color: var(--ink); background: var(--bg-elev); border: 1px solid var(--line); border-radius: 2px; }
+.cite-box .cite-copy { position: absolute; top: 8px; right: 8px; margin: 0; padding: 6px 10px; background: var(--bg); }
+

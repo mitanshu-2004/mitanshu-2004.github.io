@@ -11,12 +11,12 @@
 <meta property="og:title" content="Teleop data → a π0.5 policy — Mitanshu Goel">
 <meta property="og:description" content="Driving two arms by hand to build a 10-task LeRobot dataset, then fine-tuning a π0.5 policy on it.">
 <meta property="og:url" content="https://mitanshu.dev/projects/franka-teleop-dataset.html">
-<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og-franka-teleop-dataset.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
+<meta property="og:image:alt" content="Teleop data → a π0.5 policy — Mitanshu Goel, mitanshu.dev">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og-franka-teleop-dataset.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/franka-teleop-dataset.html">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
@@ -73,13 +73,13 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/franka-teleop-demo-poster.jpg"
       ],
-      "uploadDate": "2026-05-25",
+      "uploadDate": "2026-05-25T12:00:00+05:30",
       "duration": "PT28S",
       "contentUrl": "https://mitanshu.dev/assets/media/franka-teleop-demo.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/franka-teleop-dataset.html#video-1"
     },
     {
       "@type": "VideoObject",
@@ -88,17 +88,49 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/franka-teleop-clip-poster.jpg"
       ],
-      "uploadDate": "2026-05-25",
+      "uploadDate": "2026-05-25T12:00:00+05:30",
       "duration": "PT11S",
       "contentUrl": "https://mitanshu.dev/assets/media/franka-teleop-clip.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/franka-teleop-dataset.html#video-2"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://mitanshu.dev/projects/franka-teleop-dataset.html#article",
+      "headline": "Teleop data → a π0.5 policy",
+      "description": "A 10-task LeRobot dataset collected across an Elite CS66 and a Franka FR3 on a 125 Hz teleop loop, then used to fine-tune a π0.5 vision-language-action policy.",
+      "url": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
+      "mainEntityOfPage": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
+      "image": "https://mitanshu.dev/assets/media/og-franka-teleop-dataset.jpg",
+      "dateModified": "2026-10-08",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "@id": "https://mitanshu.dev/#person",
+        "name": "Mitanshu Goel",
+        "url": "https://mitanshu.dev/",
+        "sameAs": [
+          "https://github.com/mitanshu-2004",
+          "https://www.linkedin.com/in/mitanshugoel",
+          "https://huggingface.co/mitanshugoel"
+        ]
+      },
+      "video": [
+        {
+          "@id": "https://mitanshu.dev/projects/franka-teleop-dataset.html#video-1"
+        },
+        {
+          "@id": "https://mitanshu.dev/projects/franka-teleop-dataset.html#video-2"
+        }
+      ],
+      "datePublished": "2026-07-11"
     }
   ]
 }
 </script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/projects/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 
@@ -119,7 +151,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
   <section class="project-head">
     <h1 class="display">Teleop data → a &#960;0.5 policy</h1>
     <div class="meta-row">
-      <span class="chip hot">pi0.5 VLA</span>
+      <span class="chip hot">&#960;0.5 VLA</span>
       <span class="chip">10 tasks</span>
       <span class="chip">CS66 + FR3</span>
       <span class="chip">125 Hz teleop</span>
@@ -136,8 +168,8 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">Driving the FR3 by hand</h2>
-        <p>I teleoperate a Franka FR3 through a manipulation task. Here it is stacking rings on a peg. Every run is recorded as one episode, with its camera frames and joint readings, and the pile of episodes becomes a dataset a policy can learn from.</p>
-        <p>The point is to capture how a person actually solves the task, mistakes and all. A policy trained only on clean, optimal demonstrations has never seen a recovery, so it has no idea what to do the first time something slips.</p>
+        <p>Teleoperating a Franka FR3 to stack rings on a peg. Each run is recorded as an episode, with camera frames and joint readings, and the episodes become the training set.</p>
+        <p>Mistakes stay in. A policy trained only on clean demonstrations has never seen a recovery.</p>
       </div>
     </div>
   </section>
@@ -151,8 +183,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">Controller to arm, in RViz</h2>
-        <p>Behind the demo: the controller's pose drives the arm through SE(3) transforms, mirrored live in RViz. Watching the model track the controller is how I check the mapping before anything moves the real FR3.</p>
-        <p>This is also where sign errors surface. A flipped axis looks obvious in RViz and expensive on the real arm, so nothing reaches hardware until the mirror behaves.</p>
+        <p>The controller's pose drives the arm through SE(3) transforms, mirrored live in RViz. A flipped axis is obvious there and expensive on the real FR3, so I check the mapping before it moves.</p>
       </div>
     </div>
   </section>
@@ -161,27 +192,28 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="prose">
       <h2>The loop that collects it</h2>
       <ul>
-        <li>The same <a href="/projects/dual-arm-vr-teleop.html">real-time C++ loop</a> I wrote for the CS66 pair drives this arm: Cartesian servoing at <b>125 Hz</b>, Quest 3 hand pose in over UDP.</li>
-        <li>Poses the headset cannot vouch for are discarded before they reach the arm.</li>
-        <li>The same safety clamps sit between me and this arm as on the CS66 pair, which matters more here: a bad episode is not just a bad run, it is a bad run that ends up in the training set.</li>
-        <li>Ten tasks were collected across both platforms rather than one. A policy that has only ever seen a single arm tends to fit the quirks of that arm's geometry along with the task.</li>
+        <li>The same <a href="/projects/dual-arm-vr-teleop.html">real-time C++ loop</a> as the CS66 pair: Cartesian servoing at <b>125 Hz</b>, Quest 3 hand pose over UDP.</li>
+        <li>Poses the headset can't vouch for are dropped.</li>
+        <li>The same safety clamps apply. A bad run here also ends up in the training set.</li>
+        <li>Ten tasks across both arms, so the policy doesn't fit one arm's quirks.</li>
       </ul>
 
       <h2>Training the policy</h2>
       <p>I fine-tuned a <b>&#960;0.5</b> vision-language-action policy on the 10-task set and worked on its inference path.</p>
-      <p>Collecting demonstrations and never training on them leaves the interesting half of the question unanswered. You do not find out whether your data is good until something tries to learn from it, and the failures point straight back at the collection: a task the policy cannot do is usually a task you recorded badly.</p>
-      <p>Everything is written in <a href="https://github.com/huggingface/lerobot">LeRobot</a>'s dataset format, so it drops into standard imitation-learning training without a conversion step of my own invention sitting in the middle.</p>
+      <p>The data is in <a href="https://github.com/huggingface/lerobot">LeRobot</a>'s format, so it trains without a custom conversion step.</p>
 
       <h2>What I would fix</h2>
       <ul>
-        <li>Ten tasks is a small set. It is enough to fine-tune on and not enough to make strong claims about generalisation, and I would rather say that than imply otherwise.</li>
-        <li>Episode counts per task were never logged in a form I can quote now. I should have decided what the collection script wrote out before I started collecting, rather than after.</li>
+        <li>Ten tasks is enough to fine-tune on, not enough to claim generalisation.</li>
+        <li>I didn't log episode counts per task. Next time I'd fix what the collection script writes before collecting.</li>
       </ul>
-
-      <h2>Links</h2>
-      <p><a href="https://github.com/huggingface/lerobot">LeRobot (dataset format)</a></p>
     </div>
   </section>
+
+  <nav class="proj-nav" aria-label="More projects">
+    <a rel="prev" href="/projects/tesollo-rps.html"><span>&#8592; Previous</span>Robot hand plays rock-paper-scissors</a>
+    <a rel="next" href="/projects/bodhi-humanoid.html"><span>Next &#8594;</span>Bodhi, the humanoid that answers</a>
+  </nav>
 
   <footer class="site-foot">
     <p class="foot-reach">Email me: <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></p>
@@ -191,7 +223,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
     </nav>
     <div class="foot-base">
-      <p>MITANSHU.DEV · TELEOP DATA → pi0.5 POLICY · 2026</p>
+      <p>Mitanshu Goel · 2026</p>
       <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
     </div>
   </footer>

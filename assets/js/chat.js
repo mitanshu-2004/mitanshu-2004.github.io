@@ -66,7 +66,7 @@
     launch = el("button", "chat-launch");
     launch.type = "button";
     launch.setAttribute("aria-label", "Ask about Mitanshu's work");
-    launch.innerHTML = '<span class="dot"></span>Ask me anything';
+    launch.innerHTML = '<span class="dot"></span>Ask<span class="more"> me anything</span>';
     launch.addEventListener("click", open);
 
     panel = el("div", "chat-panel");
@@ -119,6 +119,7 @@
   function grow() {
     textarea.style.height = "auto";
     textarea.style.height = Math.min(textarea.scrollHeight, 96) + "px";
+    textarea.style.overflowY = textarea.scrollHeight > 96 ? "auto" : "hidden";
   }
 
   function open() {

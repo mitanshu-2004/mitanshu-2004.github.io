@@ -11,12 +11,12 @@
 <meta property="og:title" content="Six legs, eighteen joints — Mitanshu Goel">
 <meta property="og:description" content="18-DOF hexapod: tripod gait on ROS 2, closed-form leg IK, Dockerised Gazebo stack.">
 <meta property="og:url" content="https://mitanshu.dev/projects/hexapod.html">
-<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og-hexapod.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
+<meta property="og:image:alt" content="Six legs, eighteen joints — Mitanshu Goel, mitanshu.dev">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og-hexapod.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/hexapod.html">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
@@ -73,17 +73,46 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/hexapod-main-poster.jpg"
       ],
-      "uploadDate": "2026-03-10",
+      "uploadDate": "2026-03-10T12:00:00+05:30",
       "duration": "PT14S",
       "contentUrl": "https://mitanshu.dev/assets/media/hexapod-sim-demo.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/hexapod.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/hexapod.html#video-1"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://mitanshu.dev/projects/hexapod.html#article",
+      "headline": "Six legs, eighteen joints",
+      "description": "An 18-DOF hexapod built with the A.T.O.M. lab at MAIT. I wrote the tripod-gait control node and the closed-form law-of-cosines leg inverse kinematics.",
+      "url": "https://mitanshu.dev/projects/hexapod.html",
+      "mainEntityOfPage": "https://mitanshu.dev/projects/hexapod.html",
+      "image": "https://mitanshu.dev/assets/media/og-hexapod.jpg",
+      "dateModified": "2026-10-08",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "@id": "https://mitanshu.dev/#person",
+        "name": "Mitanshu Goel",
+        "url": "https://mitanshu.dev/",
+        "sameAs": [
+          "https://github.com/mitanshu-2004",
+          "https://www.linkedin.com/in/mitanshugoel",
+          "https://huggingface.co/mitanshugoel"
+        ]
+      },
+      "video": [
+        {
+          "@id": "https://mitanshu.dev/projects/hexapod.html#video-1"
+        }
+      ],
+      "datePublished": "2026-07-11"
     }
   ]
 }
 </script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/projects/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 
@@ -121,52 +150,39 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">Walking in Gazebo</h2>
-        <p>A six-legged walker doing a tripod gait, driven live from the keyboard. A <code>/cmd_vel</code> command goes in; the gait engine turns that body velocity into six foot trajectories, and the leg IK turns each foot position into three joint angles. Eighteen in all.</p>
-        <p>The same control node runs the physical robot. This clip is the Gazebo simulation, because that is the footage I have.</p>
+        <p>A tripod gait driven from the keyboard. A <code>/cmd_vel</code> command becomes six foot trajectories, and the leg IK turns each foot position into three joint angles.</p>
+        <p>The same control node runs the physical robot; I only have the sim footage.</p>
       </div>
     </div>
   </section>
 
+
   <section class="block">
     <div class="prose">
       <h2>Built with A.T.O.M.</h2>
-      <p>This is a team robot, built with the A.T.O.M. robotics lab at MAIT, not a solo project. Three parts of it are mine.</p>
-      <p>I wrote the control node. A <code>/cmd_vel</code> command becomes a tripod gait through ros2_control, driving all eighteen joints, with two triangles of legs alternating between stance and swing so three feet are always down.</p>
-      <p>I wrote the leg inverse kinematics too — a closed-form law-of-cosines solution turning each foot target into coxa, femur and tibia angles. It replaced a hand-tuned angle table. That table worked for the poses somebody had already tuned and nothing else, so the robot could only walk the way it had been taught.</p>
-      <p>And I containerised the ROS 2 Humble and Gazebo Harmonic stack in Docker, with GPU and X11 passthrough so the simulator renders from inside the container. Before that, a build working on one laptop told you nothing about whether it would work on anyone else's.</p>
+      <p>A team robot from the A.T.O.M. robotics lab at MAIT. Three parts are mine.</p>
+      <p>The control node: <code>/cmd_vel</code> to a tripod gait through ros2_control, two triangles of legs alternating so three feet are always down.</p>
+      <p>The leg inverse kinematics: closed-form law of cosines, foot target to coxa, femur and tibia angles. It replaced a hand-tuned angle table that only worked for the poses already tuned.</p>
+      <p>The Docker setup for ROS 2 Humble and Gazebo Harmonic, with GPU and X11 passthrough, so the build works on any laptop.</p>
 
-      <h2>Why closed-form and not a solver</h2>
-      <p>A general IK solver would work here and would be the wrong tool. A three-joint leg has a closed-form solution you can write down with the law of cosines: given a foot position, the angles fall out of two triangles, and it either has a solution or the target is out of reach.</p>
-      <p>That matters at gait rates. Eighteen joints resolved every control cycle, six legs at a time, on a robot that has to stay standing while it thinks. A closed-form solution runs in constant time and never fails to converge, because there is nothing to converge.</p>
+      <h2>Why closed-form</h2>
+      <p>A three-joint leg has a closed-form solution: the angles fall out of two triangles, or the target is out of reach. It runs in constant time and never fails to converge, which matters for eighteen joints every control cycle.</p>
 
       <h2>The physical build</h2>
       <ul>
-        <li>624.6 mm leg-tip span, designed in Fusion 360.</li>
+        <li>624.6 mm leg-tip span. The CAD is the A.T.O.M. team's; I started from it.</li>
         <li>DS3225MG 25 kg servos at every joint.</li>
         <li>15×24×5 mm bearings at the joints so the printed plastic is not carrying the load.</li>
       </ul>
     </div>
   </section>
 
-  <section class="block">
-    <h2 class="display sm">CAD file</h2>
-    <div class="prose">
-      <p>Six legs of three links each, dimensioned at 624.6 × 247.3 mm in front elevation. The project folder holds a file honestly named <b>"zamin pe chalne wala keeda"</b>, a bug that walks on the ground. Accurate.</p>
-    </div>
-    <div class="gallery">
-      <figure>
-        <img src="/assets/media/hexapod-cad.jpg" alt="Fusion 360 CAD of the hexapod: front elevation with dimensions 624.6 by 247.3 millimetres, leg link tree in the browser panel" loading="lazy">
-        <figcaption>Fusion 360 · front elevation · 624.6 × 247.3 mm</figcaption>
-      </figure>
-    </div>
-  </section>
 
-  <section class="block">
-    <div class="prose">
-      <h2>Links</h2>
-      <p><a href="https://www.youtube.com/watch?v=xpnilti2U3U">Sim demo on YouTube</a></p>
-    </div>
-  </section>
+
+  <nav class="proj-nav" aria-label="More projects">
+    <a rel="prev" href="/projects/brace-for-impact.html"><span>&#8592; Previous</span>Bracing for a hit</a>
+    <a rel="next" href="/projects/dual-arm-vr-teleop.html"><span>Next &#8594;</span>Dual-arm VR teleoperation</a>
+  </nav>
 
   <footer class="site-foot">
     <p class="foot-reach">Email me: <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></p>
@@ -176,7 +192,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
     </nav>
     <div class="foot-base">
-      <p>MITANSHU.DEV · SIX LEGS, EIGHTEEN JOINTS · 2026</p>
+      <p>Mitanshu Goel · 2026</p>
       <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
     </div>
   </footer>

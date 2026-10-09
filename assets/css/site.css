@@ -727,3 +727,40 @@ footer.site-foot p {
 @media (max-width: 760px) {
   .site-foot { padding-bottom: 76px; }
 }
+
+/* ---------- previous / next project ---------- */
+/* Every project page ends in a way on, not a dead end. */
+.proj-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: clamp(30px, 5vw, 54px) 0 0; padding-top: 24px; border-top: 1px solid var(--line); }
+.proj-nav a { display: grid; gap: 6px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 2px; color: var(--ink); font-size: var(--step-1); line-height: 1.3; }
+.proj-nav a span { font-family: var(--mono); font-size: var(--step-000); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.proj-nav a[rel="next"] { text-align: right; }
+.proj-nav a:hover { border-color: var(--accent); color: var(--accent); }
+.proj-nav a:hover span { color: var(--accent); }
+@media (max-width: 560px) { .proj-nav { grid-template-columns: 1fr; } .proj-nav a[rel="next"] { text-align: left; } }
+
+/* ---------- page-to-page ---------- */
+/* Same-origin navigations cross-fade instead of flashing white (Chrome/Edge/Safari;
+   others just navigate). Respect reduced motion. */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+
+
+/* .hero-cta on a <button>: drop the browser's grey button face */
+button.hero-cta { background: transparent; cursor: pointer; }
+button.hero-cta.alt:hover { background: var(--ink); color: var(--bg); }
+button.hero-cta:not(.alt):hover { background: var(--accent); color: var(--accent-ink); }
+
+/* The first card (the lead project) spans the row, video beside text, so the
+   other six fill two full rows instead of leaving one card alone. */
+@media (min-width: 761px) {
+  .work-grid > .work-card:first-child:not(.is-filtered) {
+    flex: 1 1 100%; max-width: none;
+    display: grid; grid-template-columns: 3fr 2fr; align-items: center;
+  }
+}
+/* Phones: the experience box repeats the cards and the CV, and pushed the
+   first robot ~1,300 px down. */
+@media (max-width: 760px) { .hero-index { display: none; } }
+/* Notes run to two or three lines; uppercase mono only suits short labels. */
+.fig-note { text-transform: none; letter-spacing: 0; font-size: 12.5px; }

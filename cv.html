@@ -172,7 +172,8 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     "seeks": {
       "@type": "Demand",
       "name": "Physical-AI and robotics roles"
-    }
+    },
+    "@id": "https://mitanshu.dev/#person"
   }
 }
 </script>
@@ -195,9 +196,9 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
   <section class="cv-head">
     <h1 class="display">Mitanshu Goel</h1>
     <p class="cv-role">Robotics &amp; AI Engineer · Delhi, India</p>
-    <p class="cv-sub">I build the pipeline that turns human demonstrations into robot policies. Teleop rigs, synchronised capture, and the &#960;0.5 fine-tune at the end of it.</p>
+    <p class="cv-sub">I turn human demonstrations into robot policies: teleop rigs, synchronised capture, and the &#960;0.5 fine-tune.</p>
     <p class="cv-status">Open to Physical-AI and robotics roles</p>
-    <p class="cv-dl"><a href="/assets/docs/Mitanshu-Goel-Robotics-CV.pdf" download>Download as PDF</a> <span>— one page, for applications</span></p>
+    <p class="cv-dl"><a href="/assets/docs/Mitanshu-Goel-Robotics-CV.pdf" download>Download as PDF</a></p>
     <div class="cv-contact">
       <div><span>Email</span><a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></div>
       <div><span>Phone</span><a href="tel:+918595657583">+91 85956 57583</a></div>
@@ -228,10 +229,10 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </header>
       <p class="cv-where">Gurugram, India</p>
       <ul>
-        <li>Fine-tuned a <b>&#960;0.5</b> vision-language-action policy on a 10-task demonstration dataset in LeRobot format, collected across two arm platforms, and worked on its inference path.</li>
-        <li>Wrote the real-time C++ teleop loop that collected them, across Elite CS66 and Franka Research 3 arms: Cartesian servoing at <b>125 Hz</b> with Quest 3 hand pose over UDP, dropping bad tracking frames rather than passing them on.</li>
-        <li>Built a capture rig that keeps two MANUS gloves and three RealSense cameras on one timebase, drift under <b>15 ms</b> at p95, with a frame-uniqueness watchdog that fails an episode if a camera silently repeats frames. 45/45 episodes validated.</li>
-        <li>Tesollo DG-5F hand (20 motors): wrote the control and a MediaPipe finger-extension classifier that plays rock-paper-scissors.</li>
+        <li>Fine-tuned a <b>&#960;0.5</b> vision-language-action policy on a 10-task LeRobot dataset collected across two arms, and worked on its inference path.</li>
+        <li>Wrote the real-time C++ teleop loop that collected it, on Elite CS66 and Franka Research 3 arms: Cartesian servoing at <b>125 Hz</b>, Quest 3 hand pose over UDP, bad tracking frames dropped.</li>
+        <li>Built a capture rig keeping two MANUS gloves and three RealSense cameras on one timebase: drift under <b>15 ms</b> at p95, and a watchdog that fails an episode if a camera repeats frames.</li>
+        <li>Tesollo DG-5F hand (20 motors): built the vision layer, a MediaPipe finger-extension classifier that plays rock-paper-scissors, and root-caused a segfault in the vendor SDK's connect path.</li>
       </ul>
     </div>
 
@@ -242,10 +243,10 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </header>
       <p class="cv-where">Delhi, India</p>
       <ul>
-        <li>Turned a UBTech Yanshee humanoid into a vision assistant: a custom-trained YOLOv8 detector on its MJPEG stream.</li>
-        <li>Wrote the voice side: an NVIDIA NeMo ASR pipeline routing wake-word and commands to a chat service or QR scanner.</li>
-        <li>Built a sensor workstation for environmental telemetry in food supply chains: assembled the sensor network, wrote the firmware and the collection code, and streamed readings over WiFi for analysis.</li>
-        <li>Built a camera-driven pick-and-sort line on an arm and conveyor, sorting by colour, shape and detected class.</li>
+        <li>Turned a UBTech Yanshee humanoid into a vision assistant with a custom-trained YOLOv8 detector on its MJPEG stream.</li>
+        <li>Wrote the voice side: NVIDIA NeMo ASR routing the wake word and commands to a chat service or QR scanner.</li>
+        <li>Built a sensor workstation for food supply-chain telemetry: sensor network, firmware and collection code, streaming over WiFi.</li>
+        <li>Built a camera-driven pick-and-sort line on an arm and conveyor, sorting by colour, shape and class.</li>
       </ul>
     </div>
 
@@ -256,25 +257,12 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </header>
       <p class="cv-where">Ghaziabad, India</p>
       <ul>
-        <li>Stood up a supplied 6-DOF arm in ROS 2: URDF with links, joints and collision geometry, checked in Gazebo and RViz.</li>
-        <li>Configured MoveIt with KDL inverse kinematics for Cartesian and waypoint paths, validated in simulation, then got them running on the real arm after fixing the URDF mismatches that were breaking trajectories.</li>
+        <li>Stood up a supplied 6-DOF arm in ROS 2: URDF links, joints and collision geometry, checked in Gazebo and RViz.</li>
+        <li>Configured MoveIt with KDL IK for Cartesian and waypoint paths, validated in simulation, then fixed the URDF mismatches breaking trajectories on the real arm.</li>
       </ul>
     </div>
 
     <h2>Projects</h2>
-
-    <div class="cv-item">
-      <header>
-        <h3>brace-for-impact <span class="at">— does warning a walking robot before a shove help?</span></h3>
-        <span class="cv-when"><a href="https://github.com/mitanshu-2004/brace-for-impact">GitHub</a></span>
-      </header>
-      <p class="cv-where">MuJoCo · mjlab · PPO (rsl_rl) · Unitree Go1</p>
-      <ul>
-        <li>Built the task on top of mjlab: a random shove every few seconds, plus a warning term that tells the policy the direction, force and time-to-arrival. Difficulty rises per robot as it learns.</li>
-        <li>Trained two PPO policies, 4096 parallel envs and 393M steps each, differing only in whether the actor sees the warning.</li>
-        <li>Take the warning away at test time and the same policy falls 52.3% of the time instead of 1.2%: it had learned to depend on it.</li>
-      </ul>
-    </div>
 
     <div class="cv-item">
       <header>
@@ -284,8 +272,21 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <p class="cv-where">ROS 2 Humble · ros2_control · Gazebo · Docker</p>
       <ul>
         <li>Wrote the control node: a <code>/cmd_vel</code> command becomes a tripod gait through ros2_control, in Gazebo and on the real robot.</li>
-        <li>Wrote the closed-form (law-of-cosines) leg inverse kinematics that turns each foot target into coxa, femur and tibia angles, replacing a hand-tuned angle table.</li>
-        <li>Containerised the ROS 2 Humble and Gazebo Harmonic stack in Docker so the team worked from one environment, with GPU and X11 passthrough so the simulator renders from inside the container.</li>
+        <li>Wrote the closed-form (law-of-cosines) leg IK, foot target to coxa, femur and tibia angles, replacing a hand-tuned angle table.</li>
+        <li>Containerised the ROS 2 Humble and Gazebo Harmonic stack in Docker, with GPU and X11 passthrough, so the team shared one environment.</li>
+      </ul>
+    </div>
+
+    <div class="cv-item">
+      <header>
+        <h3>brace-for-impact <span class="at">— does warning a walking robot before a shove help?</span></h3>
+        <span class="cv-when"><a href="https://github.com/mitanshu-2004/brace-for-impact">GitHub</a></span>
+      </header>
+      <p class="cv-where">MuJoCo · mjlab · PPO (rsl_rl) · Unitree Go1</p>
+      <ul>
+        <li>Built the task on mjlab: a random shove every few seconds, plus a warning of its direction, force and time to impact. Difficulty rises per robot as it learns.</li>
+        <li>Trained two PPO policies, 4096 parallel envs and 393M steps each, differing only in whether the actor sees the warning.</li>
+        <li>With the warning removed at test time, the warned policy falls 52.3% of the time instead of 1.2%: it had learned to depend on it.</li>
       </ul>
     </div>
 
@@ -305,7 +306,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </header>
       <p class="cv-where">Student robotics society</p>
       <ul>
-        <li>Build the team's robots and represent MAIT at robotics competitions. Built a browser page that drives a robot arm over a rosbridge WebSocket with its camera feed live in the UI.</li>
+        <li>Build the team's robots and represent MAIT at competitions. Built a browser page that drives a robot arm over a rosbridge WebSocket, with its camera feed live.</li>
       </ul>
     </div>
 
@@ -319,7 +320,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
     </nav>
     <div class="foot-base">
-      <p>MITANSHU.DEV · CV · 2026</p>
+      <p>Mitanshu Goel · 2026</p>
       <span class="foot-base-nav"><a href="/">Home →</a><a href="#top">Top ↑</a></span>
     </div>
   </footer>

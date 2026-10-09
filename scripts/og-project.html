@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- Share-card template for project pages. Render at exactly 1200x630:
+       /scripts/og-project.html?img=/assets/media/x.jpg&t=Title&m=Org%20·%202026&k=optional%20hook
+     then screenshot the viewport to assets/media/og-<slug>.jpg (see make-og-card.md). -->
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: "LSN Display"; src: url("/assets/fonts/lsn-bold.woff2") format("woff2"); font-weight: 700; }
+html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #131110; color: #EDE8E2; }
+.card { position: relative; width: 1200px; height: 630px; display: grid; grid-template-columns: 520px 680px; }
+.txt { padding: 70px 40px 56px 92px; display: flex; flex-direction: column; }
+.who { font: 600 17px ui-monospace, "DejaVu Sans Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.meta { margin-top: 14px; font: 15px ui-monospace, "DejaVu Sans Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: #FF6A2B; }
+h1 { font-family: "LSN Display", sans-serif; font-size: 60px; line-height: 1.02; margin: 26px 0 0; letter-spacing: -.01em; }
+.hook { margin-top: 26px; align-self: flex-start; font: 600 15px ui-monospace, "DejaVu Sans Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: #FF6A2B; border: 2px solid #FF6A2B; padding: 11px 16px; }
+.site { margin-top: auto; font: 17px ui-monospace, "DejaVu Sans Mono", monospace; color: #A39B92; }
+.img { position: relative; overflow: hidden; }
+.img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #131110 0%, transparent 18%); }
+.vf { position: absolute; width: 34px; height: 34px; border: 3px solid #FF6A2B; z-index: 2; }
+.tl { left: 45px; top: 45px; border-right: 0; border-bottom: 0; } .tr { right: 45px; top: 45px; border-left: 0; border-bottom: 0; }
+.bl { left: 45px; bottom: 45px; border-right: 0; border-top: 0; } .br { right: 45px; bottom: 45px; border-left: 0; border-top: 0; }
+</style></head><body>
+<div class="card">
+  <span class="vf tl"></span><span class="vf tr"></span><span class="vf bl"></span><span class="vf br"></span>
+  <div class="txt">
+    <div class="who">Mitanshu Goel</div>
+    <div class="meta" id="m"></div>
+    <h1 id="t"></h1>
+    <div class="hook" id="k" hidden></div>
+    <div class="site">mitanshu.dev</div>
+  </div>
+  <div class="img"><img id="i" alt=""></div>
+</div>
+<script>
+  const q = new URLSearchParams(location.search);
+  document.getElementById("t").textContent = q.get("t");
+  document.getElementById("m").textContent = q.get("m");
+  document.getElementById("i").src = q.get("img");
+  if (q.get("k")) { const k = document.getElementById("k"); k.textContent = q.get("k"); k.hidden = false; }
+</script>
+</body></html>

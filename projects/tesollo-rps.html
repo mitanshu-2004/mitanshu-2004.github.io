@@ -11,12 +11,12 @@
 <meta property="og:title" content="Robot hand plays rock-paper-scissors — Mitanshu Goel">
 <meta property="og:description" content="A five-finger, 20-motor Tesollo DG-5F that reads your gesture through a camera and answers with its own.">
 <meta property="og:url" content="https://mitanshu.dev/projects/tesollo-rps.html">
-<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og-tesollo-rps.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
+<meta property="og:image:alt" content="Robot hand plays rock-paper-scissors — Mitanshu Goel, mitanshu.dev">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og-tesollo-rps.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/tesollo-rps.html">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
@@ -73,17 +73,46 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/tesollo-poster.jpg"
       ],
-      "uploadDate": "2026-04-20",
+      "uploadDate": "2026-04-20T12:00:00+05:30",
       "duration": "PT12S",
       "contentUrl": "https://mitanshu.dev/assets/media/tesollo-rps-demo.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/tesollo-rps.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/tesollo-rps.html#video-1"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://mitanshu.dev/projects/tesollo-rps.html#article",
+      "headline": "Robot hand plays rock-paper-scissors",
+      "description": "A 20-motor Tesollo DG-5F hand plays rock-paper-scissors: a RealSense feeds MediaPipe, and a finger-extension rule picks the pose. Built at Nferent AI.",
+      "url": "https://mitanshu.dev/projects/tesollo-rps.html",
+      "mainEntityOfPage": "https://mitanshu.dev/projects/tesollo-rps.html",
+      "image": "https://mitanshu.dev/assets/media/og-tesollo-rps.jpg",
+      "dateModified": "2026-10-08",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "@id": "https://mitanshu.dev/#person",
+        "name": "Mitanshu Goel",
+        "url": "https://mitanshu.dev/",
+        "sameAs": [
+          "https://github.com/mitanshu-2004",
+          "https://www.linkedin.com/in/mitanshugoel",
+          "https://huggingface.co/mitanshugoel"
+        ]
+      },
+      "video": [
+        {
+          "@id": "https://mitanshu.dev/projects/tesollo-rps.html#video-1"
+        }
+      ],
+      "datePublished": "2026-07-11"
     }
   ]
 }
 </script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/projects/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 
@@ -106,7 +135,6 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="meta-row">
       <span class="chip hot">Tesollo DG-5F</span>
       <span class="chip">20 motors</span>
-      <span class="chip">Modbus-TCP</span>
       <span class="chip">RealSense + MediaPipe</span>
     </div>
   </section>
@@ -120,7 +148,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">Reads your hand, plays its move</h2>
-        <p>A five-finger Tesollo DG-5F — twenty motors, driven over Modbus-TCP — playing rock-paper-scissors against people. A RealSense camera watches your hand, MediaPipe reads the gesture off the on-screen skeleton, and the hand answers with a move of its own.</p>
+        <p>A 20-motor Tesollo DG-5F hand plays rock-paper-scissors against people. Tesollo's own SDK drives the motors over Modbus-TCP. Mine is the vision layer, and the fix for a crash in the SDK's connect path.</p>
       </div>
     </div>
   </section>
@@ -129,26 +157,20 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="prose">
       <h2>How it works</h2>
       <ul>
-        <li>A RealSense feeds MediaPipe, which returns hand landmarks. A finger-extension classifier turns those landmarks into one of three gesture classes, in real time.</li>
-        <li>The gesture maps to a target pose. Per-finger joint commands go out to the twenty motors over Modbus-TCP.</li>
-        <li>Five fingers, four motors each. Every pose is twenty joint angles, not three presets — rock, paper and scissors are just three points in a twenty-dimensional space.</li>
+        <li>A RealSense feeds MediaPipe hand landmarks. A finger-extension classifier turns them into one of three gestures, in real time.</li>
+        <li>The gesture maps to a target pose, sent through Tesollo's SDK over Modbus-TCP.</li>
+        <li>Every pose is twenty joint angles: five fingers, four motors each.</li>
       </ul>
 
       <h2>Why classify by extension</h2>
-      <p>The obvious approach is to train a classifier on hand images. That needs data, and it fails in ways that are hard to debug when the lighting changes.</p>
-      <p>Counting extended fingers off the MediaPipe skeleton needs no training data at all, and when it does fail you can see exactly why: the landmark for one fingertip has drifted, and the rule that depends on it flips. For a three-class problem with a strong geometric definition, the rule is the better engineering. Rock is nothing extended, scissors is two, paper is five.</p>
-
-      <h2>What is fiddly about a twenty-motor hand</h2>
-      <ul>
-        <li>Fingers collide with each other. A pose that is fine on paper can drive two fingers into the same space, and the hand will happily try, so the poses need checking against each other rather than each on its own.</li>
-        <li>Modbus-TCP is a request/response protocol, not a stream. Twenty joint commands per pose means the write pattern matters if you do not want the hand to unfold one finger at a time.</li>
-        <li>The demo has to lose sometimes. A hand that reads your gesture and always beats it is a party trick that stops being interesting after one round.</li>
-      </ul>
-
-      <h2>Links</h2>
-      <p><a href="https://www.linkedin.com/posts/teleoperation-research-robots-ugcPost-7478032354410737664-uXAB/">Demo on LinkedIn</a></p>
+      <p>Counting extended fingers off the MediaPipe skeleton needs no training data, and when it fails you can see which fingertip landmark drifted. Rock is none extended, scissors two, paper five.</p>
     </div>
   </section>
+
+  <nav class="proj-nav" aria-label="More projects">
+    <a rel="prev" href="/projects/dual-arm-vr-teleop.html"><span>&#8592; Previous</span>Dual-arm VR teleoperation</a>
+    <a rel="next" href="/projects/franka-teleop-dataset.html"><span>Next &#8594;</span>Teleop data &#8594; a &#960;0.5 policy</a>
+  </nav>
 
   <footer class="site-foot">
     <p class="foot-reach">Email me: <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></p>
@@ -158,7 +180,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
     </nav>
     <div class="foot-base">
-      <p>MITANSHU.DEV · ROBOT HAND PLAYS ROCK-PAPER-SCISSORS · 2026</p>
+      <p>Mitanshu Goel · 2026</p>
       <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
     </div>
   </footer>

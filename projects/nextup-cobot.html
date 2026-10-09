@@ -11,12 +11,12 @@
 <meta property="og:title" content="A 6-DOF arm, sim to real — Mitanshu Goel">
 <meta property="og:description" content="Bringing up a 6-DOF arm in ROS 2 and MoveIt with KDL inverse kinematics — sim first, then real hardware. NextUp Robotics internship.">
 <meta property="og:url" content="https://mitanshu.dev/projects/nextup-cobot.html">
-<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og-nextup-cobot.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
+<meta property="og:image:alt" content="A 6-DOF arm, sim to real — Mitanshu Goel, mitanshu.dev">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og-nextup-cobot.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/nextup-cobot.html">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
@@ -73,17 +73,46 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/nextup-demo-poster.jpg"
       ],
-      "uploadDate": "2024-08-13",
+      "uploadDate": "2024-08-13T12:00:00+05:30",
       "duration": "PT5S",
       "contentUrl": "https://mitanshu.dev/assets/media/nextup-demo.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/nextup-cobot.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/nextup-cobot.html#video-1"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://mitanshu.dev/projects/nextup-cobot.html#article",
+      "headline": "A 6-DOF arm, sim to real",
+      "description": "Bringing up a 6-DOF arm in ROS 2 with MoveIt and KDL inverse kinematics — from URDF and simulation to the real hardware, after fixing the URDF mismatches.",
+      "url": "https://mitanshu.dev/projects/nextup-cobot.html",
+      "mainEntityOfPage": "https://mitanshu.dev/projects/nextup-cobot.html",
+      "image": "https://mitanshu.dev/assets/media/og-nextup-cobot.jpg",
+      "dateModified": "2026-10-08",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "@id": "https://mitanshu.dev/#person",
+        "name": "Mitanshu Goel",
+        "url": "https://mitanshu.dev/",
+        "sameAs": [
+          "https://github.com/mitanshu-2004",
+          "https://www.linkedin.com/in/mitanshugoel",
+          "https://huggingface.co/mitanshugoel"
+        ]
+      },
+      "video": [
+        {
+          "@id": "https://mitanshu.dev/projects/nextup-cobot.html#video-1"
+        }
+      ],
+      "datePublished": "2026-07-12"
     }
   ]
 }
 </script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/projects/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 
@@ -108,9 +137,8 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <span class="chip">ROS 2 · MoveIt</span>
       <span class="chip">KDL inverse kinematics</span>
       <span class="chip">Joint · Cartesian · waypoint</span>
-      <span class="chip">Sim → real</span>
     </div>
-    <p class="lede">My first internship, at NextUp Robotics (2024). The arm was supplied; my job was to make it move on command — bring it up in ROS 2, plan motion through MoveIt, and get the same trajectories running in simulation and on the real hardware.</p>
+    <p class="lede">My first internship, at NextUp Robotics (2024). The arm was supplied; my job was to bring it up in ROS 2, plan motion through MoveIt, and run the same trajectories in simulation and on the real arm.</p>
   </section>
 
   <section class="block">
@@ -122,8 +150,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">On the real arm</h2>
-        <p>The arm running a MoveIt-planned sequence on real hardware — the same interfaces that drove it in simulation, pointed at the physical robot. The clip is two and a half seconds of the recording, played forward and then back so it loops; the arm does not run the sequence twice.</p>
-        <p>Getting here honestly is most of the work: a wrong sign in a transform or a joint limit off by a few degrees is harmless in sim and swings a real arm the wrong way. You check everything twice before you power the motors.</p>
+        <p>A MoveIt-planned sequence on the real arm, using the same interfaces as in simulation. The clip is 2.5 s, played forward and back to loop.</p>
       </div>
     </div>
   </section>
@@ -132,16 +159,16 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="prose">
       <h2>What I built</h2>
       <ul>
-        <li>Stood up the arm's URDF in ROS 2 — robot model, joint definitions, and collision geometry — so MoveIt and the simulator had a correct description to plan against.</li>
-        <li>Wrote three motion interfaces on top of the MoveGroup API: <b>joint-space</b> targets, <b>Cartesian-pose</b> goals, and <b>waypoint</b> trajectories that string poses together.</li>
-        <li>Configured <b>KDL inverse kinematics</b> so a pose in space resolves to the six joint angles that reach it, with planning and collision checking through MoveIt.</li>
-        <li>Validated each interface in simulation first, then ran the same commands on the real arm, PC-driven over the ROS 2 graph.</li>
+        <li>Stood up the arm's URDF in ROS 2: robot model, joints and collision geometry.</li>
+        <li>Wrote three motion interfaces on the MoveGroup API: <b>joint-space</b> targets, <b>Cartesian-pose</b> goals, and <b>waypoint</b> trajectories.</li>
+        <li>Configured <b>KDL inverse kinematics</b>, with planning and collision checking through MoveIt.</li>
+        <li>Validated each interface in simulation, then ran the same commands on the real arm, PC-driven over the ROS 2 graph.</li>
       </ul>
 
       <h2>What actually broke</h2>
-      <p>The trajectories worked in simulation and failed on the real arm. The cause was the URDF: the model I was planning against did not match the robot I was planning for.</p>
-      <p>That is a quiet failure, which is what makes it expensive. MoveIt plans happily against a wrong model and hands you a trajectory that looks correct in RViz. The arm then executes it and the error only shows up as motion that is subtly off, or as a joint that reaches its limit sooner than the planner expected. Nothing errors; the robot just does the wrong thing confidently.</p>
-      <p>Fixing it meant going back through the link frames and joint definitions against the physical arm rather than trusting the description I had been handed. It is the most useful thing I learned in that internship. A wrong sign costs nothing in simulation and shows up nowhere, which is exactly why it survives long enough to reach the arm.</p>
+      <p>The trajectories worked in simulation and failed on the real arm. The URDF didn't match the robot.</p>
+      <p>MoveIt plans happily against a wrong model, and RViz shows a correct-looking path. Nothing errors; the arm just moves subtly wrong, or hits a joint limit early.</p>
+      <p>I fixed it by checking every link frame and joint definition against the physical arm.</p>
     </div>
   </section>
 
@@ -154,17 +181,16 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">In simulation</h2>
-        <p>The same robot, rendered from the URDF and STL meshes in this repo, stepping through the eight Cartesian pose targets in my <code>position_interface</code> — the actual coordinates the node plans to. The waypoints are mine; the path between them here is solved by inverse kinematics for the picture, not by MoveIt's planner. Checking motion in sim first is how you catch a bad sign or a joint limit while it is still harmless.</p>
+        <p>The same robot from the URDF and STL meshes, stepping through the eight Cartesian targets in my <code>position_interface</code>. The waypoints are mine; the path between them is solved by IK for the picture, not by MoveIt's planner.</p>
       </div>
     </div>
   </section>
 
-  <section class="block">
-    <div class="prose">
-      <h2>Where it sits</h2>
-      <p>Two years later at Nferent AI I was doing a version of this with a human in the loop, driving the arm live from a headset instead of sending it planned trajectories from a keyboard. The URDF, the transforms and the joint limits are the same problem either way. I met them here first.</p>
-    </div>
-  </section>
+
+  <nav class="proj-nav" aria-label="More projects">
+    <a rel="prev" href="/projects/bodhi-humanoid.html"><span>&#8592; Previous</span>Bodhi, the humanoid that answers</a>
+    <a rel="next" href="/projects/brace-for-impact.html"><span>Next &#8594;</span>Bracing for a hit</a>
+  </nav>
 
   <footer class="site-foot">
     <p class="foot-reach">Email me: <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></p>
@@ -174,7 +200,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
     </nav>
     <div class="foot-base">
-      <p>MITANSHU.DEV · A 6-DOF ARM, SIM TO REAL · 2026</p>
+      <p>Mitanshu Goel · 2026</p>
       <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
     </div>
   </footer>

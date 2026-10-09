@@ -11,12 +11,12 @@
 <meta property="og:title" content="Dual-arm VR teleoperation — Mitanshu Goel">
 <meta property="og:description" content="Two industrial arms copying my hands live through a Meta Quest 3, on a real-time C++ control stack.">
 <meta property="og:url" content="https://mitanshu.dev/projects/dual-arm-vr-teleop.html">
-<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og-dual-arm-vr-teleop.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
+<meta property="og:image:alt" content="Dual-arm VR teleoperation — Mitanshu Goel, mitanshu.dev">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og-dual-arm-vr-teleop.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/dual-arm-vr-teleop.html">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
@@ -73,13 +73,13 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/dualarm-poster.jpg"
       ],
-      "uploadDate": "2026-05-15",
+      "uploadDate": "2026-05-15T12:00:00+05:30",
       "duration": "PT25S",
       "contentUrl": "https://mitanshu.dev/assets/media/dualarm-teleop-demo.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html#video-1"
     },
     {
       "@type": "VideoObject",
@@ -88,17 +88,49 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/dualarm-single-poster.jpg"
       ],
-      "uploadDate": "2026-05-15",
+      "uploadDate": "2026-05-15T12:00:00+05:30",
       "duration": "PT11S",
       "contentUrl": "https://mitanshu.dev/assets/media/dualarm-single.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html#video-2"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html#article",
+      "headline": "Dual-arm VR teleoperation",
+      "description": "Two Elite Robots CS66 arms driven live by Meta Quest 3 controllers over a real-time C++ control loop — with an anchor/clutch scheme and a safety stack.",
+      "url": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html",
+      "mainEntityOfPage": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html",
+      "image": "https://mitanshu.dev/assets/media/og-dual-arm-vr-teleop.jpg",
+      "dateModified": "2026-10-08",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "@id": "https://mitanshu.dev/#person",
+        "name": "Mitanshu Goel",
+        "url": "https://mitanshu.dev/",
+        "sameAs": [
+          "https://github.com/mitanshu-2004",
+          "https://www.linkedin.com/in/mitanshugoel",
+          "https://huggingface.co/mitanshugoel"
+        ]
+      },
+      "video": [
+        {
+          "@id": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html#video-1"
+        },
+        {
+          "@id": "https://mitanshu.dev/projects/dual-arm-vr-teleop.html#video-2"
+        }
+      ],
+      "datePublished": "2026-07-11"
     }
   ]
 }
 </script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/projects/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 
@@ -136,9 +168,8 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       </div>
       <div class="mr-text">
         <h2 class="display sm">Two arms, following my hands</h2>
-        <p>Both arms follow my hand movements live, streamed from Meta Quest 3 controllers. Here they pass a block from one gripper to the other. Every motion is driven by me, in real time.</p>
-              <p>Built at Nferent AI. Two Elite CS66 arms, a block stood on another and then taken by the opposite gripper, with no trajectory planned in advance — every motion here is mine, live.</p>
-        <p>Watch where the Quest 3 is: hanging on my chest, cameras pointing forward at my hands. It never goes on my face. Driving arms while wearing a headset is the easy version, and it is also the one that gives you a sore neck in twenty minutes and puts a video feed between you and the robot. Worn on the chest it still does the inside-out tracking that locates the controllers, and I watch the real arms instead.</p>
+        <p>Built at Nferent AI. Both arms follow my hands live from Meta Quest 3 controllers. Here they pass a block between grippers, with no trajectory planned in advance.</p>
+        <p>The Quest 3 hangs on my chest, cameras facing my hands. It still tracks the controllers, and I watch the real arms instead of a video feed.</p>
       </div>
     </div>
   </section>
@@ -147,13 +178,12 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="media-row reverse">
       <div class="mr-media">
         <div class="main-video">
-          <video src="/assets/media/dualarm-single.mp4" poster="/assets/media/dualarm-single-poster.jpg" controls playsinline preload="none" data-no-autoplay aria-label="Operator's view through the Quest headset: a controller in hand, both CS66 arms following"></video>
+          <video src="/assets/media/dualarm-single.mp4" poster="/assets/media/dualarm-single-poster.jpg" controls playsinline preload="none" data-no-autoplay aria-label="A single Elite CS63 arm following a Quest controller held in hand"></video>
         </div>
       </div>
       <div class="mr-text">
         <h2 class="display sm">It started with one arm</h2>
-        <p>An Elite CS63, driven from one controller. This came first: get one arm following a hand properly, then extend the same loop to two.</p>
-        <p>Going from one arm to two is not just running the loop twice. Each arm needs its own process so a stall on one does not stutter the other, and the two workspaces overlap in the middle of the table, which is exactly where a handoff has to happen.</p>
+        <p>An Elite CS63 on one controller came first. Two arms need a process each, so a stall on one doesn't stutter the other, and their workspaces overlap right where the handoff happens.</p>
       </div>
     </div>
   </section>
@@ -162,25 +192,26 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="prose">
       <h2>How it works</h2>
       <ul>
-        <li>A real-time C++ loop maps controller poses to end-effector targets through SE(3) transforms, servoing in Cartesian space at <b>125 Hz</b>. Hand pose arrives from the headset over UDP. One process per arm, so a stall on one never stutters the other.</li>
-        <li>A clutch lets me let go mid-task. Release to freeze the arms, move my hands somewhere comfortable, re-engage and continue. It works like lifting a mouse off the desk, and without it your arm ends up pinned against your body halfway through anything long.</li>
-        <li>Nothing I send reaches the hardware unchecked. A safety layer clamps the workspace, the end-effector velocity and the command rate first.</li>
-        <li>When the headset loses a controller it does not go quiet. It reports a plausible wrong pose, and on an industrial arm that pose becomes real motion, so the loop throws away frames it cannot trust.</li>
+        <li>A real-time C++ loop maps controller poses to end-effector targets through SE(3) transforms and servos in Cartesian space at <b>125 Hz</b>. Hand pose arrives over UDP.</li>
+        <li>A clutch freezes the arms so I can re-grip mid-task, like lifting a mouse off the desk.</li>
+        <li>A safety layer clamps workspace, end-effector velocity and command rate.</li>
+        <li>When the headset loses a controller it reports a plausible wrong pose, so the loop drops frames it can't trust.</li>
       </ul>
 
       <h2>What made it hard</h2>
-      <p>Mapping a controller pose onto a 6-DOF arm takes an afternoon. Three things after that took the rest of the time.</p>
-      <p>A pose the arm can reach is not always a pose it can reach smoothly. Near a wrist singularity the inverse kinematics asks for enormous joint speeds to make a small Cartesian move, so the loop has to notice that and refuse rather than obey.</p>
-      <p>My hand also has no joint limits and no elbow to catch on a table, so I can put the controller somewhere the arm simply cannot follow. The arm stops cleanly at the edge of its workspace instead of tracking as far as it can and then jerking.</p>
-      <p>And the filtering has to sit in a narrow band. Too little and my hand tremor becomes arm tremor. Too much and the arm feels like it is moving underwater, which makes fine work impossible.</p>
+      <p>Near a wrist singularity the IK asks for huge joint speeds to make a small move, so the loop refuses instead of obeying.</p>
+      <p>My hand can go where the arm can't. The arm stops cleanly at its workspace edge instead of jerking.</p>
+      <p>Too little filtering and hand tremor becomes arm tremor. Too much and the arm moves like it's underwater.</p>
 
       <h2>Where it goes</h2>
-      <p>The rig exists to collect demonstrations. The same loop drives the Franka FR3, and the ten-task dataset it recorded is what a <a href="/projects/franka-teleop-dataset.html">&#960;0.5 policy was fine-tuned on</a>. Every hesitation and correction in my hand ends up in that training data, so how well I teleoperate sets a ceiling on what the policy can learn.</p>
-
-      <h2>Links</h2>
-      <p><a href="https://www.youtube.com/watch?v=kUlfE-U_5m4">Demo on YouTube</a></p>
+      <p>The rig exists to collect demonstrations. The same loop drove the Franka FR3 for the ten-task dataset a <a href="/projects/franka-teleop-dataset.html">&#960;0.5 policy was fine-tuned on</a>. How well I teleoperate caps what the policy can learn.</p>
     </div>
   </section>
+
+  <nav class="proj-nav" aria-label="More projects">
+    <a rel="prev" href="/projects/hexapod.html"><span>&#8592; Previous</span>Six legs, eighteen joints</a>
+    <a rel="next" href="/projects/tesollo-rps.html"><span>Next &#8594;</span>Robot hand plays rock-paper-scissors</a>
+  </nav>
 
   <footer class="site-foot">
     <p class="foot-reach">Email me: <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></p>
@@ -190,7 +221,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
     </nav>
     <div class="foot-base">
-      <p>MITANSHU.DEV · DUAL-ARM VR TELEOPERATION · 2026</p>
+      <p>Mitanshu Goel · 2026</p>
       <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
     </div>
   </footer>

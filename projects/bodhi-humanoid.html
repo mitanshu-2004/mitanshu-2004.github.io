@@ -11,12 +11,12 @@
 <meta property="og:title" content="Bodhi — the humanoid that answers — Mitanshu Goel">
 <meta property="og:description" content="A small humanoid that sees with YOLOv8 and answers out loud, routed by a wake word.">
 <meta property="og:url" content="https://mitanshu.dev/projects/bodhi-humanoid.html">
-<meta property="og:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta property="og:image" content="https://mitanshu.dev/assets/media/og-bodhi-humanoid.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mitanshu Goel — Robotics &amp; AI engineer. Building robots and teaching them to move. Open to Physical-AI and robotics roles.">
+<meta property="og:image:alt" content="Bodhi — the humanoid that answers — Mitanshu Goel, mitanshu.dev">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og.jpg">
+<meta name="twitter:image" content="https://mitanshu.dev/assets/media/og-bodhi-humanoid.jpg">
 <link rel="canonical" href="https://mitanshu.dev/projects/bodhi-humanoid.html">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)">
@@ -73,17 +73,46 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "thumbnailUrl": [
         "https://mitanshu.dev/assets/media/bodhi-voice-demo-poster.jpg"
       ],
-      "uploadDate": "2025-07-20",
+      "uploadDate": "2025-07-20T12:00:00+05:30",
       "duration": "PT33S",
       "contentUrl": "https://mitanshu.dev/assets/media/bodhi-voice-demo.mp4",
-      "embedUrl": "https://mitanshu.dev/projects/bodhi-humanoid.html",
       "author": {
         "@id": "https://mitanshu.dev/#person"
-      }
+      },
+      "@id": "https://mitanshu.dev/projects/bodhi-humanoid.html#video-1"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://mitanshu.dev/projects/bodhi-humanoid.html#article",
+      "headline": "Bodhi — the humanoid that answers",
+      "description": "A small UBTech Yanshee humanoid that spots objects with YOLOv8 and answers questions by voice, with wake-word routing over NVIDIA NeMo speech recognition.",
+      "url": "https://mitanshu.dev/projects/bodhi-humanoid.html",
+      "mainEntityOfPage": "https://mitanshu.dev/projects/bodhi-humanoid.html",
+      "image": "https://mitanshu.dev/assets/media/og-bodhi-humanoid.jpg",
+      "dateModified": "2026-10-08",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "@id": "https://mitanshu.dev/#person",
+        "name": "Mitanshu Goel",
+        "url": "https://mitanshu.dev/",
+        "sameAs": [
+          "https://github.com/mitanshu-2004",
+          "https://www.linkedin.com/in/mitanshugoel",
+          "https://huggingface.co/mitanshugoel"
+        ]
+      },
+      "video": [
+        {
+          "@id": "https://mitanshu.dev/projects/bodhi-humanoid.html#video-1"
+        }
+      ],
+      "datePublished": "2026-07-11"
     }
   ]
 }
 </script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/projects/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 
@@ -119,9 +148,8 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
         </div>
       </div>
       <div class="mr-text">
-        <h2 class="display sm">Ask it, and it answers out loud</h2>
-        <p>You say Bodhi's wake word, ask a question, and it looks at what is in front of it and answers out loud. The clip has sound, and the reply you hear is the robot's own.</p>
-        <p>It runs on a UBTech Yanshee, a small hobby-grade humanoid. Turn the sound on.</p>
+        <h2 class="display sm">Ask it a question</h2>
+        <p>Say the wake word, ask a question, and it looks at what's in front of it and answers out loud. The voice in the clip is the robot's. Turn the sound on.</p>
       </div>
     </div>
   </section>
@@ -130,19 +158,24 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="prose">
       <h2>How it works</h2>
       <ul>
-        <li>Vision is a custom-trained YOLOv8 detector running on the Yanshee's MJPEG stream, so the robot names what it sees instead of guessing from context.</li>
-        <li>Speech comes in through an NVIDIA NeMo ASR pipeline. A wake word gates it, and what follows gets routed — a question goes to a chat service, a scan request goes to a QR reader.</li>
-        <li>Getting the routing right mattered more than either model. Without a wake word the robot answers every stray sentence in a noisy room; with a push-to-talk button it stops being something you speak to at all.</li>
+        <li>A custom-trained YOLOv8 detector runs on the Yanshee's MJPEG stream.</li>
+        <li>NVIDIA NeMo ASR handles speech. A wake word gates it; a question goes to a chat service, a scan request to a QR reader.</li>
+        <li>Without a wake word it answers every stray sentence in a noisy room.</li>
       </ul>
 
-      <h2>Working through a phone-grade camera</h2>
-      <p>The Yanshee streams MJPEG, which is a series of independently compressed frames over HTTP. It is easy to consume and it is not a good video pipeline: no interframe compression, visible artefacts, and latency that varies with the network rather than with anything you control.</p>
-      <p>That shapes the detector. A model tuned on clean images does poorly on a soft, compressed frame from a robot that is also moving, so I trained against frames pulled from the robot's own stream rather than a clean dataset.</p>
+      <h2>A phone-grade camera</h2>
+      <p>The Yanshee streams MJPEG: compressed frames over HTTP, with artefacts and network-dependent latency.</p>
+      <p>A model tuned on clean images does poorly on those frames, so I trained on frames pulled from the robot's own stream.</p>
 
-      <h2>The hardware is the boring part</h2>
-      <p>The Yanshee is roughly the size of a large doll and costs about as much as a laptop. Nothing about the servos or the camera is research-grade, and none of my work went into them. It went into tying the detector, the ASR, the routing and the reply into one loop that behaves sensibly when a stranger walks up and starts talking.</p>
+      <h2>What is mine</h2>
+      <p>The Yanshee is a hobby-grade humanoid, and none of my work went into its servos or camera. My work is the loop that ties the detector, ASR, routing and reply together.</p>
     </div>
   </section>
+
+  <nav class="proj-nav" aria-label="More projects">
+    <a rel="prev" href="/projects/franka-teleop-dataset.html"><span>&#8592; Previous</span>Teleop data &#8594; a &#960;0.5 policy</a>
+    <a rel="next" href="/projects/nextup-cobot.html"><span>Next &#8594;</span>A 6-DOF arm, sim to real</a>
+  </nav>
 
   <footer class="site-foot">
     <p class="foot-reach">Email me: <a href="mailto:mitanshug2004@gmail.com">mitanshug2004@gmail.com</a></p>
@@ -152,7 +185,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <a href="https://www.linkedin.com/in/mitanshugoel" rel="me">LinkedIn</a>
     </nav>
     <div class="foot-base">
-      <p>MITANSHU.DEV · BODHI — THE HUMANOID THAT ANSWERS · 2026</p>
+      <p>Mitanshu Goel · 2026</p>
       <span class="foot-base-nav"><a href="/#work">← All work</a><a href="#top">Top ↑</a></span>
     </div>
   </footer>

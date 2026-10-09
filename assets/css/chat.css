@@ -124,7 +124,7 @@
   font: inherit; font-size: 14px; line-height: 1.4;
   color: var(--ink); background: var(--bg);
   border: 1px solid var(--line); border-radius: 9px; padding: 9px 10px;
-  overflow-y: auto;
+  overflow-y: hidden;
   scrollbar-width: thin;                              /* Firefox: thin, themed */
   scrollbar-color: var(--line-strong) transparent;
 }
@@ -158,3 +158,6 @@
 @media print {
   .chat-launch, .chat-panel { display: none !important; }
 }
+
+/* phones: a short pill covers less of the page */
+@media (max-width: 560px) { .chat-launch .more { display: none; } }
