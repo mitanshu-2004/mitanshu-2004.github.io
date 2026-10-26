@@ -230,7 +230,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <p class="cv-where">Gurugram, India</p>
       <ul>
         <li>Fine-tuned a <b>&#960;0.5</b> vision-language-action policy on a 10-task LeRobot dataset collected across two arms, and worked on its inference path.</li>
-        <li>Wrote the real-time C++ teleop loop that collected it, on Elite CS66 and Franka Research 3 arms: Cartesian servoing at <b>125 Hz</b>, Quest 3 hand pose over UDP, bad tracking frames dropped.</li>
+        <li>Wrote a real-time C++ teleoperation loop for two Elite CS66 arms, with Cartesian servoing at <b>125 Hz</b>. Worked on a separate Python teleoperation setup for the Franka FR3.</li>
         <li>Built a capture rig keeping two MANUS gloves and three RealSense cameras on one timebase: drift under <b>15 ms</b> at p95, and a watchdog that fails an episode if a camera repeats frames.</li>
         <li>Tesollo DG-5F hand (20 motors): built the vision layer, a MediaPipe finger-extension classifier that plays rock-paper-scissors, and root-caused a segfault in the vendor SDK's connect path.</li>
       </ul>
