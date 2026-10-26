@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Teleop data → a π0.5 policy · Mitanshu Goel</title>
-<meta name="description" content="A 10-task LeRobot dataset collected across an Elite CS66 and a Franka FR3 on a 125 Hz teleop loop, then used to fine-tune a π0.5 vision-language-action policy.">
+<meta name="description" content="Python teleoperation on a Franka FR3, a separate C++ loop at 125 Hz for the Elite arms, and π0.5 fine-tuning on a ten-task dataset.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Mitanshu Goel">
 <meta property="og:locale" content="en_US">
@@ -100,7 +100,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "@type": "Article",
       "@id": "https://mitanshu.dev/projects/franka-teleop-dataset.html#article",
       "headline": "Teleop data → a π0.5 policy",
-      "description": "A 10-task LeRobot dataset collected across an Elite CS66 and a Franka FR3 on a 125 Hz teleop loop, then used to fine-tune a π0.5 vision-language-action policy.",
+      "description": "Python teleoperation on a Franka FR3, a separate C++ loop at 125 Hz for the Elite arms, and π0.5 fine-tuning on a ten-task dataset.",
       "url": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
       "mainEntityOfPage": "https://mitanshu.dev/projects/franka-teleop-dataset.html",
       "image": "https://mitanshu.dev/assets/media/og-franka-teleop-dataset.jpg",
@@ -154,7 +154,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       <span class="chip hot">&#960;0.5 VLA</span>
       <span class="chip">10 tasks</span>
       <span class="chip">CS66 + FR3</span>
-      <span class="chip">125 Hz teleop</span>
+      <span class="chip">Python teleoperation</span>
       <span class="chip">LeRobot format</span>
     </div>
   </section>
@@ -192,7 +192,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <div class="prose">
       <h2>The loop that collects it</h2>
       <ul>
-        <li>The same <a href="/projects/dual-arm-vr-teleop.html">real-time C++ loop</a> as the CS66 pair: Cartesian servoing at <b>125 Hz</b>, Quest 3 hand pose over UDP.</li>
+        <li>The Franka FR3 teleoperation implementation was in Python. The <a href="/projects/dual-arm-vr-teleop.html">Elite arms</a> used a separate C++ loop at 125 Hz.</li>
         <li>Poses the headset can't vouch for are dropped.</li>
         <li>The same safety clamps apply. A bad run here also ends up in the training set.</li>
         <li>Ten tasks across both arms, so the policy doesn't fit one arm's quirks.</li>
