@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A 6-DOF arm, sim to real · Mitanshu Goel</title>
-<meta name="description" content="Bringing up a 6-DOF arm in ROS 2 with MoveIt and KDL inverse kinematics — from URDF and simulation to the real hardware, after fixing the URDF mismatches.">
+<meta name="description" content="Motion planning for a six-joint robotic arm using ROS 2 and Gazebo for simulation, and MoveIt’s C++ interfaces to plan and test motions on the physical arm.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Mitanshu Goel">
 <meta property="og:locale" content="en_US">
@@ -85,7 +85,7 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
       "@type": "Article",
       "@id": "https://mitanshu.dev/projects/nextup-cobot.html#article",
       "headline": "A 6-DOF arm, sim to real",
-      "description": "Bringing up a 6-DOF arm in ROS 2 with MoveIt and KDL inverse kinematics — from URDF and simulation to the real hardware, after fixing the URDF mismatches.",
+      "description": "Motion planning for a six-joint robotic arm using ROS 2 and Gazebo for simulation, and MoveIt’s C++ interfaces to plan and test motions on the physical arm.",
       "url": "https://mitanshu.dev/projects/nextup-cobot.html",
       "mainEntityOfPage": "https://mitanshu.dev/projects/nextup-cobot.html",
       "image": "https://mitanshu.dev/assets/media/og-nextup-cobot.jpg",
@@ -165,10 +165,8 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
         <li>Validated each interface in simulation, then ran the same commands on the real arm, PC-driven over the ROS 2 graph.</li>
       </ul>
 
-      <h2>What actually broke</h2>
-      <p>The trajectories worked in simulation and failed on the real arm. The URDF didn't match the robot.</p>
-      <p>MoveIt plans happily against a wrong model, and RViz shows a correct-looking path. Nothing errors; the arm just moves subtly wrong, or hits a joint limit early.</p>
-      <p>I fixed it by checking every link frame and joint definition against the physical arm.</p>
+      <h2>Simulation and physical-arm tests</h2>
+      <p>I worked on motion planning for a six-joint robotic arm. I used ROS 2 and Gazebo for simulation, and MoveIt’s C++ interfaces to plan and test motions on the physical arm.</p>
     </div>
   </section>
 
