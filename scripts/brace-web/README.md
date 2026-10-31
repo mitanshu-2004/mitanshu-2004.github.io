@@ -16,8 +16,8 @@ They were run from a scratch folder, `/tmp/brace`, and still say so:
 /tmp/brace/export             outputs
 ```
 
-Policies come from the Hugging Face release (`mitanshugoel/go1-brace`, `anticipatory/` =
-warned, `reactive/` = unwarned), read from the local HF cache.
+Policies come from the go1-brace training runs (`anticipatory/` = warned,
+`reactive/` = unwarned), read from the local HF cache.
 
 ## Steps, in order
 
