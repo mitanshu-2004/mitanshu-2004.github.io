@@ -142,7 +142,7 @@ robot arm over a rosbridge WebSocket with the camera feed live in the UI.
 Looking for: Physical AI, robotics software, and machine-learning engineering roles.
 
 Contact: email mitanshug2004@gmail.com. GitHub github.com/mitanshu-2004. LinkedIn
-linkedin.com/in/mitanshugoel. Hugging Face huggingface.co/mitanshugoel.
+linkedin.com/in/mitanshugoel.
 
 What he's about: he likes the kind of engineering where a wrong sign in a rotation
 matrix makes a real arm swing the wrong way. Most of his work is teleoperation and
