@@ -86,7 +86,7 @@ affiliation.
 Looking for: Physical AI, robotics software, and machine-learning engineering roles.
 
 Contact: email mitanshug2004@gmail.com. GitHub github.com/mitanshu-2004. LinkedIn
-linkedin.com/in/mitanshugoel. Hugging Face huggingface.co/mitanshugoel.
+linkedin.com/in/mitanshugoel.
 
 What he's about: he likes the kind of engineering where a wrong sign in a rotation
 matrix makes a real arm swing the wrong way. Most of his work is teleoperation and
@@ -145,8 +145,8 @@ PROJECTS (each has a page under /projects/ unless noted):
 7. A language model from scratch (links to code, no project page). A 51-million-parameter
    GPT he trained from scratch, with better perplexity than GPT-2 on the same data
    (16.85 versus 24.68). Plus LoRA and QLoRA fine-tunes and hand-rolled distributed
-   training. Code: github.com/mitanshu-2004/reddit-llm-training. Model:
-   huggingface.co/mitanshugoel/reddit-nanogpt. Note: the loss curve shown on the homepage
+   training. Code: github.com/mitanshu-2004/reddit-llm-training.
+   Note: the loss curve shown on the homepage
    is the Mistral 7B Reddit continued-pretraining run, plotted from the repo's real
    trainer_state.json, not the 51M model's own curve.
 

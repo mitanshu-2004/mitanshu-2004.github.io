@@ -14,4 +14,3 @@
 - Email: mitanshug2004@gmail.com
 - GitHub: https://github.com/mitanshu-2004
 - LinkedIn: https://www.linkedin.com/in/mitanshugoel
-- Hugging Face: https://huggingface.co/mitanshugoel
